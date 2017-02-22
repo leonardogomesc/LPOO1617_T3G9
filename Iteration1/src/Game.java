@@ -608,7 +608,16 @@ public void task5(){
 }
 	
 	if(win==2){
-		System.out.println("You lost!");
+		
+		for(int i1=0;i1<10;i1++){
+			for(int i2=0;i2<10;i2++){
+				System.out.print(map[i1][i2]);
+				System.out.print(" ");
+			}
+			System.out.println("");
+		}
+			
+		System.out.println("\nYou lost!");
 	}
 	else if(win==1){
 		task5_stage2();
@@ -624,6 +633,7 @@ public void task5_stage2(){
 	int hero[]={7,1};
 	int ogre[]={1,4};
 	int bat[]={2,4};
+	int r;
 	String move;
 	int ogremove;
 	int batmove;
@@ -687,6 +697,9 @@ public void task5_stage2(){
 		break;
 	}
 	
+	r=0;
+	
+	while(r==0){
 	ogremove = rand.nextInt(4);
 	
 	switch(ogremove){
@@ -697,11 +710,7 @@ public void task5_stage2(){
 			map[bat[0]][bat[1]]=' ';
 			map[ogre[0]-1][ogre[1]]='O';
 			ogre[0]=ogre[0]-1;
-		}
-		else{
-		map[ogre[0]][ogre[1]]=' ';
-		map[bat[0]][bat[1]]=' ';
-		map[ogre[0]][ogre[1]]='O';
+			r=1;
 		}
 		break;
 	case 1:
@@ -711,12 +720,8 @@ public void task5_stage2(){
 			map[bat[0]][bat[1]]=' ';
 			map[ogre[0]][ogre[1]-1]='O';
 			ogre[1]=ogre[1]-1;
+			r=1;
 		}
-		else{
-			map[ogre[0]][ogre[1]]=' ';
-			map[bat[0]][bat[1]]=' ';
-			map[ogre[0]][ogre[1]]='O';
-			}
 		break;
 	case 2:
 		if(map[ogre[0]+1][ogre[1]]!='X' && map[ogre[0]+1][ogre[1]]!='I' && map[ogre[0]+1][ogre[1]]!='S'){
@@ -724,12 +729,9 @@ public void task5_stage2(){
 			map[bat[0]][bat[1]]=' ';
 			map[ogre[0]+1][ogre[1]]='O';
 			ogre[0]=ogre[0]+1;
+			r=1;
 		}
-		else{
-			map[ogre[0]][ogre[1]]=' ';
-			map[bat[0]][bat[1]]=' ';
-			map[ogre[0]][ogre[1]]='O';
-			}
+		
 		break;
 	case 3:
 		if(map[ogre[0]][ogre[1]+1]!='X' && map[ogre[0]][ogre[1]+1]!='I' && map[ogre[0]][ogre[1]+1]!='S'){
@@ -737,18 +739,19 @@ public void task5_stage2(){
 			map[bat[0]][bat[1]]=' ';
 			map[ogre[0]][ogre[1]+1]='O';
 			ogre[1]=ogre[1]+1;		
+			r=1;
 		}
-		else{
-			map[ogre[0]][ogre[1]]=' ';
-			map[bat[0]][bat[1]]=' ';
-			map[ogre[0]][ogre[1]]='O';
-			}
+		
 	   break;
 	default:
 		break;
+	 }
 	}
 	
-
+	r=0;
+	
+	while(r==0){
+	
 	batmove = rand.nextInt(4);
 	
 	switch(batmove){
@@ -758,11 +761,7 @@ public void task5_stage2(){
 			map[ogre[0]-1][ogre[1]]='*';
 			bat[0]=ogre[0]-1;
 			bat[1]=ogre[1];
-			
-		}
-		else{
-			bat[0]=ogre[0];
-			bat[1]=ogre[1];
+			r=1;
 		}
 		break;
 	case 1:
@@ -770,10 +769,7 @@ public void task5_stage2(){
 			map[ogre[0]][ogre[1]-1]='*';
 			bat[1]=ogre[1]-1;
 			bat[0]=ogre[0];
-		}
-		else{
-			bat[0]=ogre[0];
-			bat[1]=ogre[1];
+			r=1;
 		}
 		break;
 	case 2:
@@ -781,10 +777,7 @@ public void task5_stage2(){
 			map[ogre[0]+1][ogre[1]]='*';
 			bat[0]=ogre[0]+1;
 			bat[1]=ogre[1];
-		}
-		else{
-			bat[0]=ogre[0];
-			bat[1]=ogre[1];
+			r=1;
 		}
 		break;
 	case 3:
@@ -792,15 +785,12 @@ public void task5_stage2(){
 			map[ogre[0]][ogre[1]+1]='*';
 			bat[0]=ogre[0];
 			bat[1]=ogre[1]+1;
-		}
-		else{
-			bat[0]=ogre[0];
-			bat[1]=ogre[1];
-			
+			r=1;
 		}
 	   break;
 	default:
 		break;
+	}
 	}
 	
 	if(hero[0]==1 && hero[1]==7){
@@ -834,7 +824,16 @@ public void task5_stage2(){
 }
 	
 	if(win==2){
-		System.out.println("You lost!");
+		
+		for(int i1=0;i1<9;i1++){
+			for(int i2=0;i2<9;i2++){
+				System.out.print(map[i1][i2]);
+				System.out.print(" ");
+			}
+			System.out.println("");
+		}
+			
+		System.out.println("\nYou lost!");
 	}
 	else if(win==1){
 		System.out.println("You won!");
