@@ -125,6 +125,7 @@ public void task5(){
 	}
 	else if(win==1){
 		task5_stage2();
+		
 	}
 	
 	

@@ -6,4 +6,6 @@ public class Map {
 	private Guard guards[];
 	private int key;
 	private int keypos[];
+	
+	
 }
