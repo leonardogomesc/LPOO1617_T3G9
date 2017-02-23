@@ -11,6 +11,7 @@ public class Input {
 	
 	a= s.nextLine();
 	
+	
 	s.close();
 	return a;
 	}

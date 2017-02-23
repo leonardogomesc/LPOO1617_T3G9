@@ -10,6 +10,7 @@ public class Output {
 				System.out.print(" ");
 			}
 			System.out.println("");
+			
 		}
 		
 	}

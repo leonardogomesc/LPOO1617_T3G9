@@ -32,6 +32,7 @@ public void task5(){
 			      {'X',' ','I',' ','I',' ','X','K',' ','X'},
 			      {'X','X','X','X','X','X','X','X','X','X'}};
 	
+	
 	while(win==0){
 
 		for(int i1=0;i1<10;i1++){
