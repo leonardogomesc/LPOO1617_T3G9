@@ -14,4 +14,20 @@ public class Map {
 		doors=doorsarray;
 		keypos=keyposarray;
 	}
+	
+	public char[][] getMap(){
+		return map;
+	}
+	
+	public int[] getKeyPos(){
+		return keypos;
+	}
+	
+	public int[][] getDoors(){
+		return doors;
+	}
+	
+	public void setKey(int k){
+		key=k;
+	}
 }
