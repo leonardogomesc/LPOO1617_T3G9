@@ -20,7 +20,14 @@ public class Hero {
 		Input i=new Input();
 		char map[][]=m.getMap();
 		int keypos[]=m.getKeyPos();
+		int key=m.getKey();
 		int doors[][]=m.getDoors();
+		
+		char h='H';
+		
+		if(key==0){
+			h='K';
+		}
 
 		move= i.input(s);
 
@@ -28,28 +35,28 @@ public class Hero {
 		case "w":
 			if(map[hero[0]-1][hero[1]]!='X' && map[hero[0]-1][hero[1]]!='I'){
 				map[hero[0]][hero[1]]=' ';
-				map[hero[0]-1][hero[1]]='H';
-				hero[0]=hero[0]-1;
+				map[hero[0]-1][hero[1]]=h;
+				hero[0]=hero[0]-1;		
 			}
 			break;
 		case "a":
 			if(map[hero[0]][hero[1]-1]!='X' && map[hero[0]][hero[1]-1]!='I'){
 				map[hero[0]][hero[1]]=' ';
-				map[hero[0]][hero[1]-1]='H';
+				map[hero[0]][hero[1]-1]=h;
 				hero[1]=hero[1]-1;
 			}
 			break;
 		case "s":
 			if(map[hero[0]+1][hero[1]]!='X' && map[hero[0]+1][hero[1]]!='I'){
 				map[hero[0]][hero[1]]=' ';
-				map[hero[0]+1][hero[1]]='H';
+				map[hero[0]+1][hero[1]]=h;
 				hero[0]=hero[0]+1;
 			}
 			break;
 		case "d":
 			if(map[hero[0]][hero[1]+1]!='X' && map[hero[0]][hero[1]+1]!='I'){
 				map[hero[0]][hero[1]]=' ';
-				map[hero[0]][hero[1]+1]='H';
+				map[hero[0]][hero[1]+1]=h;
 				hero[1]=hero[1]+1;
 			}
 			break;

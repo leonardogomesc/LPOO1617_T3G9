@@ -34,10 +34,14 @@ public class Guard {
 				map[guard[0][0]][guard[0][1]]='G';
 				guardpos=0;
 			}
-		} else if(type==2){
+		} 
+		else if(type==2){
 
-		} else if (type==3){
+			
+		} 
+		else if (type==3){
 
+			
 		}
 
 	}
