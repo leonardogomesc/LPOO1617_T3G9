@@ -9,9 +9,13 @@ public class Hero {
 		hero=heropos;
 	}
 	
+	public int[] getHero(){
+		return hero;
+	}
+	
 	public void HeroMove(Map m){
 		String move;
-		Input i=null;
+		Input i=new Input();
 		char map[][]=m.getMap();
 		int keypos[]=m.getKeyPos();
 		int doors[][]=m.getDoors();

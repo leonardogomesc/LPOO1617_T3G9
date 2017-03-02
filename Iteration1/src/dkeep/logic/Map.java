@@ -23,6 +23,10 @@ public class Map {
 		return keypos;
 	}
 	
+	public int getKey(){
+		return key;
+	}
+	
 	public int[][] getDoors(){
 		return doors;
 	}

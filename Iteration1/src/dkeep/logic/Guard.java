@@ -9,6 +9,16 @@ public class Guard {
 		guard=guardarray;
 	}
 	
+	public int[][] getGuard(){
+		return guard;
+	}
+	
+	public int getGuardpos(){
+		return guardpos;
+	}
+	
+	
+	
 	public void GuardMove(Map m){
 		char map[][]=m.getMap();
 		
