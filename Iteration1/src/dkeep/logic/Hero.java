@@ -5,16 +5,21 @@ import java.util.Scanner;
 import dkeep.cli.Input;
 
 public class Hero {
-	int hero[];
-
-	public Hero(int heropos[]){
+	private int hero[];
+	private int basher;
+	
+	public Hero(int heropos[], int b){
 		hero=heropos;
+		basher=b;
 	}
 
 	public int[] getHero(){
 		return hero;
 	}
 
+	public int getBasher() {
+		return basher;
+	}
 	public void HeroMove(Map m,Scanner s){
 		String move;
 		Input i=new Input();
@@ -24,7 +29,9 @@ public class Hero {
 		int doors[][]=m.getDoors();
 		
 		char h='H';
-		
+		if(basher==1){
+			h='A';
+		}
 		if(key==0){
 			h='K';
 		}

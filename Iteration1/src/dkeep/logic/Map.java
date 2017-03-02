@@ -5,7 +5,7 @@ public class Map {
 	private int doors[][];
 	private int key;
 	private int keypos[];
-
+	
 	public Map(char maparray[][],int doorsarray[][],int keyposarray[]){
 		map=maparray;
 		key=1;

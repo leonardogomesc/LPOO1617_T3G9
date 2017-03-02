@@ -8,7 +8,7 @@ public class Game {
 
 	public static void main(String[] args) {
 		Game a=new Game();
-		a.run();
+		a.run2();
 
 	}
 
@@ -34,12 +34,12 @@ public class Game {
 				{'X','X','X','X','X','X','X','X','X','X'}};
 
 		Guard g=new Guard(guard, 1);
-		Hero h=new Hero(hero);
+		Hero h=new Hero(hero, 0);
 
-		
+
 		Map m=new Map(map,doors,key);
-		
-		
+
+
 
 		while(win==0){
 
@@ -68,12 +68,12 @@ public class Game {
 			run2();
 
 		}
-		
+
 		s.close();
 
 
 	}
-	
+
 	public void run2(){
 		Output out=new Output();
 		Scanner s = new Scanner(System.in);
@@ -86,29 +86,35 @@ public class Game {
 		int bat[]={2,4};
 
 		char map[][]={{'X','X','X','X','X','X','X','X','X'},
-				      {'I',' ',' ',' ','O',' ',' ','K','X'},
-				      {'X',' ',' ',' ','*',' ',' ',' ','X'},
-				      {'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				      {'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				      {'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				      {'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				      {'X','H',' ',' ',' ',' ',' ',' ','X'},
-				      {'X','X','X','X','X','X','X','X','X'}};
+				{'I',' ',' ',' ','O',' ',' ','K','X'},
+				{'X',' ',' ',' ','*',' ',' ',' ','X'},
+				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+				{'X','A',' ',' ',' ',' ',' ',' ','X'},
+				{'X','X','X','X','X','X','X','X','X'}};
 
-		
-		Hero h=new Hero(hero);
+
+		Hero h=new Hero(hero, 1);
 		Ogre o=new Ogre(ogre,bat);
 
-		
+
 		Map m=new Map(map,doors,key);
-		
+
 		while(win==0){
 			out.output(m);
-			
+
 			h.HeroMove(m, s);
-			
+
 			o.OgreMove(m);
-			
+			if((hero[0]==ogre[0] && hero[1]==ogre[1]+1)||
+					(hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
+					(hero[0]==ogre[0] && hero[1]==ogre[1]-1)||
+					(hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
+					(hero[0]==ogre[0] && hero[1]==ogre[1])){
+				o.setStunned(m);
+			}
 			if(losscheck(h,o)==1){
 				win=2;
 			}
@@ -116,10 +122,9 @@ public class Game {
 			if(wincheck(h,m)==1){
 				win=1;
 			}
-			
 		}
-		
-		
+
+
 		if(win==2){
 			out.output(m);
 			System.out.println("\nYou lost!");
@@ -128,12 +133,12 @@ public class Game {
 			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou win!");
 
 		}
-		
-		
+
+
 		s.close();
-		
+
 	}
-	
+
 
 	public int wincheck(Hero h, Map m){
 
@@ -173,20 +178,30 @@ public class Game {
 		int ogre[]=o.getOgre();
 		int bat[]=o.getBat();
 		int result =0;
-
-		if((hero[0]==ogre[0] && hero[1]==ogre[1]+1)||
-				(hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
-				(hero[0]==ogre[0] && hero[1]==ogre[1]-1)||
-				(hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
-				(hero[0]==ogre[0] && hero[1]==ogre[1]) ||
-				(hero[0]==bat[0] && hero[1]==bat[1]+1)||
-				(hero[0]==bat[0]-1 && hero[1]==bat[1])||
-				(hero[0]==bat[0] && hero[1]==bat[1]-1)||
-				(hero[0]==bat[0]+1 && hero[1]==bat[1])||
-				(hero[0]==bat[0] && hero[1]==bat[1])){
-			result=1;
+		if (h.getBasher()==0){
+			if((hero[0]==ogre[0] && hero[1]==ogre[1]+1)||
+					(hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
+					(hero[0]==ogre[0] && hero[1]==ogre[1]-1)||
+					(hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
+					(hero[0]==ogre[0] && hero[1]==ogre[1]) ||
+					(hero[0]==bat[0] && hero[1]==bat[1]+1)||
+					(hero[0]==bat[0]-1 && hero[1]==bat[1])||
+					(hero[0]==bat[0] && hero[1]==bat[1]-1)||
+					(hero[0]==bat[0]+1 && hero[1]==bat[1])||
+					(hero[0]==bat[0] && hero[1]==bat[1])){
+				result=1;
+			}
 		}
+		else if(h.getBasher()==1){
 
+			if(	(hero[0]==bat[0] && hero[1]==bat[1]+1)||
+					(hero[0]==bat[0]-1 && hero[1]==bat[1])||
+					(hero[0]==bat[0] && hero[1]==bat[1]-1)||
+					(hero[0]==bat[0]+1 && hero[1]==bat[1])||
+					(hero[0]==bat[0] && hero[1]==bat[1])){
+				result=1;
+			}
+		}
 		return result;
 
 	}
