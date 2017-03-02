@@ -33,7 +33,7 @@ public class Game {
 				{'X',' ','I',' ','I',' ','X','K',' ','X'},
 				{'X','X','X','X','X','X','X','X','X','X'}};
 
-		Guard g=new Guard(guard);
+		Guard g=new Guard(guard, 1);
 		Hero h=new Hero(hero);
 
 		
