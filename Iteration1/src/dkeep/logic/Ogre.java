@@ -26,11 +26,10 @@ public class Ogre {
 		return stunned;
 	}
 
-	public void setStunned(Map m) {
-		char map[][]=m.getMap();
+	public void setStunned() {
 		stunned = 2;
-		map[ogre[0]][ogre[1]]='8';
 	}
+	
 	public void OgreMove(Map m){
 
 		char map[][]=m.getMap();
@@ -94,8 +93,9 @@ public class Ogre {
 		}
 		else
 			{
-			--stunned;
+			stunned=stunned-1;
 			map[bat[0]][bat[1]]=' ';
+			map[ogre[0]][ogre[1]]='8';
 			}
 		r=0;
 

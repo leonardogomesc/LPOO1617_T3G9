@@ -20,6 +20,7 @@ public class Hero {
 	public int getBasher() {
 		return basher;
 	}
+	
 	public void HeroMove(Map m,Scanner s){
 		String move;
 		Input i=new Input();

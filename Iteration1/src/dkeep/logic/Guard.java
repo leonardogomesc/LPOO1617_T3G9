@@ -24,7 +24,7 @@ public class Guard {
 	public int getGuardpos(){
 		return guardpos;
 	}
-
+	
 
 
 	public void GuardMove(Map m){
@@ -54,7 +54,7 @@ public class Guard {
 			}
 			
 			if(random==0){
-				sleep=3;
+				sleep=7;
 			}
 			
 			if(sleep>0){

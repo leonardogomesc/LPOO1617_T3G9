@@ -8,7 +8,7 @@ public class Game {
 
 	public static void main(String[] args) {
 		Game a=new Game();
-		a.run2();
+		a.run();
 
 	}
 
@@ -33,7 +33,7 @@ public class Game {
 				{'X',' ','I',' ','I',' ','X','K',' ','X'},
 				{'X','X','X','X','X','X','X','X','X','X'}};
 
-		Guard g=new Guard(guard, 1);
+		Guard g=new Guard(guard, 2);
 		Hero h=new Hero(hero, 0);
 
 
@@ -50,7 +50,7 @@ public class Game {
 			g.GuardMove(m);
 
 
-			if(losscheck(h,g)==1){
+			if(losscheck(h,g,m)==1){
 				win=2;
 			}
 
@@ -108,13 +108,7 @@ public class Game {
 			h.HeroMove(m, s);
 
 			o.OgreMove(m);
-			if((hero[0]==ogre[0] && hero[1]==ogre[1]+1)||
-					(hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
-					(hero[0]==ogre[0] && hero[1]==ogre[1]-1)||
-					(hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
-					(hero[0]==ogre[0] && hero[1]==ogre[1])){
-				o.setStunned(m);
-			}
+			
 			if(losscheck(h,o)==1){
 				win=2;
 			}
@@ -155,18 +149,22 @@ public class Game {
 		return result;
 	}
 
-	public int losscheck(Hero h,Guard g){
+	public int losscheck(Hero h,Guard g,Map m){
 		int hero[]=h.getHero();
 		int guard[][]=g.getGuard();
 		int guardpos=g.getGuardpos();
+		char map[][]=m.getMap();
 		int result=0;
 
+		if (map[guard[guardpos][0]][guard[guardpos][1]]=='G'){
+			
 		if((hero[0]==guard[guardpos][0] && hero[1]==guard[guardpos][1]+1)||
 				(hero[0]==guard[guardpos][0]-1 && hero[1]==guard[guardpos][1])||
 				(hero[0]==guard[guardpos][0] && hero[1]==guard[guardpos][1]-1)||
 				(hero[0]==guard[guardpos][0]+1 && hero[1]==guard[guardpos][1])||
 				(hero[0]==guard[guardpos][0] && hero[1]==guard[guardpos][1])){
 			result=1;
+		}
 		}
 
 		return result;
@@ -200,6 +198,14 @@ public class Game {
 					(hero[0]==bat[0]+1 && hero[1]==bat[1])||
 					(hero[0]==bat[0] && hero[1]==bat[1])){
 				result=1;
+			}
+			
+			if((hero[0]==ogre[0] && hero[1]==ogre[1]+1)||
+					(hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
+					(hero[0]==ogre[0] && hero[1]==ogre[1]-1)||
+					(hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
+					(hero[0]==ogre[0] && hero[1]==ogre[1])){
+				o.setStunned();
 			}
 		}
 		return result;
