@@ -6,7 +6,7 @@ public class Map {
 	private Guard guards[];
 	private int key;
 	private int keypos[];
-	
+
 	public Map(char maparray[][], Guard guardsarray[],int doorsarray[][],int keyposarray[]){
 		map=maparray;
 		guards=guardsarray;
@@ -14,23 +14,23 @@ public class Map {
 		doors=doorsarray;
 		keypos=keyposarray;
 	}
-	
+
 	public char[][] getMap(){
 		return map;
 	}
-	
+
 	public int[] getKeyPos(){
 		return keypos;
 	}
-	
+
 	public int getKey(){
 		return key;
 	}
-	
+
 	public int[][] getDoors(){
 		return doors;
 	}
-	
+
 	public void setKey(int k){
 		key=k;
 	}
