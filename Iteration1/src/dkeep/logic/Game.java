@@ -14,6 +14,7 @@ public class Game {
 
 	public void run(){
 		Output o=new Output();
+		Scanner s = new Scanner(System.in);
 		int win=0;
 
 		int hero[]={1,1};
@@ -37,12 +38,14 @@ public class Game {
 
 		Guard guards[]={g};
 		Map m=new Map(map,guards,doors,key);
+		
+		
 
 		while(win==0){
 
 			o.output(m);
 
-			h.HeroMove(m);
+			h.HeroMove(m,s);
 
 			g.GuardMove(m);
 
@@ -65,6 +68,8 @@ public class Game {
 			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou win!");
 
 		}
+		
+		s.close();
 
 
 	}

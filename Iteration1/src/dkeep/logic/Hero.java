@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import java.util.Scanner;
+
 import dkeep.cli.Input;
 
 public class Hero {
@@ -13,14 +15,14 @@ public class Hero {
 		return hero;
 	}
 
-	public void HeroMove(Map m){
+	public void HeroMove(Map m,Scanner s){
 		String move;
 		Input i=new Input();
 		char map[][]=m.getMap();
 		int keypos[]=m.getKeyPos();
 		int doors[][]=m.getDoors();
 
-		move= i.input();
+		move= i.input(s);
 
 		switch(move){
 		case "w":
