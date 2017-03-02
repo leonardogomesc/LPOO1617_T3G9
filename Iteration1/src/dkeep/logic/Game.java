@@ -8,7 +8,7 @@ public class Game {
 
 	public static void main(String[] args) {
 		Game a=new Game();
-		a.run();
+		a.run2();
 
 	}
 
@@ -30,10 +30,10 @@ public class Game {
 				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 				{'X','X','X',' ','X','X','X','X',' ','X'},
-				{'X',' ','I',' ','I',' ','X','K',' ','X'},
+				{'X',' ','I',' ','I',' ','X','k',' ','X'},
 				{'X','X','X','X','X','X','X','X','X','X'}};
 
-		Guard g=new Guard(guard, 2);
+		Guard g=new Guard(guard, 1);
 		Hero h=new Hero(hero, 0);
 
 
@@ -84,32 +84,43 @@ public class Game {
 		int key[]={1,7};
 		int ogre[]={1,4};
 		int bat[]={2,4};
+		int ogre2[]={5,7};
+		int bat2[]={5,6};
 
-		char map[][]={{'X','X','X','X','X','X','X','X','X'},
-				{'I',' ',' ',' ','O',' ',' ','K','X'},
-				{'X',' ',' ',' ','*',' ',' ',' ','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X','A',' ',' ',' ',' ',' ',' ','X'},
-				{'X','X','X','X','X','X','X','X','X'}};
+		char map[][]=  {{'X','X','X','X','X','X','X','X','X'},
+						{'I',' ',' ',' ','O',' ',' ','k','X'},
+						{'X',' ',' ',' ','*',' ',' ',' ','X'},
+						{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+						{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+						{'X',' ',' ',' ',' ',' ','*','O','X'},
+						{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+						{'X','A',' ',' ',' ',' ',' ',' ','X'},
+						{'X','X','X','X','X','X','X','X','X'}};
 
 
 		Hero h=new Hero(hero, 1);
 		Ogre o=new Ogre(ogre,bat);
+		Ogre o2=new Ogre(ogre2,bat2);
 
 
 		Map m=new Map(map,doors,key);
-
+		
+		
 		while(win==0){
 			out.output(m);
 
 			h.HeroMove(m, s);
 
-			o.OgreMove(m);
 			
-			if(losscheck(h,o)==1){
+			o.OgreMove(m);
+			o2.OgreMove(m);
+			
+			
+			if(losscheck(h,o,m)==1){
+				win=2;
+			}
+			
+			if(losscheck(h,o2,m)==1){
 				win=2;
 			}
 
@@ -171,11 +182,13 @@ public class Game {
 
 	}
 
-	public int losscheck(Hero h, Ogre o){
+	public int losscheck(Hero h, Ogre o,Map m){
 		int hero[]=h.getHero();
 		int ogre[]=o.getOgre();
 		int bat[]=o.getBat();
+		char map[][]=m.getMap();
 		int result =0;
+		
 		if (h.getBasher()==0){
 			if((hero[0]==ogre[0] && hero[1]==ogre[1]+1)||
 					(hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
@@ -206,6 +219,7 @@ public class Game {
 					(hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
 					(hero[0]==ogre[0] && hero[1]==ogre[1])){
 				o.setStunned();
+				map[ogre[0]][ogre[1]]='8';
 			}
 		}
 		return result;

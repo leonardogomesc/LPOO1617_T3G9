@@ -38,10 +38,12 @@ public class Ogre {
 		int ogremove, batmove;
 		int keypos[]=m.getKeyPos();
 		int key=m.getKey();
-		r=0;
+	
 
 		if(stunned==0)
 		{
+			r=0;
+			
 			while(r==0){
 				ogremove = rand.nextInt(4);
 
@@ -49,8 +51,8 @@ public class Ogre {
 				case 0:
 					if(map[ogre[0]-1][ogre[1]]!='X' && map[ogre[0]-1][ogre[1]]!='I'&& map[ogre[0]-1][ogre[1]]!='S'){
 
-						map[ogre[0]][ogre[1]]=' ';
-						map[bat[0]][bat[1]]=' ';
+						map[ogre[0]][ogre[1]] = ' ';
+						map[bat[0]][bat[1]] = ' ';
 						map[ogre[0]-1][ogre[1]]='O';
 						ogre[0]=ogre[0]-1;
 						r=1;
@@ -97,6 +99,7 @@ public class Ogre {
 			map[bat[0]][bat[1]]=' ';
 			map[ogre[0]][ogre[1]]='8';
 			}
+		
 		r=0;
 
 		while(r==0){
@@ -138,6 +141,7 @@ public class Ogre {
 				}
 				break;
 			default:
+				
 				break;
 			}
 		}
@@ -145,11 +149,8 @@ public class Ogre {
 		if(key==1 && (ogre[0]==keypos[0] && ogre[1]==keypos[1])){
 			map[keypos[0]][keypos[1]]='$';
 		}
-		else if(key==1 && (bat[0]==keypos[0] && bat[1]==keypos[0])){
+		else if(key==1 && (bat[0]==keypos[0] && bat[1]==keypos[1])){
 			map[keypos[0]][keypos[1]]='$';
-		}
-		else if(key==1){
-			map[keypos[0]][keypos[1]]='K';
 		}
 	}
 }
