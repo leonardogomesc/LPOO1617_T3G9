@@ -36,8 +36,8 @@ public class Game {
 		Guard g=new Guard(guard);
 		Hero h=new Hero(hero);
 
-		Guard guards[]={g};
-		Map m=new Map(map,guards,doors,key);
+		
+		Map m=new Map(map,doors,key);
 		
 		
 
@@ -65,7 +65,7 @@ public class Game {
 			System.out.println("\nYou lost!");
 		}
 		else if(win==1){
-			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou win!");
+			run2();
 
 		}
 		
@@ -73,6 +73,67 @@ public class Game {
 
 
 	}
+	
+	public void run2(){
+		Output out=new Output();
+		Scanner s = new Scanner(System.in);
+		int win=0;
+
+		int hero[]={7,1};
+		int doors[][]={{1,0}};
+		int key[]={1,7};
+		int ogre[]={1,4};
+		int bat[]={2,4};
+
+		char map[][]={{'X','X','X','X','X','X','X','X','X'},
+				      {'I',' ',' ',' ','O',' ',' ','K','X'},
+				      {'X',' ',' ',' ','*',' ',' ',' ','X'},
+				      {'X',' ',' ',' ',' ',' ',' ',' ','X'},
+				      {'X',' ',' ',' ',' ',' ',' ',' ','X'},
+				      {'X',' ',' ',' ',' ',' ',' ',' ','X'},
+				      {'X',' ',' ',' ',' ',' ',' ',' ','X'},
+				      {'X','H',' ',' ',' ',' ',' ',' ','X'},
+				      {'X','X','X','X','X','X','X','X','X'}};
+
+		
+		Hero h=new Hero(hero);
+		Ogre o=new Ogre(ogre,bat);
+
+		
+		Map m=new Map(map,doors,key);
+		
+		while(win==0){
+			out.output(m);
+			
+			h.HeroMove(m, s);
+			
+			o.OgreMove(m);
+			
+			if(losscheck(h,o)==1){
+				win=2;
+			}
+
+			if(wincheck(h,m)==1){
+				win=1;
+			}
+			
+		}
+		
+		
+		if(win==2){
+			out.output(m);
+			System.out.println("\nYou lost!");
+		}
+		else if(win==1){
+			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou win!");
+
+		}
+		
+		
+		s.close();
+		
+	}
+	
 
 	public int wincheck(Hero h, Map m){
 
