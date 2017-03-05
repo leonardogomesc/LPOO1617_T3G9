@@ -21,9 +21,8 @@ public class Hero {
 		return basher;
 	}
 	
-	public void HeroMove(Map m,Scanner s){
-		String move;
-		Input i=new Input();
+	public void HeroMove(Map m,String move){
+	
 		char map[][]=m.getMap();
 		int keypos[]=m.getKeyPos();
 		int key=m.getKey();
@@ -36,8 +35,6 @@ public class Hero {
 		if(key==0){
 			h='K';
 		}
-
-		move= i.input(s);
 
 		switch(move){
 		case "w":

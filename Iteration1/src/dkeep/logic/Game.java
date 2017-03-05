@@ -2,6 +2,7 @@ package dkeep.logic;
 
 import java.util.Scanner;
 
+import dkeep.cli.Input;
 import dkeep.cli.Output;
 
 public class Game {
@@ -14,8 +15,10 @@ public class Game {
 
 	public void run(){
 		Output o=new Output();
+		Input in=new Input();
 		Scanner s = new Scanner(System.in);
 		int win=0;
+		String move;
 
 		int hero[]={1,1};
 		int doors[][]={{5,0},{6,0}};
@@ -45,7 +48,9 @@ public class Game {
 
 			o.output(m);
 
-			h.HeroMove(m,s);
+			move=in.input(s);
+			
+			h.HeroMove(m,move);
 
 			g.GuardMove(m);
 
@@ -76,7 +81,9 @@ public class Game {
 
 	public void run2(){
 		Output out=new Output();
+		Input in=new Input();
 		Scanner s = new Scanner(System.in);
+		String move; 
 		int win=0;
 		int i;
 
@@ -115,9 +122,12 @@ public class Game {
 		while(win==0){
 			out.output(m);
 
-			h.HeroMove(m, s);
+			move=in.input(s);
+			
+			h.HeroMove(m, move);
 	
 			for(i=0;i<ogrearray.length;i++){
+				
 				ogrearray[i].OgreErase(m);
 			}
 			
