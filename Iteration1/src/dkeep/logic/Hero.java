@@ -73,10 +73,6 @@ public class Hero {
 		}
 
 		
-		if(key == 1){
-			map[keypos[0]][keypos[1]]='k';
-		}
-		
 		if(hero[0]==keypos[0] && hero[1]==keypos[1]){
 			for(int i2=0;i2<doors.length;i2++){
 				map[doors[i2][0]][doors[i2][1]]='S';

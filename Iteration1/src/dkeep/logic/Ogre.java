@@ -30,6 +30,13 @@ public class Ogre {
 		stunned = 2;
 	}
 	
+	public void OgreErase(Map m){
+		char map[][]=m.getMap();
+		
+		map[ogre[0]][ogre[1]]=' ';
+		map[bat[0]][bat[1]]=' ';
+	}
+	
 	public void OgreMove(Map m){
 
 		char map[][]=m.getMap();
@@ -50,9 +57,6 @@ public class Ogre {
 				switch(ogremove){
 				case 0:
 					if(map[ogre[0]-1][ogre[1]]!='X' && map[ogre[0]-1][ogre[1]]!='I'&& map[ogre[0]-1][ogre[1]]!='S'){
-
-						map[ogre[0]][ogre[1]] = ' ';
-						map[bat[0]][bat[1]] = ' ';
 						map[ogre[0]-1][ogre[1]]='O';
 						ogre[0]=ogre[0]-1;
 						r=1;
@@ -60,9 +64,6 @@ public class Ogre {
 					break;
 				case 1:
 					if(map[ogre[0]][ogre[1]-1]!='X' && map[ogre[0]][ogre[1]-1]!='I' && map[ogre[0]][ogre[1]-1]!='S'){
-
-						map[ogre[0]][ogre[1]]=' ';
-						map[bat[0]][bat[1]]=' ';
 						map[ogre[0]][ogre[1]-1]='O';
 						ogre[1]=ogre[1]-1;
 						r=1;
@@ -70,18 +71,13 @@ public class Ogre {
 					break;
 				case 2:
 					if(map[ogre[0]+1][ogre[1]]!='X' && map[ogre[0]+1][ogre[1]]!='I' && map[ogre[0]+1][ogre[1]]!='S'){
-						map[ogre[0]][ogre[1]]=' ';
-						map[bat[0]][bat[1]]=' ';
 						map[ogre[0]+1][ogre[1]]='O';
 						ogre[0]=ogre[0]+1;
 						r=1;
 					}
-
 					break;
 				case 3:
 					if(map[ogre[0]][ogre[1]+1]!='X' && map[ogre[0]][ogre[1]+1]!='I' && map[ogre[0]][ogre[1]+1]!='S'){
-						map[ogre[0]][ogre[1]]=' ';
-						map[bat[0]][bat[1]]=' ';
 						map[ogre[0]][ogre[1]+1]='O';
 						ogre[1]=ogre[1]+1;		
 						r=1;
@@ -96,7 +92,6 @@ public class Ogre {
 		else
 			{
 			stunned=stunned-1;
-			map[bat[0]][bat[1]]=' ';
 			map[ogre[0]][ogre[1]]='8';
 			}
 		
