@@ -32,7 +32,7 @@ public class Hero {
 		if(basher==1){
 			h='A';
 		}
-		if(key==0){
+		if(key==0 && m.getMapType()==2){
 			h='K';
 		}
 
@@ -70,15 +70,36 @@ public class Hero {
 		}
 
 		
-		if(hero[0]==keypos[0] && hero[1]==keypos[1]){
-			for(int i2=0;i2<doors.length;i2++){
-				map[doors[i2][0]][doors[i2][1]]='S';
+		if((hero[0]==keypos[0] && hero[1]==keypos[1]) && m.getMapType()==1){
+			for(int i=0;i<doors.length;i++){
+				map[doors[i][0]][doors[i][1]]='S';
 				
 			}
+			m.setKey(0);
+		}
+		else if((hero[0]==keypos[0] && hero[1]==keypos[1]) && m.getMapType()==2){
 
 			m.setKey(0);
 			map[hero[0]][hero[1]]='K';
 			
 		}
+		
+		
+		if(m.getKey()==0 && m.getMapType()==2){
+		for(int i2=0;i2<doors.length;i2++){
+			if((hero[0]==doors[i2][0]+1 && hero[1]==doors[i2][1])||
+			   (hero[0]==doors[i2][0] && hero[1]==doors[i2][1]+1)||
+			   (hero[0]==doors[i2][0]-1 && hero[1]==doors[i2][1])||
+			   (hero[0]==doors[i2][0] && hero[1]==doors[i2][1]-1)){
+				
+				map[doors[i2][0]][doors[i2][1]]='S';
+			}
+		}
+		}
+		
+		if(m.getMapType()==1 && !(hero[0]==keypos[0] && hero[1]==keypos[1])){
+			map[keypos[0]][keypos[1]]='k';
+		}
+		
 	}
 }

@@ -14,7 +14,7 @@ public class Guard {
 		guard=guardarray;
 		type = t;
 		direction=1;
-		sleep=0;
+		sleep=-1;
 	}
 
 	public int[][] getGuard(){
@@ -54,7 +54,7 @@ public class Guard {
 			}
 			
 			if(random==0){
-				sleep=7;
+				sleep=5;
 			}
 			
 			if(sleep>0){

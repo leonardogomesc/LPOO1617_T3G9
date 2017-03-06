@@ -5,16 +5,23 @@ public class Map {
 	private int doors[][];
 	private int key;
 	private int keypos[];
+	private int maptype;  // 1- Dungeon       2-Keep
 	
-	public Map(char maparray[][],int doorsarray[][],int keyposarray[]){
+	public Map(char maparray[][],int doorsarray[][],int keyposarray[],int m){
 		map=maparray;
 		key=1;
 		doors=doorsarray;
 		keypos=keyposarray;
+		maptype=m;
 	}
 
 	public char[][] getMap(){
 		return map;
+	}
+	
+	public int getMapType(){
+		
+		return maptype;
 	}
 
 	public int[] getKeyPos(){

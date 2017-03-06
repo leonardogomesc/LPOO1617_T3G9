@@ -9,7 +9,7 @@ public class Game {
 
 	public static void main(String[] args) {
 		Game a=new Game();
-		a.run2();
+		a.run();
 
 	}
 
@@ -40,7 +40,7 @@ public class Game {
 		Hero h=new Hero(hero, 0);
 
 
-		Map m=new Map(map,doors,key);
+		Map m=new Map(map,doors,key,1);
 
 
 
@@ -92,17 +92,14 @@ public class Game {
 		int key[]={1,7};
 		int ogre[]={1,4};
 		int bat[]={2,4};
-		int ogre2[]={5,7};
-		int bat2[]={5,6};
-		int ogre3[]={2,1};
-		int bat3[]={2,2};
+		
 
 		char map[][]=  {{'X','X','X','X','X','X','X','X','X'},
 						{'I',' ',' ',' ','O',' ',' ','k','X'},
-						{'X','O','*',' ','*',' ',' ',' ','X'},
+						{'X',' ',' ',' ','*',' ',' ',' ','X'},
 						{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 						{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-						{'X',' ',' ',' ',' ',' ','*','O','X'},
+						{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 						{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 						{'X','A',' ',' ',' ',' ',' ',' ','X'},
 						{'X','X','X','X','X','X','X','X','X'}};
@@ -110,13 +107,11 @@ public class Game {
 
 		Hero h=new Hero(hero, 1);
 		Ogre o=new Ogre(ogre,bat);
-		Ogre o2=new Ogre(ogre2,bat2);
-		Ogre o3=new Ogre(ogre3,bat3);
 		
-		Ogre ogrearray[]={o,o2,o3};
+		Ogre ogrearray[]={o};
 
 
-		Map m=new Map(map,doors,key);
+		Map m=new Map(map,doors,key,2);
 		
 		
 		while(win==0){
