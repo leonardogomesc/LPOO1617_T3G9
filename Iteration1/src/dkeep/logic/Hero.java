@@ -43,12 +43,18 @@ public class Hero {
 				map[hero[0]-1][hero[1]]=h;
 				hero[0]=hero[0]-1;		
 			}
+			else if(m.getMapType()==2 && map[hero[0]-1][hero[1]]=='I' && key==0){
+				map[hero[0]-1][hero[1]]='S';
+			}
 			break;
 		case "a":
 			if(map[hero[0]][hero[1]-1]!='X' && map[hero[0]][hero[1]-1]!='I'){
 				map[hero[0]][hero[1]]=' ';
 				map[hero[0]][hero[1]-1]=h;
 				hero[1]=hero[1]-1;
+			}
+			else if(m.getMapType()==2 && map[hero[0]][hero[1]-1]=='I' && key==0){
+				map[hero[0]][hero[1]-1]='S';
 			}
 			break;
 		case "s":
@@ -57,12 +63,19 @@ public class Hero {
 				map[hero[0]+1][hero[1]]=h;
 				hero[0]=hero[0]+1;
 			}
+			else if(m.getMapType()==2 && map[hero[0]+1][hero[1]]=='I' && key==0){
+				map[hero[0]+1][hero[1]]='S';
+			}
 			break;
 		case "d":
 			if(map[hero[0]][hero[1]+1]!='X' && map[hero[0]][hero[1]+1]!='I'){
 				map[hero[0]][hero[1]]=' ';
 				map[hero[0]][hero[1]+1]=h;
 				hero[1]=hero[1]+1;
+			}
+			else if(m.getMapType()==2 && map[hero[0]][hero[1]+1]=='I' && key==0){
+				map[hero[0]][hero[1]+1]='S';
+				
 			}
 			break;
 		default:
@@ -82,19 +95,6 @@ public class Hero {
 			m.setKey(0);
 			map[hero[0]][hero[1]]='K';
 			
-		}
-		
-		
-		if(m.getKey()==0 && m.getMapType()==2){
-		for(int i2=0;i2<doors.length;i2++){
-			if((hero[0]==doors[i2][0]+1 && hero[1]==doors[i2][1])||
-			   (hero[0]==doors[i2][0] && hero[1]==doors[i2][1]+1)||
-			   (hero[0]==doors[i2][0]-1 && hero[1]==doors[i2][1])||
-			   (hero[0]==doors[i2][0] && hero[1]==doors[i2][1]-1)){
-				
-				map[doors[i2][0]][doors[i2][1]]='S';
-			}
-		}
 		}
 		
 		if(m.getMapType()==1 && !(hero[0]==keypos[0] && hero[1]==keypos[1])){
