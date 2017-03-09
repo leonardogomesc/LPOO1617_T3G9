@@ -1,9 +1,11 @@
-package dkeep.logic;
+package dkeep.cli;
 
 import java.util.Scanner;
 
-import dkeep.cli.Input;
-import dkeep.cli.Output;
+import dkeep.logic.Guard;
+import dkeep.logic.Hero;
+import dkeep.logic.Map;
+import dkeep.logic.Ogre;
 
 public class Game {
 

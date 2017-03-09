@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import dkeep.logic.Game;
+import dkeep.cli.Game;
 import dkeep.logic.Guard;
 import dkeep.logic.Hero;
 import dkeep.logic.Map;
