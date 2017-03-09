@@ -2,7 +2,7 @@ package dkeep.logic;
 
 import java.util.Random;
 
-public class Guard {
+public class Guard{
 	private int guard[][];
 	private int guardpos;
 	private int type; //rookie-1 /drunken-2 /suspicious-3
@@ -25,7 +25,6 @@ public class Guard {
 		return guardpos;
 	}
 	
-
 
 	public void GuardMove(Map m){
 		char map[][]=m.getMap();

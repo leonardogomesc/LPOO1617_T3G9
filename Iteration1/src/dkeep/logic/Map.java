@@ -39,4 +39,5 @@ public class Map {
 	public void setKey(int k){
 		key=k;
 	}
+
 }

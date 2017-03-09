@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import dkeep.cli.Game;
+import dkeep.logic.Game;
 import dkeep.logic.Guard;
 import dkeep.logic.Hero;
 import dkeep.logic.Map;
@@ -59,14 +59,14 @@ public void testHeroIsCapturedByGuard(){
 	 Map m=new Map(map,doors,keypos,1);
 	 Hero h=new Hero(hero,0);
 	 Guard g=new Guard(guard,1);
-	 Game game=new Game();
+	 Game game=new Game(m,h,g);
 	 
-	 assertEquals(0 , game.losscheck(h, g, m));
+	 assertEquals(0 , game.losscheck());
 	 
 	 h.HeroMove(m, "d");
 	 g.GuardMove(m);
 	 
-	 assertEquals(1 , game.losscheck(h, g, m));
+	 assertEquals(1 , game.losscheck());
 }
 
 @Test

@@ -2,7 +2,7 @@ package dkeep.logic;
 
 import java.util.Random;
 
-public class Ogre {
+public class Ogre{
 
 	private int ogre[];
 	private int bat[];
@@ -148,4 +148,5 @@ public class Ogre {
 			map[keypos[0]][keypos[1]]='$';
 		}
 	}
+	
 }
