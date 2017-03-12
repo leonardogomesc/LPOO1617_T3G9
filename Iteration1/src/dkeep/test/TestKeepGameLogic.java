@@ -57,6 +57,7 @@ public void testMoveHeroIntoWall(){
 
 @Test
 public void testHeroStunsOgre(){
+	
 	 Map m=new Map(map,doors,keypos,2);
 	  Hero h=new Hero(hero,1);
 	  Ogre o=new Ogre(ogre,bat);
