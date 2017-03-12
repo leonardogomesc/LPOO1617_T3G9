@@ -387,14 +387,7 @@ public class Window {
 				int hero2[]={7,1};
 				int doors2[][]={{1,0}};
 				int key2[]={1,7};
-				int ogre1[]={1,4};
-				int bat1[]={2,4};
-				int ogre2[]={1,4};
-				int bat2[]={2,4};
-				int ogre3[]={1,4};
-				int bat3[]={2,4};
 				
-
 				char map2[][]= {{'X','X','X','X','X','X','X','X','X'},
 								{'I',' ',' ',' ','O',' ',' ','k','X'},
 								{'X',' ',' ',' ','*',' ',' ',' ','X'},
@@ -407,19 +400,12 @@ public class Window {
 
 
 				Hero h2=new Hero(hero2, 1);
-				/*
+					
 				Ogre ogrearray[]=new Ogre[numberOfOgres];
 				
 				for(int i=0;i<numberOfOgres;i++){
-					ogrearray[i]=new Ogre(ogre,bat);
-				}*/
-				
-				Ogre o1 =new Ogre(ogre1,bat1);
-				Ogre o2 =new Ogre(ogre2,bat2);
-				Ogre o3 =new Ogre(ogre3,bat3);
-				
-				Ogre ogrearray[]={o1,o2,o3};
-
+					ogrearray[i]=new Ogre(new int[]{1,4},new int[]{2,4});
+				}
 
 				Map m2=new Map(map2,doors2,key2,2);
 				
