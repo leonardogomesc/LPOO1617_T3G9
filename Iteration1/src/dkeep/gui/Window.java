@@ -87,6 +87,7 @@ public class Window {
 		
 		
 		JTextArea text = new JTextArea();
+		text.setEditable(false);
 		text.setFont(new Font("Courier New", Font.PLAIN, 13));
 		text.setBounds(29, 119, 329, 292);
 		frame.getContentPane().add(text);
