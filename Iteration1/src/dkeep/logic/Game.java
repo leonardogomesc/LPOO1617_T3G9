@@ -122,6 +122,9 @@ public class Game {
 
 	}
 	
+	
+	//Ogre
+	
 	public void OgreMove(){
 		
 		int i;
