@@ -1,14 +1,8 @@
 package dkeep.gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.Label;
-import java.awt.TextField;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 import dkeep.logic.Game;
 import dkeep.logic.Guard;
@@ -16,13 +10,6 @@ import dkeep.logic.Hero;
 import dkeep.logic.Map;
 import dkeep.logic.Ogre;
 
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
-import java.awt.Font;
-import javax.swing.DefaultComboBoxModel;
 
 public class Window {
 
