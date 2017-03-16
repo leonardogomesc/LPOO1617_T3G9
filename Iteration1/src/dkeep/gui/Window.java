@@ -13,7 +13,7 @@ import dkeep.logic.Ogre;
 
 public class Window {
 
-	private JFrame frame;
+	private JFrame frmDungeonKeep;
 	private JTextField textField;
 	Game game1;
 	Game game2;
@@ -27,7 +27,7 @@ public class Window {
 			public void run() {
 				try {
 					Window window = new Window();
-					window.frame.setVisible(true);
+					window.frmDungeonKeep.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,41 +48,42 @@ public class Window {
 	 */
 	private void initialize() {
 		
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 600, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmDungeonKeep = new JFrame();
+		frmDungeonKeep.setTitle("Dungeon Keep \u00AE");
+		frmDungeonKeep.setResizable(false);
+		frmDungeonKeep.setBounds(100, 100, 600, 500);
+		frmDungeonKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDungeonKeep.getContentPane().setLayout(null);
 		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
 		lblNumberOfOgres.setBounds(10, 25, 118, 14);
-		frame.getContentPane().add(lblNumberOfOgres);
+		frmDungeonKeep.getContentPane().add(lblNumberOfOgres);
 		
 		textField = new JTextField();
 		textField.setBounds(138, 22, 35, 20);
-		frame.getContentPane().add(textField);
+		frmDungeonKeep.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
 		lblGuardPersonality.setBounds(10, 58, 109, 14);
-		frame.getContentPane().add(lblGuardPersonality);
+		frmDungeonKeep.getContentPane().add(lblGuardPersonality);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Rookie", "Drunken", "Suspicious"}));
 		comboBox.setBounds(138, 55, 131, 20);
-		frame.getContentPane().add(comboBox);
+		frmDungeonKeep.getContentPane().add(comboBox);
 		
 		
 		JTextArea text = new JTextArea();
 		text.setEditable(false);
 		text.setFont(new Font("Courier New", Font.PLAIN, 13));
 		text.setBounds(29, 119, 329, 292);
-		frame.getContentPane().add(text);
+		frmDungeonKeep.getContentPane().add(text);
 		
 		
 		JLabel lblNewLabel = new JLabel("You can start a new Game!");
 		lblNewLabel.setBounds(29, 432, 329, 28);
-		frame.getContentPane().add(lblNewLabel);
+		frmDungeonKeep.getContentPane().add(lblNewLabel);
 		
 		
 		JButton btnNewButton = new JButton("Up");
@@ -145,7 +146,7 @@ public class Window {
 			}
 		});
 		btnNewButton.setBounds(442, 234, 73, 20);
-		frame.getContentPane().add(btnNewButton);
+		frmDungeonKeep.getContentPane().add(btnNewButton);
 		
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -203,7 +204,7 @@ public class Window {
 		});
 		btnNewButton_1.setEnabled(false);
 		btnNewButton_1.setBounds(485, 265, 73, 20);
-		frame.getContentPane().add(btnNewButton_1);
+		frmDungeonKeep.getContentPane().add(btnNewButton_1);
 		
 		
 		btnNewButton_2.setEnabled(false);
@@ -260,7 +261,7 @@ public class Window {
 			}
 		});
 		btnNewButton_2.setBounds(395, 265, 73, 20);
-		frame.getContentPane().add(btnNewButton_2);
+		frmDungeonKeep.getContentPane().add(btnNewButton_2);
 		
 		
 		btnNewButton_3.addActionListener(new ActionListener() {
@@ -319,7 +320,7 @@ public class Window {
 		});
 		btnNewButton_3.setEnabled(false);
 		btnNewButton_3.setBounds(442, 296, 73, 20);
-		frame.getContentPane().add(btnNewButton_3);
+		frmDungeonKeep.getContentPane().add(btnNewButton_3);
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
@@ -328,7 +329,7 @@ public class Window {
 			}
 		});
 		btnExit.setBounds(437, 401, 89, 23);
-		frame.getContentPane().add(btnExit);
+		frmDungeonKeep.getContentPane().add(btnExit);
 		
 		
 		JButton btnNewGame = new JButton("New Game");
@@ -403,7 +404,7 @@ public class Window {
 			}
 		});
 		btnNewGame.setBounds(414, 121, 130, 20);
-		frame.getContentPane().add(btnNewGame);
+		frmDungeonKeep.getContentPane().add(btnNewGame);
 		
 	}
 	
