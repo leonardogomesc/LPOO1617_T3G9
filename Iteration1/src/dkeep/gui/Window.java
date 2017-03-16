@@ -98,8 +98,11 @@ public class Window {
 		frame.getContentPane().add(lblNewLabel);
 		
 		
-		
 		JButton btnNewButton = new JButton("Up");
+		JButton btnNewButton_1 = new JButton("Right");
+		JButton btnNewButton_2 = new JButton("Left");
+		JButton btnNewButton_3 = new JButton("Down");
+		
 		btnNewButton.setEnabled(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -113,6 +116,10 @@ public class Window {
 						
 						if(game1.losscheck()==1){
 							lblNewLabel.setText("You lost!");
+							btnNewButton.setEnabled(false);
+							btnNewButton_1.setEnabled(false);
+							btnNewButton_2.setEnabled(false);
+							btnNewButton_3.setEnabled(false);
 						}
 
 						text.setText(to_String(game1.getMap()));
@@ -134,6 +141,10 @@ public class Window {
 						
 						if(game2.losscheckkeep()==1){
 							lblNewLabel.setText("You lost!");
+							btnNewButton.setEnabled(false);
+							btnNewButton_1.setEnabled(false);
+							btnNewButton_2.setEnabled(false);
+							btnNewButton_3.setEnabled(false);
 						}
 						
 						text.setText(to_String(game2.getMap()));
@@ -149,7 +160,7 @@ public class Window {
 		btnNewButton.setBounds(442, 234, 73, 20);
 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Right");
+		
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(currentGame==1){
@@ -162,6 +173,10 @@ public class Window {
 						
 						if(game1.losscheck()==1){
 							lblNewLabel.setText("You lost!");
+							btnNewButton.setEnabled(false);
+							btnNewButton_1.setEnabled(false);
+							btnNewButton_2.setEnabled(false);
+							btnNewButton_3.setEnabled(false);
 						}
 
 						text.setText(to_String(game1.getMap()));
@@ -183,6 +198,10 @@ public class Window {
 						
 						if(game2.losscheckkeep()==1){
 							lblNewLabel.setText("You lost!");
+							btnNewButton.setEnabled(false);
+							btnNewButton_1.setEnabled(false);
+							btnNewButton_2.setEnabled(false);
+							btnNewButton_3.setEnabled(false);
 						}
 
 						text.setText(to_String(game2.getMap()));
@@ -199,7 +218,7 @@ public class Window {
 		btnNewButton_1.setBounds(485, 265, 73, 20);
 		frame.getContentPane().add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Left");
+		
 		btnNewButton_2.setEnabled(false);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -213,6 +232,10 @@ public class Window {
 						
 						if(game1.losscheck()==1){
 							lblNewLabel.setText("You lost!");
+							btnNewButton.setEnabled(false);
+							btnNewButton_1.setEnabled(false);
+							btnNewButton_2.setEnabled(false);
+							btnNewButton_3.setEnabled(false);
 						}
 						
 						text.setText(to_String(game1.getMap()));
@@ -233,6 +256,10 @@ public class Window {
 						
 						if(game2.losscheckkeep()==1){
 							lblNewLabel.setText("You lost!");
+							btnNewButton.setEnabled(false);
+							btnNewButton_1.setEnabled(false);
+							btnNewButton_2.setEnabled(false);
+							btnNewButton_3.setEnabled(false);
 						}
 						
 						text.setText(to_String(game2.getMap()));
@@ -248,7 +275,7 @@ public class Window {
 		btnNewButton_2.setBounds(395, 265, 73, 20);
 		frame.getContentPane().add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("Down");
+		
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(currentGame==1){
@@ -261,6 +288,10 @@ public class Window {
 						
 						if(game1.losscheck()==1){
 							lblNewLabel.setText("You lost!");
+							btnNewButton.setEnabled(false);
+							btnNewButton_1.setEnabled(false);
+							btnNewButton_2.setEnabled(false);
+							btnNewButton_3.setEnabled(false);
 						}
 						
 						text.setText(to_String(game1.getMap()));
@@ -282,6 +313,10 @@ public class Window {
 						
 						if(game2.losscheckkeep()==1){
 							lblNewLabel.setText("You lost!");
+							btnNewButton.setEnabled(false);
+							btnNewButton_1.setEnabled(false);
+							btnNewButton_2.setEnabled(false);
+							btnNewButton_3.setEnabled(false);
 						}
 						
 						

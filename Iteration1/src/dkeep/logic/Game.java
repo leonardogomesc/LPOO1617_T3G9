@@ -113,16 +113,8 @@ public class Game {
 					(hero[0]==bat[0] && hero[1]==bat[1])){
 				result=1;
 			}
-			
-			if((hero[0]==ogre[0] && hero[1]==ogre[1]+1)||
-					(hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
-					(hero[0]==ogre[0] && hero[1]==ogre[1]-1)||
-					(hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
-					(hero[0]==ogre[0] && hero[1]==ogre[1])){
-				o[i].setStunned();
-				map[ogre[0]][ogre[1]]='8';
-			}
 		}
+		
 		
 		}
 		
@@ -146,6 +138,30 @@ public class Game {
 		for(i=0;i<o.length;i++){
 			o[i].OgreMove(m);
 		}
+		
+		setStunned();
 	}
-
+	
+	public void setStunned(){
+		if(h.getBasher()==1){
+		
+		for(int i=0;i<o.length;i++){
+			
+		int hero[]=h.getHero();
+		int ogre[]=o[i].getOgre();
+		char map[][]=m.getMap();
+		
+		if((hero[0]==ogre[0] && hero[1]==ogre[1]+1)||
+				(hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
+				(hero[0]==ogre[0] && hero[1]==ogre[1]-1)||
+				(hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
+				(hero[0]==ogre[0] && hero[1]==ogre[1])){
+			o[i].setStunned();
+			map[ogre[0]][ogre[1]]='8';
+		}
+		
+		}
+		
+	   }
+	}
 }

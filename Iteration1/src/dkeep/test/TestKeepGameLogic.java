@@ -68,7 +68,7 @@ public void testHeroStunsOgre(){
 	 
 	 h.HeroMove(m, "d");
 	 
-	 game.losscheckkeep();
+	 game.setStunned();
 	 
 	 assertEquals(game.getMap().getMap()[o.getOgre()[0]][o.getOgre()[1]], '8');
 }
