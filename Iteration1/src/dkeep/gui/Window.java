@@ -458,6 +458,15 @@ public class Window {
 				text.setText(to_String(game1.getMap()));
 				lblNewLabel.setText("You can play now");
 				}
+				else if(guardType==-1 && numberOfOgres==-1){
+					lblNewLabel.setText("Invalid Number of Ogres and Type of Guard");
+				}
+				else if(guardType==-1){
+					lblNewLabel.setText("Invalid Type of Guard");
+				}
+				else if(numberOfOgres==-1){
+					lblNewLabel.setText("Invalid Number of Ogres");
+				}
 			}
 		});
 		btnNewGame.setBounds(414, 121, 130, 20);
