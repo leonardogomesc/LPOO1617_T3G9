@@ -1,8 +1,18 @@
 package dkeep.gui;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import javax.swing.JTextArea;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import dkeep.logic.Game;
 import dkeep.logic.Guard;
@@ -10,136 +20,132 @@ import dkeep.logic.Hero;
 import dkeep.logic.Map;
 import dkeep.logic.Ogre;
 
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Window {
+public class Window2 implements KeyListener {
 
-	private JFrame frmDungeonKeep;
-	Game game1;
-	Game game2;
-    int currentGame;
-    
+	private JFrame frame;
+	private JTextField textField;
+	private Game game1;
+	private Game game2;
+	private int currentGame;
+	JButton btnDown;
+	JButton btnUp;
+	JButton btnL;
+	JButton btnR;
+	JTextArea textArea;
 	
+
 	/**
 	 * Launch the application.
 	 */
-    
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window window = new Window();
-					window.frmDungeonKeep.setVisible(true);
+					Window2 window = new Window2();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-	
+
 	/**
 	 * Create the application.
 	 */
-	public Window() {
+	public Window2() {
 		initialize();
-		
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		
-		frmDungeonKeep = new JFrame();
-		frmDungeonKeep.setTitle("Dungeon Keep \u00AE");
-		frmDungeonKeep.setResizable(false);
-		frmDungeonKeep.setBounds(100, 100, 600, 500);
-		frmDungeonKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmDungeonKeep.getContentPane().setLayout(null);
+		JPanel panel = new JPanel();
+		frame.getContentPane().add(panel, "name_10500935374081");
+		panel.setLayout(null);
 		
-		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
-		lblNumberOfOgres.setBounds(10, 25, 118, 14);
-		frmDungeonKeep.getContentPane().add(lblNumberOfOgres);
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setFont(new Font("Courier New", Font.PLAIN, 13));
+		textArea.setBounds(24, 25, 235, 222);
+		textArea.setColumns(3);
+		panel.add(textArea);
 		
-		JTextField textField = new JTextField();
-		textField.setBounds(138, 22, 35, 20);
-		frmDungeonKeep.getContentPane().add(textField);
-		textField.setColumns(10);
+	    btnDown = new JButton("D");
+		btnUp = new JButton("U");
+		btnL = new JButton("L");
+		btnR = new JButton("R");
 		
-		JLabel lblGuardPersonality = new JLabel("Guard Personality");
-		lblGuardPersonality.setBounds(10, 58, 109, 14);
-		frmDungeonKeep.getContentPane().add(lblGuardPersonality);
+		btnR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nextMove("d",textArea,btnDown,btnUp,btnL,btnR);
+			}
+		});
+		
+		btnL.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nextMove("a",textArea,btnDown,btnUp,btnL,btnR);
+			}
+		});
+		
+		
+		btnUp.setEnabled(false);
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nextMove("w",textArea,btnDown,btnUp,btnL,btnR);
+			}
+		});
+		btnUp.setBounds(317, 72, 65, 23);
+		panel.add(btnUp);
+		
+		btnDown.setEnabled(false);
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				nextMove("s",textArea,btnDown,btnUp,btnL,btnR);
+			}
+		});
+		btnDown.setBounds(317, 140, 65, 23);
+		panel.add(btnDown);
+		
+		
+		btnL.setEnabled(false);
+		btnL.setBounds(281, 106, 65, 23);
+		panel.add(btnL);
+		
+		
+		btnR.setEnabled(false);
+		btnR.setBounds(356, 106, 65, 23);
+		panel.add(btnR);
+		
+		JPanel panel_1 = new JPanel();
+		
+		panel.setVisible(true);
+		panel_1.setVisible(false);
+		
+		JButton btnSettings = new JButton("Settings");
+		btnSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.setVisible(false);
+				panel_1.setVisible(true);
+				
+			}
+		});
+		btnSettings.setBounds(293, 198, 128, 23);
+		panel.add(btnSettings);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Rookie", "Drunken", "Suspicious"}));
-		comboBox.setBounds(138, 55, 131, 20);
-		frmDungeonKeep.getContentPane().add(comboBox);
-		
-		
-		JTextArea text = new JTextArea();
-		text.setEditable(false);
-		text.setFont(new Font("Courier New", Font.PLAIN, 13));
-		text.setBounds(29, 119, 329, 292);
-		frmDungeonKeep.getContentPane().add(text);
-		
-		
-		JLabel lblNewLabel = new JLabel("You can start a new Game!");
-		lblNewLabel.setBounds(29, 432, 329, 28);
-		frmDungeonKeep.getContentPane().add(lblNewLabel);
-		
-		
-		JButton btnNewButton = new JButton("Up");
-		JButton btnNewButton_1 = new JButton("Right");
-		JButton btnNewButton_2 = new JButton("Left");
-		JButton btnNewButton_3 = new JButton("Down");
-		
-		btnNewButton.setEnabled(false);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				nextMove("w",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
-			}
-		});
-		btnNewButton.setBounds(442, 234, 73, 20);
-		frmDungeonKeep.getContentPane().add(btnNewButton);
-		
-		
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				nextMove("d",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
-			}
-		});
-		btnNewButton_1.setEnabled(false);
-		btnNewButton_1.setBounds(485, 265, 73, 20);
-		frmDungeonKeep.getContentPane().add(btnNewButton_1);
-		
-		
-		btnNewButton_2.setEnabled(false);
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				nextMove("a",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
-			}
-		});
-		btnNewButton_2.setBounds(395, 265, 73, 20);
-		frmDungeonKeep.getContentPane().add(btnNewButton_2);
-		
-		
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				nextMove("s",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
-			}
-		});
-		btnNewButton_3.setEnabled(false);
-		btnNewButton_3.setBounds(442, 296, 73, 20);
-		frmDungeonKeep.getContentPane().add(btnNewButton_3);
-		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnExit.setBounds(437, 401, 89, 23);
-		frmDungeonKeep.getContentPane().add(btnExit);
-		
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
@@ -192,28 +198,49 @@ public class Window {
 				game1=newGame(guardType, numberOfOgres)[0];
 				game2=newGame(guardType, numberOfOgres)[1];
 				
-				btnNewButton.setEnabled(true);
-				btnNewButton_1.setEnabled(true);
-				btnNewButton_2.setEnabled(true);
-				btnNewButton_3.setEnabled(true);
+				btnUp.setEnabled(true);
+				btnDown.setEnabled(true);
+				btnL.setEnabled(true);
+				btnR.setEnabled(true);
 				currentGame=1;
 				
-				text.setText(to_String(game1.getMap()));
-				lblNewLabel.setText("You can play now");
-				}
-				else if(guardType==-1 && numberOfOgres==-1){
-					lblNewLabel.setText("Invalid Number of Ogres and Type of Guard");
-				}
-				else if(guardType==-1){
-					lblNewLabel.setText("Invalid Type of Guard");
-				}
-				else if(numberOfOgres==-1){
-					lblNewLabel.setText("Invalid Number of Ogres");
+				textArea.setText(to_String(game1.getMap()));
 				}
 			}
 		});
-		btnNewGame.setBounds(414, 121, 130, 20);
-		frmDungeonKeep.getContentPane().add(btnNewGame);
+		btnNewGame.setBounds(281, 23, 140, 23);
+		panel.add(btnNewGame);
+		
+		
+		frame.getContentPane().add(panel_1, "name_10567897553764");
+		panel_1.setLayout(null);
+		
+		JLabel label = new JLabel("Number of Ogres");
+		label.setBounds(31, 25, 82, 14);
+		panel_1.add(label);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(171, 22, 35, 20);
+		panel_1.add(textField);
+		
+		JLabel label_1 = new JLabel("Guard Personality");
+		label_1.setBounds(31, 66, 109, 14);
+		panel_1.add(label_1);
+		
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Rookie", "Drunken", "Suspicious"}));
+		comboBox.setBounds(171, 63, 131, 20);
+		panel_1.add(comboBox);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.setVisible(true);
+				panel_1.setVisible(false);
+			}
+		});
+		btnBack.setBounds(31, 148, 128, 23);
+		panel_1.add(btnBack);
 		
 	}
 	
@@ -296,17 +323,15 @@ public Game[] newGame(int guardType, int numberOfOgres){
 		return gamearray;
 	}
 
-public void nextMove(String m,JTextArea text,JLabel lblNewLabel,JButton btnNewButton,JButton btnNewButton_1,JButton btnNewButton_2,JButton btnNewButton_3){
+public void nextMove(String m,JTextArea text,JButton btnNewButton,JButton btnNewButton_1,JButton btnNewButton_2,JButton btnNewButton_3){
 	if(currentGame==1){
 		if(game1.losscheck()==0 && game1.wincheck()==0){
-			lblNewLabel.setText("You can play now");
 			
 			game1.getHero().HeroMove(game1.getMap(), m);
 			game1.getGuard().GuardMove(game1.getMap());
 			
 			
 			if(game1.losscheck()==1){
-				lblNewLabel.setText("You lost!");
 				btnNewButton.setEnabled(false);
 				btnNewButton_1.setEnabled(false);
 				btnNewButton_2.setEnabled(false);
@@ -324,14 +349,12 @@ public void nextMove(String m,JTextArea text,JLabel lblNewLabel,JButton btnNewBu
 	}
 	else if(currentGame==2){
 		if(game2.losscheckkeep()==0 && game2.wincheck()==0){
-			lblNewLabel.setText("You can play now");
 			
 			game2.getHero().HeroMove(game2.getMap(), m);
 			game2.OgreMove();
 			
 			
 			if(game2.losscheckkeep()==1){
-				lblNewLabel.setText("You lost!");
 				btnNewButton.setEnabled(false);
 				btnNewButton_1.setEnabled(false);
 				btnNewButton_2.setEnabled(false);
@@ -342,7 +365,6 @@ public void nextMove(String m,JTextArea text,JLabel lblNewLabel,JButton btnNewBu
 			text.setText(to_String(game2.getMap()));
 
 			if(game2.wincheck()==1){
-				lblNewLabel.setText("You won!");
 				btnNewButton.setEnabled(false);
 				btnNewButton_1.setEnabled(false);
 				btnNewButton_2.setEnabled(false);
@@ -351,5 +373,22 @@ public void nextMove(String m,JTextArea text,JLabel lblNewLabel,JButton btnNewBu
 			
 		}
 	}	
+}
+
+@Override
+public void keyPressed(KeyEvent e) {
+	// TODO Auto-generated method stub
+	nextMove("d",textArea,btnDown,btnUp,btnL,btnR);
+}
+
+@Override
+public void keyReleased(KeyEvent e) {
+	// TODO Auto-generated method stub
+	nextMove("d",textArea,btnDown,btnUp,btnL,btnR);
+}
+
+@Override
+public void keyTyped(KeyEvent e) {
+	nextMove("d",textArea,btnDown,btnUp,btnL,btnR);
 }
 }
