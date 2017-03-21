@@ -14,10 +14,10 @@ import dkeep.logic.Ogre;
 public class Window {
 
 	private JFrame frmDungeonKeep;
-	private JTextField textField;
 	Game game1;
 	Game game2;
     int currentGame;
+    
 	
 	/**
 	 * Launch the application.
@@ -59,7 +59,7 @@ public class Window {
 		lblNumberOfOgres.setBounds(10, 25, 118, 14);
 		frmDungeonKeep.getContentPane().add(lblNumberOfOgres);
 		
-		textField = new JTextField();
+		JTextField textField = new JTextField();
 		textField.setBounds(138, 22, 35, 20);
 		frmDungeonKeep.getContentPane().add(textField);
 		textField.setColumns(10);
@@ -94,55 +94,7 @@ public class Window {
 		btnNewButton.setEnabled(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(currentGame==1){
-					if(game1.losscheck()==0 && game1.wincheck()==0){
-						lblNewLabel.setText("You can play now");
-						
-						game1.getHero().HeroMove(game1.getMap(), "w");
-						game1.getGuard().GuardMove(game1.getMap());
-						
-						
-						if(game1.losscheck()==1){
-							lblNewLabel.setText("You lost!");
-							btnNewButton.setEnabled(false);
-							btnNewButton_1.setEnabled(false);
-							btnNewButton_2.setEnabled(false);
-							btnNewButton_3.setEnabled(false);
-						}
-
-						text.setText(to_String(game1.getMap()));
-						
-						if(game1.wincheck()==1){
-							currentGame=2;
-							text.setText(to_String(game2.getMap()));
-						}
-						
-					}
-				}
-				else if(currentGame==2){
-					if(game2.losscheckkeep()==0 && game2.wincheck()==0){
-						lblNewLabel.setText("You can play now");
-						
-						game2.getHero().HeroMove(game2.getMap(), "w");
-						game2.OgreMove();
-						
-						
-						if(game2.losscheckkeep()==1){
-							lblNewLabel.setText("You lost!");
-							btnNewButton.setEnabled(false);
-							btnNewButton_1.setEnabled(false);
-							btnNewButton_2.setEnabled(false);
-							btnNewButton_3.setEnabled(false);
-						}
-						
-						text.setText(to_String(game2.getMap()));
-
-						if(game2.wincheck()==1){
-							lblNewLabel.setText("You won!");
-						}
-						
-					}
-				}
+				nextMove("w",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
 			}
 		});
 		btnNewButton.setBounds(442, 234, 73, 20);
@@ -151,55 +103,7 @@ public class Window {
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(currentGame==1){
-					if(game1.losscheck()==0 && game1.wincheck()==0){
-						lblNewLabel.setText("You can play now");
-						
-						game1.getHero().HeroMove(game1.getMap(), "d");
-						game1.getGuard().GuardMove(game1.getMap());
-						
-						
-						if(game1.losscheck()==1){
-							lblNewLabel.setText("You lost!");
-							btnNewButton.setEnabled(false);
-							btnNewButton_1.setEnabled(false);
-							btnNewButton_2.setEnabled(false);
-							btnNewButton_3.setEnabled(false);
-						}
-
-						text.setText(to_String(game1.getMap()));
-						
-						if(game1.wincheck()==1){
-							currentGame=2;
-							text.setText(to_String(game2.getMap()));
-						}
-						
-					}
-				}
-				else if(currentGame==2){
-					if(game2.losscheckkeep()==0 && game2.wincheck()==0){
-						lblNewLabel.setText("You can play now");
-						
-						game2.getHero().HeroMove(game2.getMap(), "d");
-						game2.OgreMove();
-						
-						
-						if(game2.losscheckkeep()==1){
-							lblNewLabel.setText("You lost!");
-							btnNewButton.setEnabled(false);
-							btnNewButton_1.setEnabled(false);
-							btnNewButton_2.setEnabled(false);
-							btnNewButton_3.setEnabled(false);
-						}
-
-						text.setText(to_String(game2.getMap()));
-						
-						if(game2.wincheck()==1){
-							lblNewLabel.setText("You won!");
-						}
-						
-					}
-				}
+				nextMove("d",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
 			}
 		});
 		btnNewButton_1.setEnabled(false);
@@ -210,54 +114,7 @@ public class Window {
 		btnNewButton_2.setEnabled(false);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(currentGame==1){
-					if(game1.losscheck()==0 && game1.wincheck()==0){
-						lblNewLabel.setText("You can play now");
-						
-						game1.getHero().HeroMove(game1.getMap(), "a");
-						game1.getGuard().GuardMove(game1.getMap());
-						
-						
-						if(game1.losscheck()==1){
-							lblNewLabel.setText("You lost!");
-							btnNewButton.setEnabled(false);
-							btnNewButton_1.setEnabled(false);
-							btnNewButton_2.setEnabled(false);
-							btnNewButton_3.setEnabled(false);
-						}
-						
-						text.setText(to_String(game1.getMap()));
-
-						if(game1.wincheck()==1){
-							currentGame=2;
-							text.setText(to_String(game2.getMap()));
-						}
-						
-					}
-				}
-				else if(currentGame==2){
-					if(game2.losscheckkeep()==0 && game2.wincheck()==0){
-						lblNewLabel.setText("You can play now");
-						
-						game2.getHero().HeroMove(game2.getMap(), "a");
-						game2.OgreMove();
-						
-						if(game2.losscheckkeep()==1){
-							lblNewLabel.setText("You lost!");
-							btnNewButton.setEnabled(false);
-							btnNewButton_1.setEnabled(false);
-							btnNewButton_2.setEnabled(false);
-							btnNewButton_3.setEnabled(false);
-						}
-						
-						text.setText(to_String(game2.getMap()));
-
-						if(game2.wincheck()==1){
-							lblNewLabel.setText("You won!");
-						}
-						
-					}
-				}
+				nextMove("a",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
 			}
 		});
 		btnNewButton_2.setBounds(395, 265, 73, 20);
@@ -266,56 +123,7 @@ public class Window {
 		
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(currentGame==1){
-					if(game1.losscheck()==0 && game1.wincheck()==0){
-						lblNewLabel.setText("You can play now");
-						
-						game1.getHero().HeroMove(game1.getMap(), "s");
-						game1.getGuard().GuardMove(game1.getMap());
-						
-						
-						if(game1.losscheck()==1){
-							lblNewLabel.setText("You lost!");
-							btnNewButton.setEnabled(false);
-							btnNewButton_1.setEnabled(false);
-							btnNewButton_2.setEnabled(false);
-							btnNewButton_3.setEnabled(false);
-						}
-						
-						text.setText(to_String(game1.getMap()));
-
-						if(game1.wincheck()==1){
-							currentGame=2;
-							text.setText(to_String(game2.getMap()));
-						}
-						
-					}
-				}
-				else if(currentGame==2){
-					if(game2.losscheckkeep()==0 && game2.wincheck()==0){
-						lblNewLabel.setText("You can play now");
-						
-						game2.getHero().HeroMove(game2.getMap(), "s");
-						game2.OgreMove();
-						
-						
-						if(game2.losscheckkeep()==1){
-							lblNewLabel.setText("You lost!");
-							btnNewButton.setEnabled(false);
-							btnNewButton_1.setEnabled(false);
-							btnNewButton_2.setEnabled(false);
-							btnNewButton_3.setEnabled(false);
-						}
-						
-						
-						text.setText(to_String(game2.getMap()));
-
-						if(game2.wincheck()==1){
-							lblNewLabel.setText("You won!");
-						}
-						
-					}
-				}
+				nextMove("s",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
 			}
 		});
 		btnNewButton_3.setEnabled(false);
@@ -486,4 +294,61 @@ public Game[] newGame(int guardType, int numberOfOgres){
 		
 		return gamearray;
 	}
+
+public void nextMove(String m,JTextArea text,JLabel lblNewLabel,JButton btnNewButton,JButton btnNewButton_1,JButton btnNewButton_2,JButton btnNewButton_3){
+	if(currentGame==1){
+		if(game1.losscheck()==0 && game1.wincheck()==0){
+			lblNewLabel.setText("You can play now");
+			
+			game1.getHero().HeroMove(game1.getMap(), m);
+			game1.getGuard().GuardMove(game1.getMap());
+			
+			
+			if(game1.losscheck()==1){
+				lblNewLabel.setText("You lost!");
+				btnNewButton.setEnabled(false);
+				btnNewButton_1.setEnabled(false);
+				btnNewButton_2.setEnabled(false);
+				btnNewButton_3.setEnabled(false);
+			}
+			
+			text.setText(to_String(game1.getMap()));
+
+			if(game1.wincheck()==1){
+				currentGame=2;
+				text.setText(to_String(game2.getMap()));
+			}
+			
+		}
+	}
+	else if(currentGame==2){
+		if(game2.losscheckkeep()==0 && game2.wincheck()==0){
+			lblNewLabel.setText("You can play now");
+			
+			game2.getHero().HeroMove(game2.getMap(), m);
+			game2.OgreMove();
+			
+			
+			if(game2.losscheckkeep()==1){
+				lblNewLabel.setText("You lost!");
+				btnNewButton.setEnabled(false);
+				btnNewButton_1.setEnabled(false);
+				btnNewButton_2.setEnabled(false);
+				btnNewButton_3.setEnabled(false);
+			}
+			
+			
+			text.setText(to_String(game2.getMap()));
+
+			if(game2.wincheck()==1){
+				lblNewLabel.setText("You won!");
+				btnNewButton.setEnabled(false);
+				btnNewButton_1.setEnabled(false);
+				btnNewButton_2.setEnabled(false);
+				btnNewButton_3.setEnabled(false);
+			}
+			
+		}
+	}	
+}
 }
