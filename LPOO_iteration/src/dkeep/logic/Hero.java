@@ -41,7 +41,7 @@ public class Hero {
 	
 	public char getSymbol()
 	{
-		if(key)
+		if(key &&(levelType!=0))
 			return 'K';
 		else
 			if (basher)
