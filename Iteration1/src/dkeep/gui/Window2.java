@@ -26,7 +26,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Window2 implements KeyListener {
+public class Window2 {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -71,11 +71,16 @@ public class Window2 implements KeyListener {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
-		frame.requestFocusInWindow();
 		
-		JPanel panel = new JPanel();
+		
+		JPanel panel = new Image(this);
 		frame.getContentPane().add(panel, "name_10500935374081");
 		panel.setLayout(null);
+		panel.setFocusable(true);
+		
+	
+		
+		//frame.addKeyListener(panel);
 		
 		textArea = new JTextArea();
 		textArea.setEditable(false);
@@ -83,6 +88,7 @@ public class Window2 implements KeyListener {
 		textArea.setBounds(24, 25, 235, 222);
 		textArea.setColumns(3);
 		panel.add(textArea);
+		
 		
 	    btnDown = new JButton("D");
 		btnUp = new JButton("U");
@@ -92,12 +98,14 @@ public class Window2 implements KeyListener {
 		btnR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nextMove("d");
+				panel.requestFocusInWindow();
 			}
 		});
 		
 		btnL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nextMove("a");
+				panel.requestFocusInWindow();
 			}
 		});
 		
@@ -106,6 +114,7 @@ public class Window2 implements KeyListener {
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nextMove("w");
+				panel.requestFocusInWindow();
 			}
 		});
 		btnUp.setBounds(317, 72, 65, 23);
@@ -115,6 +124,7 @@ public class Window2 implements KeyListener {
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				nextMove("s");
+				panel.requestFocusInWindow();
 			}
 		});
 		btnDown.setBounds(317, 140, 65, 23);
@@ -140,6 +150,7 @@ public class Window2 implements KeyListener {
 			public void actionPerformed(ActionEvent e) {
 				panel.setVisible(false);
 				panel_1.setVisible(true);
+				panel.requestFocusInWindow();
 				
 			}
 		});
@@ -151,6 +162,7 @@ public class Window2 implements KeyListener {
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panel.requestFocusInWindow();
 				int numberOfOgres=-1;
 				int guardType=-1;
 				
@@ -194,10 +206,13 @@ public class Window2 implements KeyListener {
 					break;
 				}
 				
-				if(guardType!=-1 && numberOfOgres!=-1){
+				if(/*guardType!=-1 && numberOfOgres!=-1*/true){
 				
-				game1=newGame(guardType, numberOfOgres)[0];
+				/*game1=newGame(guardType, numberOfOgres)[0];
 				game2=newGame(guardType, numberOfOgres)[1];
+				*/
+				game1=newGame(1, 1)[0];
+				game2=newGame(1,1)[1];
 				
 				btnUp.setEnabled(true);
 				btnDown.setEnabled(true);
@@ -213,7 +228,7 @@ public class Window2 implements KeyListener {
 		panel.add(btnNewGame);
 		
 		
-		frame.getContentPane().add(panel_1, "name_10567897553764");
+	    frame.getContentPane().add(panel_1, "name_10567897553764");
 		panel_1.setLayout(null);
 		
 		JLabel label = new JLabel("Number of Ogres");
@@ -376,18 +391,4 @@ public void nextMove(String m){
 	}	
 }
 
-/*@Override
-public void keyPressed(KeyEvent e) {
-	// TODO Auto-generated method stub
-	nextMove("d");
-}
-
-@Override
-public void keyReleased(KeyEvent e) {
-	// TODO Auto-generated method stub
-}
-
-@Override
-public void keyTyped(KeyEvent e) {
-}*/
 }
