@@ -71,6 +71,7 @@ public class Window2 implements KeyListener {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
+		frame.requestFocusInWindow();
 		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, "name_10500935374081");
@@ -90,13 +91,13 @@ public class Window2 implements KeyListener {
 		
 		btnR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nextMove("d",textArea,btnDown,btnUp,btnL,btnR);
+				nextMove("d");
 			}
 		});
 		
 		btnL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nextMove("a",textArea,btnDown,btnUp,btnL,btnR);
+				nextMove("a");
 			}
 		});
 		
@@ -104,7 +105,7 @@ public class Window2 implements KeyListener {
 		btnUp.setEnabled(false);
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nextMove("w",textArea,btnDown,btnUp,btnL,btnR);
+				nextMove("w");
 			}
 		});
 		btnUp.setBounds(317, 72, 65, 23);
@@ -113,7 +114,7 @@ public class Window2 implements KeyListener {
 		btnDown.setEnabled(false);
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				nextMove("s",textArea,btnDown,btnUp,btnL,btnR);
+				nextMove("s");
 			}
 		});
 		btnDown.setBounds(317, 140, 65, 23);
@@ -323,7 +324,7 @@ public Game[] newGame(int guardType, int numberOfOgres){
 		return gamearray;
 	}
 
-public void nextMove(String m,JTextArea text,JButton btnNewButton,JButton btnNewButton_1,JButton btnNewButton_2,JButton btnNewButton_3){
+public void nextMove(String m){
 	if(currentGame==1){
 		if(game1.losscheck()==0 && game1.wincheck()==0){
 			
@@ -332,17 +333,17 @@ public void nextMove(String m,JTextArea text,JButton btnNewButton,JButton btnNew
 			
 			
 			if(game1.losscheck()==1){
-				btnNewButton.setEnabled(false);
-				btnNewButton_1.setEnabled(false);
-				btnNewButton_2.setEnabled(false);
-				btnNewButton_3.setEnabled(false);
+				btnUp.setEnabled(false);
+				btnDown.setEnabled(false);
+				btnL.setEnabled(false);
+				btnR.setEnabled(false);
 			}
 			
-			text.setText(to_String(game1.getMap()));
+			textArea.setText(to_String(game1.getMap()));
 
 			if(game1.wincheck()==1){
 				currentGame=2;
-				text.setText(to_String(game2.getMap()));
+				textArea.setText(to_String(game2.getMap()));
 			}
 			
 		}
@@ -355,40 +356,38 @@ public void nextMove(String m,JTextArea text,JButton btnNewButton,JButton btnNew
 			
 			
 			if(game2.losscheckkeep()==1){
-				btnNewButton.setEnabled(false);
-				btnNewButton_1.setEnabled(false);
-				btnNewButton_2.setEnabled(false);
-				btnNewButton_3.setEnabled(false);
+				btnUp.setEnabled(false);
+				btnDown.setEnabled(false);
+				btnL.setEnabled(false);
+				btnR.setEnabled(false);
 			}
 			
 			
-			text.setText(to_String(game2.getMap()));
+			textArea.setText(to_String(game2.getMap()));
 
 			if(game2.wincheck()==1){
-				btnNewButton.setEnabled(false);
-				btnNewButton_1.setEnabled(false);
-				btnNewButton_2.setEnabled(false);
-				btnNewButton_3.setEnabled(false);
+				btnUp.setEnabled(false);
+				btnDown.setEnabled(false);
+				btnL.setEnabled(false);
+				btnR.setEnabled(false);
 			}
 			
 		}
 	}	
 }
 
-@Override
+/*@Override
 public void keyPressed(KeyEvent e) {
 	// TODO Auto-generated method stub
-	nextMove("d",textArea,btnDown,btnUp,btnL,btnR);
+	nextMove("d");
 }
 
 @Override
 public void keyReleased(KeyEvent e) {
 	// TODO Auto-generated method stub
-	nextMove("d",textArea,btnDown,btnUp,btnL,btnR);
 }
 
 @Override
 public void keyTyped(KeyEvent e) {
-	nextMove("d",textArea,btnDown,btnUp,btnL,btnR);
-}
+}*/
 }

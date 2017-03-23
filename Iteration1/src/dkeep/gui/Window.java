@@ -14,9 +14,16 @@ import dkeep.logic.Ogre;
 public class Window {
 
 	private JFrame frmDungeonKeep;
-	Game game1;
-	Game game2;
-    int currentGame;
+	private Game game1;
+	private Game game2;
+    private int currentGame;
+    
+    JButton btnNewButton;
+	JButton btnNewButton_1;
+	JButton btnNewButton_2 ;
+	JButton btnNewButton_3;
+	JLabel lblNewLabel;
+	JTextArea text;
     
 	
 	/**
@@ -75,27 +82,27 @@ public class Window {
 		frmDungeonKeep.getContentPane().add(comboBox);
 		
 		
-		JTextArea text = new JTextArea();
+		text = new JTextArea();
 		text.setEditable(false);
 		text.setFont(new Font("Courier New", Font.PLAIN, 13));
 		text.setBounds(29, 119, 329, 292);
 		frmDungeonKeep.getContentPane().add(text);
 		
 		
-		JLabel lblNewLabel = new JLabel("You can start a new Game!");
+		lblNewLabel = new JLabel("You can start a new Game!");
 		lblNewLabel.setBounds(29, 432, 329, 28);
 		frmDungeonKeep.getContentPane().add(lblNewLabel);
 		
 		
-		JButton btnNewButton = new JButton("Up");
-		JButton btnNewButton_1 = new JButton("Right");
-		JButton btnNewButton_2 = new JButton("Left");
-		JButton btnNewButton_3 = new JButton("Down");
+		btnNewButton = new JButton("Up");
+		btnNewButton_1 = new JButton("Right");
+		btnNewButton_2 = new JButton("Left");
+		btnNewButton_3 = new JButton("Down");
 		
 		btnNewButton.setEnabled(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				nextMove("w",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
+				nextMove("w");
 			}
 		});
 		btnNewButton.setBounds(442, 234, 73, 20);
@@ -104,7 +111,7 @@ public class Window {
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nextMove("d",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
+				nextMove("d");
 			}
 		});
 		btnNewButton_1.setEnabled(false);
@@ -115,7 +122,7 @@ public class Window {
 		btnNewButton_2.setEnabled(false);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nextMove("a",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
+				nextMove("a");
 			}
 		});
 		btnNewButton_2.setBounds(395, 265, 73, 20);
@@ -124,7 +131,7 @@ public class Window {
 		
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nextMove("s",text,lblNewLabel,btnNewButton,btnNewButton_1,btnNewButton_2,btnNewButton_3);
+				nextMove("s");
 			}
 		});
 		btnNewButton_3.setEnabled(false);
@@ -296,7 +303,7 @@ public Game[] newGame(int guardType, int numberOfOgres){
 		return gamearray;
 	}
 
-public void nextMove(String m,JTextArea text,JLabel lblNewLabel,JButton btnNewButton,JButton btnNewButton_1,JButton btnNewButton_2,JButton btnNewButton_3){
+public void nextMove(String m){
 	if(currentGame==1){
 		if(game1.losscheck()==0 && game1.wincheck()==0){
 			lblNewLabel.setText("You can play now");
