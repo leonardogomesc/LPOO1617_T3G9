@@ -18,12 +18,12 @@ public class Window {
 	private Game game2;
     private int currentGame;
     
-    JButton btnNewButton;
-	JButton btnNewButton_1;
-	JButton btnNewButton_2 ;
-	JButton btnNewButton_3;
-	JLabel lblNewLabel;
-	JTextArea text;
+   private JButton btnNewButton;
+   private JButton btnNewButton_1;
+   private JButton btnNewButton_2 ;
+   private JButton btnNewButton_3;
+   private JLabel lblNewLabel;
+   private JTextArea text;
     
 	
 	/**

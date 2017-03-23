@@ -18,11 +18,11 @@ public class Image extends JPanel
 implements MouseListener, MouseMotionListener, KeyListener {
 
 	private BufferedImage image;
-	private Window2 w;
+	private GameWindow w;
 	private int x1 = 0, y1 = 0, x2 = 0, y2 = 0; 
 
 	
-	public Image(Window2 window) { 
+	public Image(GameWindow window) { 
 		addMouseListener(this); 
 		addMouseMotionListener(this); 
 		addKeyListener(this); 

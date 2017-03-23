@@ -33,11 +33,11 @@ public class Window2 {
 	private Game game1;
 	private Game game2;
 	private int currentGame;
-	JButton btnDown;
-	JButton btnUp;
-	JButton btnL;
-	JButton btnR;
-	JTextArea textArea;
+	 private JButton btnDown;
+	 private JButton btnUp;
+	 private JButton btnL;
+	 private JButton btnR;
+	 private JTextArea textArea;
 	
 
 	/**
