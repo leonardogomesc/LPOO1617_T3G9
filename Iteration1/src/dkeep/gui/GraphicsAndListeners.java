@@ -27,6 +27,8 @@ implements MouseListener, MouseMotionListener, KeyListener {
 	private BufferedImage ogre;
 	private BufferedImage bat;
 	private BufferedImage guard;
+	private BufferedImage stunnedOgre;
+	private BufferedImage lever;
 	
 	private GameWindow w;
 	private int x, y,size; 
@@ -41,7 +43,19 @@ implements MouseListener, MouseMotionListener, KeyListener {
 		y=0;
 		
 		try {
-			wall = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/wall.png"));
+			wall = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/wall.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			stunnedOgre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			lever = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/lever.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,14 +145,20 @@ implements MouseListener, MouseMotionListener, KeyListener {
 				else if(map[i][i2]=='H'||map[i][i2]=='A'||map[i][i2]=='K'){
 					g.drawImage(hero,x,y,size,size,null);
 				}
-				else if(map[i][i2]=='k'){
+				else if(map[i][i2]=='k' && w.currentGame==2){
 					g.drawImage(key,x,y,size,size,null);
+				}
+				else if(map[i][i2]=='k' && w.currentGame==1){
+					g.drawImage(lever,x,y,size,size,null);
 				}
 				else if(map[i][i2]=='G'||map[i][i2]=='g'){
 					g.drawImage(guard,x,y,size,size,null);
 				}
-				else if(map[i][i2]=='O'||map[i][i2]=='8'){
+				else if(map[i][i2]=='O'){
 					g.drawImage(ogre,x,y,size,size,null);
+				}
+				else if(map[i][i2]=='8'){
+					g.drawImage(stunnedOgre,x,y,size,size,null);
 				}
 				else if(map[i][i2]=='*'){
 					g.drawImage(bat,x,y,size,size,null);
@@ -152,6 +172,7 @@ implements MouseListener, MouseMotionListener, KeyListener {
 		x=0;
 		y=0;
 		}
+	
 		/*
 	Graphics2D g2=(Graphics2D) g;
 		
@@ -163,7 +184,8 @@ implements MouseListener, MouseMotionListener, KeyListener {
 		g2.drawImage(ogre,280,0,70,70,null);
 		g2.drawImage(bat,350,0,70,70,null);
 		g2.drawImage(wall,0,70,70,70,null);
-		g2.drawImage(guard,70,70,70,70,null);*/
+		g2.drawImage(guard,70,70,70,70,null);
+		g.drawImage(lever,140,70,70,70,null);*/
 	}
 
 
