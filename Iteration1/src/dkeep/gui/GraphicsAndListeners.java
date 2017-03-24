@@ -49,66 +49,66 @@ implements MouseListener, MouseMotionListener, KeyListener {
 		x=0;
 		y=0;
 		
-		try {
-			wall = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/wall.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			stunnedOgre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			lever = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/lever.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			key = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/key.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			door = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/door.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			hero = ImageIO.read(new File ("C:/Users/Leonardo/Desktop/Images/hero.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			closedDoor = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/closedDoor.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			ogre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			bat = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/bat.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			guard = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/guard.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			wall = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/wall.jpg"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			stunnedOgre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			lever = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/lever.png"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			key = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/key.png"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			door = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/door.png"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			hero = ImageIO.read(new File ("C:/Users/Leonardo/Desktop/Images/hero.png"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			closedDoor = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/closedDoor.jpg"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			ogre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			bat = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/bat.jpg"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			guard = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/guard.png"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	} 
 
 	@Override
@@ -136,7 +136,12 @@ implements MouseListener, MouseMotionListener, KeyListener {
 			}
 			map=w.game2.getMap().getMap();
 		}
-		}else 
+		
+		paintImages(g, map);
+		
+		}
+		}
+		else if(level!=null)
 		{
 			if(level.getMap().getMap()[0].length < level.getMap().getMap().length){
 				size=450/level.getMap().getMap().length;
@@ -145,49 +150,8 @@ implements MouseListener, MouseMotionListener, KeyListener {
 				size=450/level.getMap().getMap()[0].length;
 			}
 			map=level.getMap().getMap();
-		}
-		super.paintComponent(g);
 		
-		for(int i=0;i<map.length;i++){
-			for(int i2=0;i2<map[i].length;i2++){
-				if(map[i][i2]=='X'){
-					g.drawImage(wall,x,y,size,size,null);
-				}
-				else if(map[i][i2]=='S'){
-					g.drawImage(door,x,y,size,size,null);
-				}
-				else if(map[i][i2]=='I'){
-					g.drawImage(closedDoor,x,y,size,size,null);
-				}
-				else if(map[i][i2]=='H'||map[i][i2]=='A'||map[i][i2]=='K'){
-					g.drawImage(hero,x,y,size,size,null);
-				}
-				else if(map[i][i2]=='k' && w.currentGame==2){
-					g.drawImage(key,x,y,size,size,null);
-				}
-				else if(map[i][i2]=='k' && w.currentGame==1){
-					g.drawImage(lever,x,y,size,size,null);
-				}
-				else if(map[i][i2]=='G'||map[i][i2]=='g'){
-					g.drawImage(guard,x,y,size,size,null);
-				}
-				else if(map[i][i2]=='O'){
-					g.drawImage(ogre,x,y,size,size,null);
-				}
-				else if(map[i][i2]=='8'){
-					g.drawImage(stunnedOgre,x,y,size,size,null);
-				}
-				else if(map[i][i2]=='*'){
-					g.drawImage(bat,x,y,size,size,null);
-				}
-				x=x+size;
-			}
-			x=0;
-			y=y+size;
-		}
-		
-		x=0;
-		y=0;
+			paintImages(g, map);
 		}
 	
 		/*
@@ -205,7 +169,56 @@ implements MouseListener, MouseMotionListener, KeyListener {
 		g.drawImage(lever,140,70,70,70,null);*/
 	}
 
-
+private void paintImages(Graphics g, char map[][]){
+	
+	   super.paintComponent(g);
+	   
+	   x=0;
+	   y=0;
+	   
+	for(int i=0;i<map.length;i++){
+		for(int i2=0;i2<map[i].length;i2++){
+			if(map[i][i2]=='X'){
+				g.drawImage(wall,x,y,size,size,null);
+			}
+			else if(map[i][i2]=='S'){
+				g.drawImage(door,x,y,size,size,null);
+			}
+			else if(map[i][i2]=='I'){
+				g.drawImage(closedDoor,x,y,size,size,null);
+			}
+			else if(map[i][i2]=='H'||map[i][i2]=='A'||map[i][i2]=='K'){
+				g.drawImage(hero,x,y,size,size,null);
+			}
+			else if(map[i][i2]=='k' && w.currentGame==2){
+				g.drawImage(key,x,y,size,size,null);
+			}
+			else if(map[i][i2]=='k' && w.currentGame==1){
+				g.drawImage(lever,x,y,size,size,null);
+			}
+			else if(map[i][i2]=='G'||map[i][i2]=='g'){
+				g.drawImage(guard,x,y,size,size,null);
+			}
+			else if(map[i][i2]=='O'){
+				g.drawImage(ogre,x,y,size,size,null);
+			}
+			else if(map[i][i2]=='8'){
+				g.drawImage(stunnedOgre,x,y,size,size,null);
+			}
+			else if(map[i][i2]=='*'){
+				g.drawImage(bat,x,y,size,size,null);
+			}
+			x=x+size;
+		}
+		x=0;
+		y=y+size;
+	}
+	
+	x=0;
+	y=0;
+	
+	
+}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
