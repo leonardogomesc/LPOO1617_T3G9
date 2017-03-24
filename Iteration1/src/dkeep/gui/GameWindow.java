@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -30,11 +32,11 @@ public class GameWindow {
 	private JButton btnDown;
 	private JButton btnRight;
 	private JButton btnLeft;
-	private JLabel label_2;
-	private JTextArea textArea;
+	private JLabel textArea_1;
+	private JPanel panel;
 	
-	private Game game1, game2;
-	private int currentGame;
+	Game game1, game2;
+	int currentGame;
 	
 
 	/**
@@ -65,15 +67,16 @@ public class GameWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 600);
+		frame.setBounds(100, 100, 800, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel = new Image(this);
-		panel.setBounds(0, 0, 784, 561);
+		panel = new GraphicsAndListeners(this);
+		panel.setBounds(30, 127, 450, 450);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		panel.requestFocusInWindow();
+		
 		
 		btnUp = new JButton("Up");
 		btnDown = new JButton("Down");
@@ -82,15 +85,23 @@ public class GameWindow {
 		JButton btnExit = new JButton("Exit");
 		JButton btnNewGame = new JButton("New Game");
 		JButton btnLevelEditor = new JButton("Level Editor");
-		textArea = new JTextArea();
+		textArea_1 = new JLabel("You can start a new Game!");
+		textField = new JTextField();
+		JComboBox comboBox = new JComboBox();
 		
-		label_2 = new JLabel("You can start a new Game!");
+		btnUp.setEnabled(false);
+		btnDown.setEnabled(false);
+		btnRight.setEnabled(false);
+		btnLeft.setEnabled(false);
 		
 		btnUp.setFocusable(false);
+		btnDown.setFocusable(false);
+		btnRight.setFocusable(false);
+		btnLeft.setFocusable(false);
+		btnExit.setFocusable(false);
+		btnNewGame.setFocusable(false);
+		btnLevelEditor.setFocusable(false);
 		
-		textField = new JTextField();
-		
-		JComboBox comboBox = new JComboBox();
 		
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,37 +109,34 @@ public class GameWindow {
 			}
 		});
 		btnUp.setBounds(615, 193, 80, 30);
-		panel.add(btnUp);
+		frame.getContentPane().add(btnUp);
 		
 	
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nextMove("s");
-				panel.requestFocusInWindow();
 			}
 		});
 		btnDown.setBounds(620, 282, 80, 30);
-		panel.add(btnDown);
+		frame.getContentPane().add(btnDown);
 		
 	
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nextMove("d");
-				panel.requestFocusInWindow();
 			}
 		});
 		btnRight.setBounds(674, 238, 80, 30);
-		panel.add(btnRight);
+		frame.getContentPane().add(btnRight);
 		
 		
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nextMove("a");
-				panel.requestFocusInWindow();
 			}
 		});
 		btnLeft.setBounds(560, 238, 80, 30);
-		panel.add(btnLeft);
+		frame.getContentPane().add(btnLeft);
 		
 		
 		btnExit.addActionListener(new ActionListener() {
@@ -137,7 +145,7 @@ public class GameWindow {
 			}
 		});
 		btnExit.setBounds(620, 495, 89, 23);
-		panel.add(btnExit);
+		frame.getContentPane().add(btnExit);
 		
 		
 		btnNewGame.addActionListener(new ActionListener() {
@@ -196,25 +204,28 @@ public class GameWindow {
 				btnLeft.setEnabled(true);
 				currentGame=1;
 				
-				textArea.setText(game1.getMap().to_String());
+			//	textArea.setText(game1.getMap().to_String());
 				
-				label_2.setText("You can play now");
+				
+				textArea_1.setText("You can play now");
+				panel.repaint();
 				}
 				else if(guardType==-1 && numberOfOgres==-1){
-					label_2.setText("Invalid Number of Ogres and Type of Guard");
+					textArea_1.setText("Invalid Number of Ogres and Type of Guard");
 				}
 				else if(guardType==-1){
-					label_2.setText("Invalid Type of Guard");
+					textArea_1.setText("Invalid Type of Guard");
 				}
 				else if(numberOfOgres==-1){
-					label_2.setText("Invalid Number of Ogres");
+					textArea_1.setText("Invalid Number of Ogres");
 				}
 				
 				panel.requestFocusInWindow();
-			}
+			
+		}
 		});
 		btnNewGame.setBounds(591, 72, 131, 23);
-		panel.add(btnNewGame);
+		frame.getContentPane().add(btnNewGame);
 		
 		
 		btnLevelEditor.addActionListener(new ActionListener() {
@@ -222,35 +233,29 @@ public class GameWindow {
 			}
 		});
 		btnLevelEditor.setBounds(589, 430, 149, 23);
-		panel.add(btnLevelEditor);
+		frame.getContentPane().add(btnLevelEditor);
 		
 		JLabel label = new JLabel("Number of Ogres");
 		label.setBounds(39, 31, 118, 14);
-		panel.add(label);
+		frame.getContentPane().add(label);
 		
 		JLabel label_1 = new JLabel("Guard Personality");
 		label_1.setBounds(39, 76, 109, 14);
-		panel.add(label_1);
+		frame.getContentPane().add(label_1);
 		
 		
 		textField.setColumns(10);
 		textField.setBounds(177, 28, 35, 20);
-		panel.add(textField);
+		frame.getContentPane().add(textField);
 		
 		
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Rookie", "Drunken", "Suspicious"}));
 		comboBox.setBounds(178, 73, 131, 20);
-		panel.add(comboBox);
+		frame.getContentPane().add(comboBox);
 		
 		
-		label_2.setBounds(36, 511, 329, 28);
-		panel.add(label_2);
-		
-		textArea = new JTextArea();
-		textArea.setFont(new Font("Courier New", Font.PLAIN, 13));
-		textArea.setEditable(false);
-		textArea.setBounds(77, 143, 388, 327);
-		panel.add(textArea);
+		textArea_1.setBounds(30, 610, 500, 23);
+		frame.getContentPane().add(textArea_1);
 	}
 	
 	
@@ -321,39 +326,39 @@ public Game[] newGame(int guardType, int numberOfOgres){
 	public void nextMove(String m){
 		if(currentGame==1){
 			if(game1.losscheck()==0 && game1.wincheck()==0){
-				label_2.setText("You can play now");
+				textArea_1.setText("You can play now");
 				
 				game1.getHero().HeroMove(game1.getMap(), m);
 				game1.getGuard().GuardMove(game1.getMap());
 				
 				
 				if(game1.losscheck()==1){
-					label_2.setText("You lost!");
+					textArea_1.setText("You lost!");
 					btnUp.setEnabled(false);
 					btnDown.setEnabled(false);
 					btnRight.setEnabled(false);
 					btnLeft.setEnabled(false);
 				}
 				
-				textArea.setText(game1.getMap().to_String());
+				//textArea.setText(game1.getMap().to_String());
 
 				if(game1.wincheck()==1){
 					currentGame=2;
-					textArea.setText(game2.getMap().to_String());
+					//textArea.setText(game2.getMap().to_String());
 				}
 				
 			}
 		}
 		else if(currentGame==2){
 			if(game2.losscheckkeep()==0 && game2.wincheck()==0){
-				label_2.setText("You can play now");
+				textArea_1.setText("You can play now");
 				
 				game2.getHero().HeroMove(game2.getMap(), m);
 				game2.OgreMove();
 				
 				
 				if(game2.losscheckkeep()==1){
-					label_2.setText("You lost!");
+					textArea_1.setText("You lost!");
 					btnUp.setEnabled(false);
 					btnDown.setEnabled(false);
 					btnRight.setEnabled(false);
@@ -361,10 +366,10 @@ public Game[] newGame(int guardType, int numberOfOgres){
 				}
 				
 				
-				textArea.setText(game2.getMap().to_String());
+				//textArea.setText(game2.getMap().to_String());
 
 				if(game2.wincheck()==1){
-					label_2.setText("You won!");
+					textArea_1.setText("You won!");
 					btnUp.setEnabled(false);
 					btnDown.setEnabled(false);
 					btnRight.setEnabled(false);
@@ -373,5 +378,7 @@ public Game[] newGame(int guardType, int numberOfOgres){
 				
 			}
 		}	
+		panel.repaint();
+		
 	}
 }
