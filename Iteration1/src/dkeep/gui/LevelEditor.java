@@ -72,7 +72,7 @@ implements ActionListener, DocumentListener{
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				setVisible(false);
 			}
 		});
 		btnCancel.setBounds(299, 363, 98, 26);
