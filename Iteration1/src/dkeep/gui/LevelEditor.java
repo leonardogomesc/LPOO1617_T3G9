@@ -37,7 +37,7 @@ implements ActionListener, DocumentListener{
 	private static final int MIN_SIZE = 8;
 	private static final int MAX_SIZE = 15;
 	private Map map;
-	private char board[][];
+	private char board[][]=new char[1][1];
 	private int doorPos[][];
 	private int keyPos[];
 	private int mapType; 
@@ -300,9 +300,11 @@ implements ActionListener, DocumentListener{
 
 		if((this.comp<MIN_SIZE) || (this.comp>MAX_SIZE)||(this.larg<MIN_SIZE)||(this.larg>MAX_SIZE))
 			this.panelTools.setVisible(false);
-		else {this.panelTools.setVisible(true); }
-		board= new char[comp][larg];
-		fillWalls();
+		else {
+			this.panelTools.setVisible(true); 
+			board= new char[comp][larg];
+			fillWalls();}
+		
 	}
 	
 	public Map getMap()
@@ -313,9 +315,9 @@ implements ActionListener, DocumentListener{
 	private void fillWalls(){
 		for(int i=0;i<board.length;++i){
 			board[i][0]='X';
-			board[i][board.length-1]='X';}
+			board[i][board[0].length-1]='X';}
 		for(int i=0;i<board[0].length;++i) {board[0][i]='X';}
-		for(int i=0;i<board[board.length-1].length;++i) {board[board.length-1][i]='X';}
+		for(int i=0;i<board[0].length;++i) {board[board.length-1][i]='X';}
 		this.inputPanel.repaint();
 	}
 }
