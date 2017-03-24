@@ -30,15 +30,22 @@ implements MouseListener, MouseMotionListener, KeyListener {
 	private BufferedImage stunnedOgre;
 	private BufferedImage lever;
 	
+	private LevelEditor level;
 	private GameWindow w;
 	private int x, y,size; 
 
 	
-	public GraphicsAndListeners(GameWindow window) { 
+	public GraphicsAndListeners(Object window) { 
 		addMouseListener(this); 
 		addMouseMotionListener(this); 
-		addKeyListener(this); 
-		w=window;
+		addKeyListener(this);
+		if(window instanceof GameWindow){
+		w=(GameWindow)window;
+		level=null;
+		}else if(window instanceof LevelEditor){
+			w=null;
+			level=(LevelEditor)window;
+		}
 		x=0;
 		y=0;
 		
@@ -106,9 +113,10 @@ implements MouseListener, MouseMotionListener, KeyListener {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		if(w.currentGame==1 || w.currentGame==2){
-		
 		char map[][]=new char[0][0];
+		if(w!=null)
+		{
+		if(w.currentGame==1 || w.currentGame==2){
 		
 		if(w.currentGame==1){
 			if(w.game1.getMap().getMap()[0].length < w.game1.getMap().getMap().length){
@@ -128,7 +136,16 @@ implements MouseListener, MouseMotionListener, KeyListener {
 			}
 			map=w.game2.getMap().getMap();
 		}
-		
+		}else 
+		{
+			if(level.getMap().getMap()[0].length < level.getMap().getMap().length){
+				size=450/level.getMap().getMap().length;
+			}
+			else{
+				size=450/level.getMap().getMap()[0].length;
+			}
+			map=level.getMap().getMap();
+		}
 		super.paintComponent(g);
 		
 		for(int i=0;i<map.length;i++){
