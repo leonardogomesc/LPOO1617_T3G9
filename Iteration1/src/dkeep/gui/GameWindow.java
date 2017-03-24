@@ -230,6 +230,8 @@ public class GameWindow {
 		
 		btnLevelEditor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				LevelEditor newLevel = new LevelEditor();
+				newLevel.setVisible(true);
 			}
 		});
 		btnLevelEditor.setBounds(589, 430, 149, 23);
