@@ -49,66 +49,66 @@ implements MouseListener, MouseMotionListener, KeyListener {
 		x=0;
 		y=0;
 		
-//		try {
-//			wall = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/wall.jpg"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			stunnedOgre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			lever = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/lever.png"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			key = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/key.png"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			door = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/door.png"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			hero = ImageIO.read(new File ("C:/Users/Leonardo/Desktop/Images/hero.png"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			closedDoor = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/closedDoor.jpg"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			ogre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			bat = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/bat.jpg"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			guard = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/guard.png"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			wall = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/wall.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			stunnedOgre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			lever = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/lever.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			key = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/key.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			door = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/door.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			hero = ImageIO.read(new File ("C:/Users/Leonardo/Desktop/Images/hero.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			closedDoor = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/closedDoor.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ogre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			bat = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/bat.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			guard = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/guard.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	} 
 
 	@Override

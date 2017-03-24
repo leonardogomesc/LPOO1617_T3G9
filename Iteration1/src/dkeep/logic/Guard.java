@@ -5,7 +5,7 @@ import java.util.Random;
 public class Guard{
 	private int guard[][];
 	private int guardpos;
-	private int type; //rookie-1 /drunken-2 /suspicious-3
+	private int type; //rookie-0 /drunken-1 /suspicious-2
 	private int direction;
 	private int sleep;
 
@@ -31,7 +31,7 @@ public class Guard{
 		Random rand = new Random();
 		int random=-1;
 		
-		if(type==1){
+		if(type==0){
 			 map[guard[guardpos][0]][guard[guardpos][1]]=' ';
 			 
 			if(guardpos==guard.length-1) {
@@ -43,7 +43,7 @@ public class Guard{
 				guardpos=guardpos+1;
 			}
 		} 
-		else if(type==2){
+		else if(type==1){
 			
 			map[guard[guardpos][0]][guard[guardpos][1]]=' ';
 			
@@ -98,7 +98,7 @@ public class Guard{
 			}
 			
 		} 
-		else if (type==3){
+		else if (type==2){
 			random=rand.nextInt(5);
 			
 
