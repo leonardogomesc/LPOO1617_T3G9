@@ -84,6 +84,7 @@ public class Game {
 {
 		int keyPos[]= new int[2];
 		String bat;
+		int basher;
 		
 		in.useDelimiter("\n");
 		String line=in.next();
@@ -105,11 +106,12 @@ public class Game {
 		//next line
 		line=in.next();
 		
-		//hero position		
-		coordh[0]=Integer.parseInt(line.substring(0, 1));
-		coordh[1]=Integer.parseInt(line.substring(2, 3));
+		//hero position	
+		basher=Integer.parseInt(line.substring(0, 1));
+		coordh[0]=Integer.parseInt(line.substring(2, 3));
+		coordh[1]=Integer.parseInt(line.substring(4, 5));
 		
-		h=new Hero(coordh,type);
+		h=new Hero(coordh,basher);
 		
 		//next line
 				
