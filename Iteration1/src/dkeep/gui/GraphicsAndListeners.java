@@ -98,19 +98,19 @@ implements MouseListener, MouseMotionListener, KeyListener {
 		
 		if(w.currentGame==1){
 			if(w.game1.getMap().getMap()[0].length < w.game1.getMap().getMap().length){
-				size=450/w.game1.getMap().getMap()[0].length;
+				size=450/w.game1.getMap().getMap().length;
 			}
 			else{
-				size=450/w.game1.getMap().getMap().length;
+				size=450/w.game1.getMap().getMap()[0].length;
 			}
 			map=w.game1.getMap().getMap();
 		}
 		else if(w.currentGame==2){
 			if(w.game2.getMap().getMap()[0].length < w.game2.getMap().getMap().length){
-				size=450/w.game2.getMap().getMap()[0].length;
+				size=450/w.game2.getMap().getMap().length;
 			}
 			else{
-				size=450/w.game2.getMap().getMap().length;
+				size=450/w.game2.getMap().getMap()[0].length;
 			}
 			map=w.game2.getMap().getMap();
 		}
