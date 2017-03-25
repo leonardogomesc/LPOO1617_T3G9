@@ -1,105 +1,49 @@
 package dkeep.logic;
 
-import java.util.Scanner;
-
-import dkeep.cli.Input;
-
 public class Hero {
 	private int hero[];
 	private int basher;
-	
+	private char [][]map;
+	private int[] keypos;
+	private int key;
+	private int[][] doors;
+	private int mapType;
 	public Hero(int heropos[], int b){
 		hero=heropos;
-		basher=b;
-	}
+		basher=b; }
 
-	public int[] getHero(){
-		return hero;
-	}
+	public int[] getHero(){return hero; }
 
-	public int getBasher() {
-		return basher;
-	}
-	
-	public void HeroMove(Map m,String move){
-	
-		char map[][]=m.getMap();
-		int keypos[]=m.getKeyPos();
-		int key=m.getKey();
-		int doors[][]=m.getDoors();
-		
-		char h='H';
+	public int getBasher() {return basher; }
+	private char getSymbol(){
 		if(basher==1){
-			h='A';
+			return 'A';
 		}
-		if(key==0 && m.getMapType()==2){
-			h='K';
+		if(key==0 && mapType==2){
+			return 'K';
 		}
-
-		switch(move){
-		case "w":
-			if(map[hero[0]-1][hero[1]]!='X' && map[hero[0]-1][hero[1]]!='I'){
-				map[hero[0]][hero[1]]=' ';
-				map[hero[0]-1][hero[1]]=h;
-				hero[0]=hero[0]-1;		
-			}
-			else if(m.getMapType()==2 && map[hero[0]-1][hero[1]]=='I' && key==0){
-				map[hero[0]-1][hero[1]]='S';
-			}
-			break;
-		case "a":
-			if(map[hero[0]][hero[1]-1]!='X' && map[hero[0]][hero[1]-1]!='I'){
-				map[hero[0]][hero[1]]=' ';
-				map[hero[0]][hero[1]-1]=h;
-				hero[1]=hero[1]-1;
-			}
-			else if(m.getMapType()==2 && map[hero[0]][hero[1]-1]=='I' && key==0){
-				map[hero[0]][hero[1]-1]='S';
-			}
-			break;
-		case "s":
-			if(map[hero[0]+1][hero[1]]!='X' && map[hero[0]+1][hero[1]]!='I'){
-				map[hero[0]][hero[1]]=' ';
-				map[hero[0]+1][hero[1]]=h;
-				hero[0]=hero[0]+1;
-			}
-			else if(m.getMapType()==2 && map[hero[0]+1][hero[1]]=='I' && key==0){
-				map[hero[0]+1][hero[1]]='S';
-			}
-			break;
-		case "d":
-			if(map[hero[0]][hero[1]+1]!='X' && map[hero[0]][hero[1]+1]!='I'){
-				map[hero[0]][hero[1]]=' ';
-				map[hero[0]][hero[1]+1]=h;
-				hero[1]=hero[1]+1;
-			}
-			else if(m.getMapType()==2 && map[hero[0]][hero[1]+1]=='I' && key==0){
-				map[hero[0]][hero[1]+1]='S';
-				
-			}
-			break;
-		default:
-			break;
-		}
-
-		
-		if((hero[0]==keypos[0] && hero[1]==keypos[1]) && m.getMapType()==1){
-			for(int i=0;i<doors.length;i++){
-				map[doors[i][0]][doors[i][1]]='S';
-				
-			}
-			m.setKey(0);
-		}
-		else if((hero[0]==keypos[0] && hero[1]==keypos[1]) && m.getMapType()==2){
-
-			m.setKey(0);
-			map[hero[0]][hero[1]]='K';
-			
-		}
-		
-		if(m.getMapType()==1 && !(hero[0]==keypos[0] && hero[1]==keypos[1])){
-			map[keypos[0]][keypos[1]]='k';
-		}
-		
+		return 'H';
 	}
-}
+	private int[] setMovement(String move){
+		int inc[]={0,0};
+		switch(move){
+		case "w": inc[0]=-1; break;
+		case "a": inc[1]=-1; break;
+		case "s": inc[0]=1; break;
+		case "d": inc[1]=1; break; }
+		return inc;
+	}
+	public void HeroMove(Map m,String move){
+		map=m.getMap(); keypos=m.getKeyPos();
+		key=m.getKey(); doors=m.getDoors();
+		mapType=m.getMapType();
+		char h=getSymbol(); int inc[]=setMovement(move);
+		if(map[hero[0]+inc[0]][hero[1]+inc[1]]!='X' && map[hero[0]+inc[0]][hero[1]+inc[1]]!='I'){
+				map[hero[0]][hero[1]]=' '; hero[0]=hero[0]+inc[0]; hero[1]=hero[1]+inc[1];
+				map[hero[0]][hero[1]]=h; }
+			else if(mapType==2 && map[hero[0]+inc[0]][hero[1]+inc[1]]=='I' && key==0){map[hero[0]+inc[0]][hero[1]+inc[1]]='S'; }		
+		if((hero[0]==keypos[0] && hero[1]==keypos[1]) && mapType==1){
+			for(int i=0;i<doors.length;i++){map[doors[i][0]][doors[i][1]]='S'; }
+			m.setKey(0); }
+		else if((hero[0]==keypos[0] && hero[1]==keypos[1]) && mapType==2){m.setKey(0); map[hero[0]][hero[1]]='K'; }
+		if(mapType==1 && !(hero[0]==keypos[0] && hero[1]==keypos[1])){map[keypos[0]][keypos[1]]='k'; } } }
