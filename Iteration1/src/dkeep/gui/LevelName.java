@@ -30,6 +30,7 @@ implements DocumentListener{
 	private JTextField NameInput;
 	private JLabel lblStatus;
 	private JButton btnSave;
+	private JButton btnCancel;
 	private LevelEditor newLevel;
 	private String levelName;
 
@@ -37,42 +38,22 @@ implements DocumentListener{
 	 * Create the frame.
 	 */
 	public LevelName(LevelEditor newLevel) {
+		this.newLevel=newLevel;
+		InitFrame();
+		InitNameInput();
+		InitBtns();
+		InitLabels(); }
+	
+	private void InitFrame(){
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 230, 152);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		this.newLevel=newLevel;
-		
-		NameInput = new JTextField();
-		NameInput.setBounds(10, 37, 166, 20);
-		contentPane.add(NameInput);
-		NameInput.setColumns(10);
-		NameInput.getDocument().addDocumentListener(this);
-		
-		btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Ogre[] ogres={new Ogre(newLevel.ogrePos, newLevel.batPos)};
-				Map map=new Map(newLevel.board, newLevel.doorPos, newLevel.keyPos, newLevel.basher);
-				Game newGame=new Game(map, new Hero(newLevel.heroPos, newLevel.basher),	ogres );
-				newGame.SaveLevelFile(levelName, map);
-			}
-		});
-		btnSave.setEnabled(false);
-		btnSave.setBounds(10, 82, 89, 23);
-		contentPane.add(btnSave);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {setVisible(false); }
-		});
-		btnCancel.setBounds(109, 82, 89, 23);
-		contentPane.add(btnCancel);
-		
+		contentPane.setLayout(null); }
+	
+	private void InitLabels(){
 		JLabel lblmap = new JLabel(".map");
 		lblmap.setBounds(178, 40, 46, 14);
 		contentPane.add(lblmap);
@@ -85,8 +66,38 @@ implements DocumentListener{
 		lblStatus.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblStatus.setForeground(Color.BLACK);
 		lblStatus.setBounds(10, 57, 166, 14);
-		contentPane.add(lblStatus);
-	}
+		contentPane.add(lblStatus); }
+	
+	private void InitBtns(){
+		InitBtnSave();
+		InitBtnCancel(); }
+	
+	private void InitBtnSave(){
+		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Ogre[] ogres={new Ogre(newLevel.ogrePos, newLevel.batPos)};
+				Map map=new Map(newLevel.board, newLevel.doorPos, newLevel.keyPos, newLevel.basher);
+				Game newGame=new Game(map, new Hero(newLevel.heroPos, newLevel.basher),	ogres );
+				newGame.SaveLevelFile(levelName, map); } });
+		btnSave.setEnabled(false);
+		btnSave.setBounds(10, 82, 89, 23);
+		contentPane.add(btnSave); }
+	
+	private void InitBtnCancel(){
+		btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {setVisible(false); }
+		});
+		btnCancel.setBounds(109, 82, 89, 23);
+		contentPane.add(btnCancel); }
+	
+	private void InitNameInput(){
+		NameInput = new JTextField();
+		NameInput.setBounds(10, 37, 166, 20);
+		contentPane.add(NameInput);
+		NameInput.setColumns(10);
+		NameInput.getDocument().addDocumentListener(this); }
 
 	@Override
 	public void insertUpdate(DocumentEvent e) {validName(e); }
@@ -106,7 +117,5 @@ implements DocumentListener{
 				btnSave.setEnabled(false);}
 			else {
 				lblStatus.setText("");
-				btnSave.setEnabled(true);}
-		}
-	}
+				btnSave.setEnabled(true);} } }
 }
