@@ -26,7 +26,7 @@ int hero[]={1,1};
 public void testMoveHeroIntoFreeCell(){
 	  Map m=new Map(map,doors,keypos,1);
 	  Hero h=new Hero(hero,0);
-	  Guard g=new Guard(guard,1);
+	  Guard g=new Guard(guard,0);
 	
 	  assertEquals(1,h.getHero()[0]);
 	  assertEquals(1,h.getHero()[1]);
@@ -42,7 +42,7 @@ public void testMoveHeroIntoFreeCell(){
 public void testMoveHeroIntoWall(){
 	  Map m=new Map(map,doors,keypos,1);
 	  Hero h=new Hero(hero,0);
-	  Guard g=new Guard(guard,1);
+	  Guard g=new Guard(guard,0);
 	
 	  assertEquals(1,h.getHero()[0]);
 	  assertEquals(1,h.getHero()[1]);
@@ -58,7 +58,7 @@ public void testMoveHeroIntoWall(){
 public void testHeroIsCapturedByGuard(){
 	 Map m=new Map(map,doors,keypos,1);
 	 Hero h=new Hero(hero,0);
-	 Guard g=new Guard(guard,1);
+	 Guard g=new Guard(guard,0);
 	 Game game=new Game(m,h,g);
 	 
 	 assertEquals(0 , game.losscheck());
@@ -73,7 +73,7 @@ public void testHeroIsCapturedByGuard(){
 public void testMoveHeroIntoClosedDoor(){
 	  Map m=new Map(map,doors,keypos,1);
 	  Hero h=new Hero(hero,0);
-	  Guard g=new Guard(guard,1);
+	  Guard g=new Guard(guard,0);
 	
 	  assertEquals(1,h.getHero()[0]);
 	  assertEquals(1,h.getHero()[1]);
@@ -95,7 +95,7 @@ public void testMoveHeroIntoClosedDoor(){
 public void testMoveHeroIntoLever(){
 	  Map m=new Map(map,doors,keypos,1);
 	  Hero h=new Hero(hero,0);
-	  Guard g=new Guard(guard,1);
+	  Guard g=new Guard(guard,0);
 	  
 	  
 	  assertEquals('I',m.getMap()[2][0]);
@@ -117,7 +117,7 @@ public void testMoveHeroIntoLever(){
 public void testMoveHeroIntoOpenDoor(){
 	  Map m=new Map(map,doors,keypos,1);
 	  Hero h=new Hero(hero,0);
-	  Guard g=new Guard(guard,1);
+	  Guard g=new Guard(guard,0);
 	  
 	  h.HeroMove(m, "s");
 	  g.GuardMove(m);
