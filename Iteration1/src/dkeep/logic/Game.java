@@ -66,7 +66,7 @@ public class Game {
 		if(1==(type= Integer.parseInt(line.substring(6, 7)))) {o=new Ogre[info[1]];} //level type
 		NextLine(); h=ReadHero();
 		NextLine(); int [][] doorPos=ReadDoor();
-		NextLine(); ReadKeyPos();
+		NextLine(); keyPos=ReadKeyPos();
 		NextLine();
 		if(0==type) {ReadGuard(info); }
 		else if(1==type) {ReadOgre(info); }
