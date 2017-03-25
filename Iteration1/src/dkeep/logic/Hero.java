@@ -17,13 +17,10 @@ public class Hero {
 	public int getBasher() {return basher; }
 	private char getSymbol(){
 		if(basher==1){
-			return 'A';
-		}
+			return 'A'; }
 		if(key==0 && mapType==2){
-			return 'K';
-		}
-		return 'H';
-	}
+			return 'K'; }
+		return 'H'; }
 	private int[] setMovement(String move){
 		int inc[]={0,0};
 		switch(move){
