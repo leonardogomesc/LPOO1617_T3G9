@@ -27,18 +27,29 @@ import dkeep.logic.Ogre;
 public class LevelEditor extends JFrame 
 implements ActionListener, DocumentListener{
 
+	//Components
 	private JPanel contentPane;
-	private final ButtonGroup LevelType = new ButtonGroup();
 	private JTextField textX;
 	private JTextField textY;
-	private JPanel GraphicPanel;
 	private JPanel panelTools;
 	private JPanel inputPanel;
+	private JButton btnCancel;
+	private JButton btnSave;
+	private JButton btnTest;
+	private JButton btnHero;
+	private JButton btnDoor;
+	private JButton btnWall;
+	private JButton btnOgre;
+	private JButton btnKey;
+	private JButton btnBat;
+	private JButton btnClear;
+	private JButton btnEraseCell;
+	
 	private static final int MIN_SIZE = 8;
 	private static final int MAX_SIZE = 15;
 	
-	int testing;
-	
+	int testing=0;
+	private LevelName newName=null;
 	Game game;
 	
 	//Map
@@ -49,7 +60,6 @@ implements ActionListener, DocumentListener{
 	//Ogre
 	int ogrePos[]=new int[2];
 	int batPos[]=new int[2];
-	int ogreNum=0;
 	
 	//Hero
 	int heroPos[]=new int[2];
@@ -64,7 +74,6 @@ implements ActionListener, DocumentListener{
 	
 	
 	private int comp=0,larg=0;
-	private JTextField OgreAmount;
 
 	/**
 	 * Launch the application.
@@ -86,30 +95,52 @@ implements ActionListener, DocumentListener{
 	 * Create the frame.
 	 */
 	public LevelEditor() {
-		testing=0;
-		
+		InitContentPane();
+		InitFrame();
+		InitInputPanel_PanelTools();
+		InitLblOutput();
+		initEditorBtns();
+		InitLbls();
+		InitTextX();
+		InitTextY();		
+		InitOptionBtns(); }
+	
+	/**
+	 * Functions called by class constructor
+	 */
+	private void InitContentPane(){
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-
+		contentPane.setLayout(null);
+	}
+	
+	private void InitFrame(){
 		this.setResizable(false);
 		this.setBounds(100, 100, 673, 539);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
-		contentPane.setLayout(null);
-		
+	}
+	
+	private void InitLblOutput(){
 		lblOutput = new JLabel("");
 		lblOutput.setBounds(10, 13, 450, 15);
 		contentPane.add(lblOutput);
-		
-		JButton btnCancel = new JButton("Cancel");
+	}
+	
+	
+	private void InitBtnCancel(){
+		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { setVisible(false);} });
+			public void actionPerformed(ActionEvent e) { 
+				setVisible(false); 
+				if(newName!=null) {newName.setVisible(false);}} });
 		btnCancel.setBounds(462, 465, 195, 23);
 		this.getContentPane().add(btnCancel);
-		
-		LevelName newName = new LevelName(this);
-		JButton btnSave = new JButton("Save");
+	}
+	private void InitBtnSave(){
+		newName = new LevelName(this);
+		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -119,17 +150,14 @@ implements ActionListener, DocumentListener{
 		});
 		btnSave.setBounds(462, 431, 95, 23);
 		this.getContentPane().add(btnSave);
-
-		JButton btnTest = new JButton("Test");
+	}
+	private void InitBtnTest(){
+		btnTest = new JButton("Test");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int b;
-				if(checkBox.isSelected()){
-					b=1;
-				}
-				else{
-					b=0;
-				}
+				if(checkBox.isSelected()){b=1; }
+				else{b=0; }
 				
 				Ogre o=new Ogre(ogrePos,batPos);
 				Ogre o2[]={o};
@@ -141,124 +169,12 @@ implements ActionListener, DocumentListener{
 				inputPanel.repaint();
 				testing=1;
 				inputPanel.requestFocusInWindow();
-				lblOutput.setText("You can play now");
-				
-			}
-		});
+				lblOutput.setText("You can play now"); } });
 		btnTest.setBounds(562, 431, 95, 23);
 		this.getContentPane().add(btnTest);
-
-		JLabel lblSize = new JLabel("Size:");
-		lblSize.setBounds(479, 13, 27, 16);
-		this.getContentPane().add(lblSize);
-
-		textX = new JTextField();
-		textX.setBounds(530, 11, 53, 20);
-		this.getContentPane().add(textX);
-		textX.setColumns(10);
-		textX.getDocument().addDocumentListener(this);
-		//textX.getDocument().putProperty("name", "height");
-		textY = new JTextField();
-		textY.setText("");
-		textY.setBounds(603, 11, 54, 20);
-		this.getContentPane().add(textY);
-		//textX.getDocument().putProperty("name", "length");
-		textY.setColumns(10);
-		textY.getDocument().addDocumentListener(this);
-		JLabel lblX = new JLabel("x");
-		lblX.setBounds(590, 13, 26, 16);
-		this.getContentPane().add(lblX);
-
-		inputPanel = new GraphicsAndListeners(this);
-		inputPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		inputPanel.setBounds(10, 38, 450, 450);
-		contentPane.add(inputPanel);
-
-		panelTools = new JPanel();
-		panelTools.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelTools.setBounds(462, 38, 195, 339);
-		contentPane.add(panelTools);
-		panelTools.setVisible(false);
-		panelTools.setLayout(null);
-		JButton btnHero = new JButton("Hero");
-		btnHero.setBounds(10, 140, 98, 26);
-		panelTools.add(btnHero);
-		btnHero.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				lblOutput.setText("Click to place the hero:");
-				option="hero";
-			}
-		});
-
-		JButton btnDoor = new JButton("Door");
-		btnDoor.setBounds(28, 44, 98, 26);
-		panelTools.add(btnDoor);
-		btnDoor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				lblOutput.setText("Click to place doors:");
-				option="door";
-			}
-		});
-
-		JButton btnWall = new JButton("Wall");
-		btnWall.setBounds(28, 92, 98, 26);
-		panelTools.add(btnWall);
-		btnWall.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				lblOutput.setText("Click to place walls:");
-				option="wall";
-			}
-		});
-
-		JLabel lblAdd = new JLabel("Add:");
-		lblAdd.setBounds(26, 11, 55, 16);
-		panelTools.add(lblAdd);
-		
-		checkBox = new JCheckBox("Basher");
-		checkBox.setBounds(123, 141, 66, 24);
-		panelTools.add(checkBox);
-		
-		JButton button = new JButton("Ogre");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				lblOutput.setText("Click to place Ogre:");
-				option="ogre";
-			}
-		});
-		button.setBounds(28, 272, 95, 26);
-		panelTools.add(button);
-		
-		JButton button_1 = new JButton("Key");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				lblOutput.setText("Click to place key:");
-				option="key";
-			}
-		});
-		button_1.setBounds(28, 198, 95, 26);
-		panelTools.add(button_1);
-		
-		JButton btnBat = new JButton("Bat");
-		btnBat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				lblOutput.setText("Click to place bat:");
-				option="bat";
-			}
-		});
-		btnBat.setBounds(28, 235, 95, 26);
-		panelTools.add(btnBat);
-		
-		OgreAmount = new JTextField();
-		OgreAmount.setBounds(106, 305, 66, 20);
-		panelTools.add(OgreAmount);
-		OgreAmount.setColumns(10);
-		OgreAmount.getDocument().addDocumentListener(this);
-		
-		JLabel lblOgreAmount = new JLabel("Ogre Amount");
-		lblOgreAmount.setBounds(28, 308, 79, 14);
-		panelTools.add(lblOgreAmount);
-		
-		JButton btnClear = new JButton("Clear");
+	}
+	private void InitBtnClear(){
+		btnClear = new JButton("Clear");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for(int i=0;i<board.length;i++){
@@ -273,8 +189,9 @@ implements ActionListener, DocumentListener{
 		});
 		btnClear.setBounds(462, 388, 95, 23);
 		contentPane.add(btnClear);
-		
-		JButton btnEraseCell = new JButton("Erase Cell");
+	}
+	private void InitBtnEraseCell(){
+		btnEraseCell = new JButton("Erase Cell");
 		btnEraseCell.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblOutput.setText("Click to Erase Cell:");
@@ -283,10 +200,140 @@ implements ActionListener, DocumentListener{
 		});
 		btnEraseCell.setBounds(562, 388, 95, 23);
 		contentPane.add(btnEraseCell);
-		
-		
 	}
-
+	
+	private void initEditorBtns(){
+		InitBtnCancel();
+		InitBtnSave();
+		InitBtnTest();
+		InitBtnClear();
+		InitBtnEraseCell(); }
+	
+	
+	private void InitLbls(){
+		JLabel lblSize = new JLabel("Size:");
+		lblSize.setBounds(479, 13, 27, 16);
+		this.getContentPane().add(lblSize);
+		
+		JLabel lblX = new JLabel("x");
+		lblX.setBounds(590, 13, 26, 16);
+		this.getContentPane().add(lblX);
+		
+		JLabel lblAdd = new JLabel("Add:");
+		lblAdd.setBounds(26, 11, 55, 16);
+		panelTools.add(lblAdd);
+	}
+	
+	private void InitTextX(){
+		textX = new JTextField();
+		textX.setBounds(530, 11, 53, 20);
+		this.getContentPane().add(textX);
+		textX.setColumns(10);
+		textX.getDocument().addDocumentListener(this);
+	}
+	private void InitTextY(){
+		textY = new JTextField();
+		textY.setText("");
+		textY.setBounds(603, 11, 54, 20);
+		this.getContentPane().add(textY);
+		textY.setColumns(10);
+		textY.getDocument().addDocumentListener(this);
+	}
+	
+	private void InitInputPanel_PanelTools(){
+		inputPanel = new GraphicsAndListeners(this);
+		inputPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		inputPanel.setBounds(10, 38, 450, 450);
+		contentPane.add(inputPanel);
+		panelTools = new JPanel();
+		panelTools.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panelTools.setBounds(462, 38, 195, 339);
+		contentPane.add(panelTools);
+		panelTools.setVisible(false);
+		panelTools.setLayout(null);
+	}
+	
+	
+	private void InitBtnHero(){
+		btnHero = new JButton("Hero");
+		btnHero.setBounds(10, 140, 98, 26);
+		panelTools.add(btnHero);
+		btnHero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblOutput.setText("Click to place the hero:");
+				option="hero"; } });
+		checkBox = new JCheckBox("Basher");
+		checkBox.setBounds(123, 141, 66, 24);
+		panelTools.add(checkBox);
+	}
+	private void InitBtnDoor(){
+		btnDoor = new JButton("Door");
+		btnDoor.setBounds(28, 44, 98, 26);
+		panelTools.add(btnDoor);
+		btnDoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblOutput.setText("Click to place doors:");
+				option="door";
+			}
+		});
+	}
+	private void InitBtnWall(){
+		btnWall = new JButton("Wall");
+		btnWall.setBounds(28, 92, 98, 26);
+		panelTools.add(btnWall);
+		btnWall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblOutput.setText("Click to place walls:");
+				option="wall";
+			}
+		});
+	}
+	private void InitBtnOgre(){
+		btnOgre = new JButton("Ogre");
+		btnOgre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblOutput.setText("Click to place Ogre:");
+				option="ogre";
+			}
+		});
+		btnOgre.setBounds(28, 272, 95, 26);
+		panelTools.add(btnOgre);
+	}
+	private void InitBtnKey(){
+		btnKey = new JButton("Key");
+		btnKey.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblOutput.setText("Click to place key:");
+				option="key";
+			}
+		});
+		btnKey.setBounds(28, 198, 95, 26);
+		panelTools.add(btnKey);
+	}
+	private void InitBtnBat(){
+		btnBat = new JButton("Bat");
+		btnBat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblOutput.setText("Click to place bat:");
+				option="bat";
+			}
+		});
+		btnBat.setBounds(28, 235, 95, 26);
+		panelTools.add(btnBat);
+	}
+	
+	private void InitOptionBtns(){
+		InitBtnHero();
+		InitBtnDoor();
+		InitBtnWall();
+		InitBtnOgre();
+		InitBtnKey();
+		InitBtnBat(); }
+	
+	
+	/**
+	 * Listeners
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	}
@@ -319,10 +366,6 @@ implements ActionListener, DocumentListener{
 			catch(Exception e1) {
 				this.textY.setText("");
 				this.panelTools.setVisible(false);}
-		}else if((e.getDocument()==OgreAmount.getDocument()))
-		{
-			try	{ this.ogreNum=Integer.parseInt(this.OgreAmount.getText()); } 
-			catch(Exception e1) {this.OgreAmount.setText(""); }
 		}
 
 		if((this.comp<MIN_SIZE) || (this.comp>MAX_SIZE)||(this.larg<MIN_SIZE)||(this.larg>MAX_SIZE))
@@ -335,7 +378,9 @@ implements ActionListener, DocumentListener{
 		
 	}
 	
-
+	/**
+	 * auxiliary methods
+	 */
 	private void fillWalls(){
 		for(int i=0;i<board.length;++i){
 			board[i][0]='X';
