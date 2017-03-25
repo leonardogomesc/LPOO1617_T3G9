@@ -6,7 +6,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -188,24 +187,31 @@ public class Game {
 		return result; }
 
 	public int losscheckkeep(){
-		int[] hero=h.getHero(), ogre, bat;
 		int result = 0;
 		for(int i=0;i<o.length;i++){
-			ogre=o[i].getOgre();
-			bat=o[i].getBat();
-			if (h.getBasher()==0){
-				if((hero[0]==ogre[0] && hero[1]==ogre[1]+1) || (hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
+			if (h.getBasher()==0){result=lossKeepNoBasher(i); } 
+			else if(h.getBasher()==1){result=lossKeepBasher(i); } }
+		return result; }
+
+	private int lossKeepBasher(int i){
+		int[] hero=h.getHero(), bat=o[i].getBat();
+		if(	(hero[0]==bat[0] && hero[1]==bat[1]+1) || (hero[0]==bat[0]-1 && hero[1]==bat[1])||
+						(hero[0]==bat[0] && hero[1]==bat[1]-1) || (hero[0]==bat[0]+1 && hero[1]==bat[1])||
+						(hero[0]==bat[0] && hero[1]==bat[1]))
+		{return 1; }
+		return 0;
+	}
+	private int lossKeepNoBasher(int i)
+	{
+		int[] hero=h.getHero(), ogre=o[i].getOgre(),bat=o[i].getBat();
+		if((hero[0]==ogre[0] && hero[1]==ogre[1]+1) || (hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
 						(hero[0]==ogre[0] && hero[1]==ogre[1]-1) || (hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
 						(hero[0]==ogre[0] && hero[1]==ogre[1]) || (hero[0]==bat[0] && hero[1]==bat[1]+1)||
 						(hero[0]==bat[0]-1 && hero[1]==bat[1]) || (hero[0]==bat[0] && hero[1]==bat[1]-1)||
-						(hero[0]==bat[0]+1 && hero[1]==bat[1]) || (hero[0]==bat[0] && hero[1]==bat[1])){
-					result=1; }
-			} else if(h.getBasher()==1){
-				if(	(hero[0]==bat[0] && hero[1]==bat[1]+1) || (hero[0]==bat[0]-1 && hero[1]==bat[1])||
-						(hero[0]==bat[0] && hero[1]==bat[1]-1) || (hero[0]==bat[0]+1 && hero[1]==bat[1])||
-						(hero[0]==bat[0] && hero[1]==bat[1])){result=1; } } }
-		return result; }
-
+						(hero[0]==bat[0]+1 && hero[1]==bat[1]) || (hero[0]==bat[0] && hero[1]==bat[1]))
+		{return 1; }
+		return 0;
+	}
 	public void OgreMove(){
 		int i;
 		for(i=0;i<o.length;i++){o[i].OgreErase(m); }
