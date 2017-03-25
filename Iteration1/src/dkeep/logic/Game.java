@@ -197,18 +197,17 @@ public class Game {
 		int[] hero=h.getHero(), bat=o[i].getBat();
 		if(	(hero[0]==bat[0] && hero[1]==bat[1]+1) || (hero[0]==bat[0]-1 && hero[1]==bat[1])||
 						(hero[0]==bat[0] && hero[1]==bat[1]-1) || (hero[0]==bat[0]+1 && hero[1]==bat[1])||
-						(hero[0]==bat[0] && hero[1]==bat[1]))
-		{return 1; }
+						(hero[0]==bat[0] && hero[1]==bat[1])) {return 1; }
 		return 0;
 	}
 	private int lossKeepNoBasher(int i)
 	{
 		int[] hero=h.getHero(), ogre=o[i].getOgre(),bat=o[i].getBat();
-		if((hero[0]==ogre[0] && hero[1]==ogre[1]+1) || (hero[0]==ogre[0]-1 && hero[1]==ogre[1])||
-						(hero[0]==ogre[0] && hero[1]==ogre[1]-1) || (hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
-						(hero[0]==ogre[0] && hero[1]==ogre[1]) || (hero[0]==bat[0] && hero[1]==bat[1]+1)||
-						(hero[0]==bat[0]-1 && hero[1]==bat[1]) || (hero[0]==bat[0] && hero[1]==bat[1]-1)||
-						(hero[0]==bat[0]+1 && hero[1]==bat[1]) || (hero[0]==bat[0] && hero[1]==bat[1]))
+		if(((hero[0]==ogre[0]) && (hero[1]==ogre[1]+1)) || ((hero[0]==ogre[0]-1) && (hero[1]==ogre[1]))||
+						((hero[0]==ogre[0] && hero[1]==ogre[1]-1)) || ((hero[0]==ogre[0]+1 && hero[1]==ogre[1]))||
+						((hero[0]==ogre[0] && hero[1]==ogre[1])) || ((hero[0]==bat[0] && hero[1]==bat[1]+1))||
+						((hero[0]==bat[0]-1 && hero[1]==bat[1])) || ((hero[0]==bat[0] && hero[1]==bat[1]-1))||
+						((hero[0]==bat[0]+1 && hero[1]==bat[1])) || ((hero[0]==bat[0] && hero[1]==bat[1])))
 		{return 1; }
 		return 0;
 	}
@@ -247,18 +246,19 @@ public class Game {
 		} catch (IOException e) {e.printStackTrace();} }
 
 	private void SaveBoardInfo(){
-		int aux;
-		if((aux=this.m.getMap().length)<10){outFile.print("0"+aux+"x");}
+		int aux; char[][] map=m.getMap();
+		if((aux=map.length)<10){outFile.print("0"+aux+"x");}
 		else {outFile.print(aux+"x");}
-		if((aux=this.m.getMap()[0].length)<10){outFile.print("0"+aux+";");}
+		if((aux=map[0].length)<10){outFile.print("0"+aux+";");}
 		else {outFile.print(aux+";");}
 		outFile.println(""+(this.m.getMapType()-1));}
 
 	private void SaveHeroInfo(){outFile.println(h.getBasher()+";"+h.getHero()[0]+","+h.getHero()[1]);}
 
 	private void SaveDoors(){
-		outFile.print(m.getDoors().length+"");
-		for(int i=0;i<m.getDoors().length;i++) outFile.print(";"+m.getDoors()[i][0]+","+m.getDoors()[i][1]);
+		int [][] doors=m.getDoors();
+		outFile.print(doors.length+"");
+		for(int i=0;i<doors.length;i++) outFile.print(";"+doors[i][0]+","+doors[i][1]);
 		outFile.println("");}
 
 	private void SaveKey() {outFile.println(m.getKeyPos()[0]+","+m.getKeyPos()[1]);}
@@ -276,8 +276,9 @@ public class Game {
 			outFile.println(""); } }
 
 	private void SaveLayout() {
-		for (int i=0;i<m.getMap().length;i++) {
-			for (int j=0;j<m.getMap()[i].length;j++) {
-				if(m.getMap()[i][j]=='X') {outFile.print('X'); }
-				else if(m.getMap()[i][j]==' ') {outFile.print(' '); } }
+		char[][] map=m.getMap();
+		for (int i=0;i<map.length;i++) {
+			for (int j=0;j<map[i].length;j++) {
+				if(map[i][j]=='X') {outFile.print('X'); }
+				else if(map[i][j]==' ') {outFile.print(' '); } }
 			outFile.println(""); } } }

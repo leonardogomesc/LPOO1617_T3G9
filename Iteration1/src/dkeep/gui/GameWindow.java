@@ -234,22 +234,15 @@ implements ActionListener{
 		else if(currentGame==2){
 			if(game.losscheckkeep()==0 && game.wincheck()==0){
 				LabelOut.setText("You can play now");
-
 				game.getHero().HeroMove(game.getMap(), m);
 				game.OgreMove();
-
-
-				if(game.losscheckkeep()==1){
-					LabelOut.setText("You lost!");
-					EnableMovement(false); }
-
-
-				if(game.wincheck()==1){
-					LabelOut.setText("You won!");
-					EnableMovement(false); } } }	
-		gamePanel.repaint();
-
-	}
+			if(game.losscheckkeep()==1){
+				LabelOut.setText("You lost!");
+				EnableMovement(false); }
+			if(game.wincheck()==1){
+				LabelOut.setText("You won!");
+				EnableMovement(false); } } }
+		gamePanel.repaint(); }
 
 	
 
