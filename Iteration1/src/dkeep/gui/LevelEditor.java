@@ -49,6 +49,7 @@ implements ActionListener, DocumentListener{
 	//Ogre
 	int ogrePos[]=new int[2];
 	int batPos[]=new int[2];
+	int ogreNum=0;
 	
 	//Hero
 	int heroPos[]=new int[2];
@@ -63,6 +64,7 @@ implements ActionListener, DocumentListener{
 	
 	
 	private int comp=0,larg=0;
+	private JTextField OgreAmount;
 
 	/**
 	 * Launch the application.
@@ -105,10 +107,14 @@ implements ActionListener, DocumentListener{
 			public void actionPerformed(ActionEvent e) { setVisible(false);} });
 		btnCancel.setBounds(462, 465, 195, 23);
 		this.getContentPane().add(btnCancel);
-
+		
+		LevelName newName = new LevelName(this);
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				newName .setVisible(true);
+				
 			}
 		});
 		btnSave.setBounds(462, 431, 95, 23);
@@ -219,7 +225,7 @@ implements ActionListener, DocumentListener{
 				option="ogre";
 			}
 		});
-		button.setBounds(31, 290, 95, 26);
+		button.setBounds(28, 272, 95, 26);
 		panelTools.add(button);
 		
 		JButton button_1 = new JButton("Key");
@@ -229,7 +235,7 @@ implements ActionListener, DocumentListener{
 				option="key";
 			}
 		});
-		button_1.setBounds(31, 191, 95, 26);
+		button_1.setBounds(28, 198, 95, 26);
 		panelTools.add(button_1);
 		
 		JButton btnBat = new JButton("Bat");
@@ -239,8 +245,18 @@ implements ActionListener, DocumentListener{
 				option="bat";
 			}
 		});
-		btnBat.setBounds(31, 241, 95, 26);
+		btnBat.setBounds(28, 235, 95, 26);
 		panelTools.add(btnBat);
+		
+		OgreAmount = new JTextField();
+		OgreAmount.setBounds(106, 305, 66, 20);
+		panelTools.add(OgreAmount);
+		OgreAmount.setColumns(10);
+		OgreAmount.getDocument().addDocumentListener(this);
+		
+		JLabel lblOgreAmount = new JLabel("Ogre Amount");
+		lblOgreAmount.setBounds(28, 308, 79, 14);
+		panelTools.add(lblOgreAmount);
 		
 		JButton btnClear = new JButton("Clear");
 		btnClear.addActionListener(new ActionListener() {
@@ -303,6 +319,10 @@ implements ActionListener, DocumentListener{
 			catch(Exception e1) {
 				this.textY.setText("");
 				this.panelTools.setVisible(false);}
+		}else if((e.getDocument()==OgreAmount.getDocument()))
+		{
+			try	{ this.ogreNum=Integer.parseInt(this.OgreAmount.getText()); } 
+			catch(Exception e1) {this.OgreAmount.setText(""); }
 		}
 
 		if((this.comp<MIN_SIZE) || (this.comp>MAX_SIZE)||(this.larg<MIN_SIZE)||(this.larg>MAX_SIZE))

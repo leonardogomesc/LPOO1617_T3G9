@@ -1,6 +1,7 @@
 package dkeep.logic;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -19,7 +20,7 @@ public class Game {
 	private final static Charset ENCODING = StandardCharsets.UTF_8; 
 	private String levelName;
 	private Scanner in;
-	
+	private PrintWriter outFile;
 	
 	private Guard g;
 	private Hero h;
@@ -391,5 +392,59 @@ public class Game {
 		}
 		
 	   }
+	}
+	public void SaveLevelFile(String levelName, Map m)
+	{
+		try{
+			outFile = new PrintWriter(levelName+".map", "UTF-8");
+			SaveBoardInfo();
+			SaveHeroInfo();
+			SaveDoors();
+			SaveKey();
+			SaveEnemy();
+			SaveLayout();
+			outFile.close();
+		} catch (IOException e) {}
+		
+	}
+	
+	private void SaveBoardInfo(){
+		int aux;
+		if((aux=this.m.getMap().length)<10){outFile.print("0"+aux+"x");}
+		else {outFile.print(aux+"x");}
+		if((aux=this.m.getMap()[0].length)<10){outFile.print("0"+aux+";");}
+		else {outFile.print(aux+";");}
+		outFile.println(""+(this.m.getMapType()-1));}
+	
+	private void SaveHeroInfo(){outFile.println(h.getBasher()+";"+h.getHero()[0]+","+h.getHero()[1]);}
+	
+	private void SaveDoors(){
+		outFile.print(m.getDoors().length+"");
+		for(int i=0;i<m.getDoors().length;i++) outFile.print(";"+m.getDoors()[i][0]+","+m.getDoors()[i][1]);
+		outFile.println("");}
+	
+	private void SaveKey() {outFile.println(m.getKeyPos()[0]+","+m.getKeyPos()[1]);}
+	
+	private void SaveEnemy(){
+		if(this.m.getMapType()==1){
+			outFile.print(o[0].getOgre()[0]+","+o[0].getOgre()[1]);
+			if(o[0].getBat()[0]==o[0].getOgre()[0]+1) {outFile.println(","+"s"); }
+			if(o[0].getBat()[0]==o[0].getOgre()[0]-1) {outFile.println(","+"n"); }
+			if(o[0].getBat()[1]==o[0].getOgre()[1]+1) {outFile.println(","+"e"); }
+			if(o[0].getBat()[1]==o[0].getOgre()[1]-1) {outFile.println(","+"w"); }
+		}else{
+			outFile.print(g.getGuard().length+"");
+			for (int i=0;i<g.getGuard().length;i++)	{outFile.print(";"+g.getGuard()[i][0]+","+g.getGuard()[i][1]); }
+			outFile.println("");
+		}
+	}
+	
+private void SaveLayout()
+	{
+		for (int i=0;i<m.getMap().length;i++) {
+			for (int j=0;j<m.getMap()[i].length;j++) {
+				if(m.getMap()[i][j]=='X') {outFile.print('X'); }
+				else if(m.getMap()[i][j]==' ') {outFile.print(' '); } }
+			outFile.println(""); }
 	}
 }
