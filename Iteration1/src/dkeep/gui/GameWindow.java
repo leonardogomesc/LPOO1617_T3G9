@@ -1,31 +1,22 @@
 package dkeep.gui;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import dkeep.logic.Game;
-import dkeep.logic.Guard;
-import dkeep.logic.Hero;
-import dkeep.logic.Map;
-import dkeep.logic.Ogre;
 
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
-import java.awt.Font;
-
-public class GameWindow {
+public class GameWindow 
+implements ActionListener{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -55,20 +46,14 @@ public class GameWindow {
 			public void run() {
 				try {
 					GameWindow window = new GameWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+					window.frame.setVisible(true); } 
+				catch (Exception e) { e.printStackTrace(); }
+			} }); }
 
 	/**
 	 * Create the application.
 	 */
-	public GameWindow() {
-		initialize();
-	}
+	public GameWindow() {initialize(); }
 
 	/**
 	 * Initialize the contents of the frame.
@@ -196,25 +181,7 @@ public class GameWindow {
 	private void InitBtnNewGame(){
 		btnNewGame = new JButton("New Game");
 		btnNewGame.setFocusable(false);
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int numberOfOgres=getOgreInfo();
-				int guardType=getGuardInfo();
-				if(guardType!=-1 && numberOfOgres!=-1){
-					info=new int[] {guardType,numberOfOgres};
-					game=new Game();
-
-					try {game.nextLevel(info); }
-					catch (IOException e1) {e1.printStackTrace(); }
-					
-					EnableMovement();
-					currentGame=1;
-					LabelOut.setText("You can play now");
-					gamePanel.repaint(); }
-				else if(guardType==-1 && numberOfOgres==-1){LabelOut.setText("Invalid Number of Ogres and Type of Guard"); }
-				else if(guardType==-1){LabelOut.setText("Invalid Type of Guard"); }
-				else if(numberOfOgres==-1){LabelOut.setText("Invalid Number of Ogres"); } 
-				gamePanel.requestFocusInWindow(); } });
+		btnNewGame.addActionListener(this);
 		
 		btnNewGame.setBounds(591, 72, 131, 23);
 		frame.getContentPane().add(btnNewGame); }
@@ -235,11 +202,11 @@ public class GameWindow {
 		case 3: return 2;}
 		return -1; }
 	
-	private void EnableMovement(){
-		btnUp.setEnabled(true);
-		btnDown.setEnabled(true);
-		btnRight.setEnabled(true);
-		btnLeft.setEnabled(true); }
+	private void EnableMovement(boolean value){
+		btnUp.setEnabled(value);
+		btnDown.setEnabled(value);
+		btnRight.setEnabled(value);
+		btnLeft.setEnabled(value); }
 	
 	//Auxiliary methods
 	public void nextMove(String m){
@@ -255,10 +222,7 @@ public class GameWindow {
 
 				if(game.losscheck()==1){
 					LabelOut.setText("You lost!");
-					btnUp.setEnabled(false);
-					btnDown.setEnabled(false);
-					btnRight.setEnabled(false);
-					btnLeft.setEnabled(false);
+					EnableMovement(false);
 				}
 
 
@@ -277,19 +241,35 @@ public class GameWindow {
 
 				if(game.losscheckkeep()==1){
 					LabelOut.setText("You lost!");
-					btnUp.setEnabled(false);
-					btnDown.setEnabled(false);
-					btnRight.setEnabled(false);
-					btnLeft.setEnabled(false); }
+					EnableMovement(false); }
 
 
 				if(game.wincheck()==1){
 					LabelOut.setText("You won!");
-					btnUp.setEnabled(false);
-					btnDown.setEnabled(false);
-					btnRight.setEnabled(false);
-					btnLeft.setEnabled(false); } } }	
+					EnableMovement(false); } } }	
 		gamePanel.repaint();
 
 	}
+
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		int numberOfOgres=getOgreInfo();
+		int guardType=getGuardInfo();
+		if(guardType!=-1 && numberOfOgres!=-1){
+			info=new int[] {guardType,numberOfOgres};
+			game=new Game();
+
+			try {game.nextLevel(info); }
+			catch (IOException e1) {e1.printStackTrace(); }
+			
+			EnableMovement(true);
+			currentGame=1;
+			LabelOut.setText("You can play now");
+			gamePanel.repaint(); }
+		else if(guardType==-1 && numberOfOgres==-1){LabelOut.setText("Invalid Number of Ogres and Type of Guard"); }
+		else if(guardType==-1){LabelOut.setText("Invalid Type of Guard"); }
+		else if(numberOfOgres==-1){LabelOut.setText("Invalid Number of Ogres"); } 
+		gamePanel.requestFocusInWindow(); }
 }
