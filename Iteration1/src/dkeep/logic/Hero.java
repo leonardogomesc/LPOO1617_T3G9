@@ -28,8 +28,7 @@ public class Hero {
 		case "a": inc[1]=-1; break;
 		case "s": inc[0]=1; break;
 		case "d": inc[1]=1; break; }
-		return inc;
-	}
+		return inc; }
 	public void HeroMove(Map m,String move){
 		map=m.getMap(); keypos=m.getKeyPos();
 		key=m.getKey(); doors=m.getDoors();
