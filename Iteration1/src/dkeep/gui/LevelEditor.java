@@ -25,12 +25,8 @@ implements ActionListener, DocumentListener{
 
 	private JPanel contentPane;
 	private final ButtonGroup LevelType = new ButtonGroup();
-	private JRadioButton rdbtnKeep;
-	private JRadioButton rdbtnDungeon;
 	private JTextField textX;
 	private JTextField textY;
-	private JPanel keep;
-	private JPanel dungeon;
 	private JPanel GraphicPanel;
 	private JPanel panelTools;
 	private JPanel inputPanel;
@@ -41,8 +37,9 @@ implements ActionListener, DocumentListener{
 	private int doorPos[][];
 	private int keyPos[];
 	private int mapType; 
+	JCheckBox checkBox;
 	
-	private String option="";
+	String option="";
 	JLabel lblOutput;
 	
 	
@@ -90,10 +87,18 @@ implements ActionListener, DocumentListener{
 		this.getContentPane().add(btnCancel);
 
 		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnSave.setBounds(462, 431, 95, 23);
 		this.getContentPane().add(btnSave);
 
 		JButton btnTest = new JButton("Test");
+		btnTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnTest.setBounds(562, 431, 95, 23);
 		this.getContentPane().add(btnTest);
 
@@ -129,26 +134,8 @@ implements ActionListener, DocumentListener{
 		contentPane.add(panelTools);
 		panelTools.setVisible(false);
 		panelTools.setLayout(null);
-
-		rdbtnKeep = new JRadioButton("Keep");
-		rdbtnKeep.setBounds(54, 32, 54, 24);
-		panelTools.add(rdbtnKeep);
-
-		LevelType.add(rdbtnKeep);
-
-		JLabel lblLeveltype = new JLabel("LevelType:");
-		lblLeveltype.setBounds(28, 11, 60, 16);
-		panelTools.add(lblLeveltype);
-
-		rdbtnDungeon = new JRadioButton("Dungeon");
-		rdbtnDungeon.setBounds(54, 57, 75, 24);
-		panelTools.add(rdbtnDungeon);
-		LevelType.add(rdbtnDungeon);
-
-		rdbtnDungeon.addActionListener(this);
-		rdbtnKeep.addActionListener(this);
 		JButton btnHero = new JButton("Hero");
-		btnHero.setBounds(28, 194, 98, 26);
+		btnHero.setBounds(10, 140, 98, 26);
 		panelTools.add(btnHero);
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -158,7 +145,7 @@ implements ActionListener, DocumentListener{
 		});
 
 		JButton btnDoor = new JButton("Door");
-		btnDoor.setBounds(28, 117, 98, 26);
+		btnDoor.setBounds(28, 44, 98, 26);
 		panelTools.add(btnDoor);
 		btnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -168,7 +155,7 @@ implements ActionListener, DocumentListener{
 		});
 
 		JButton btnWall = new JButton("Wall");
-		btnWall.setBounds(28, 156, 98, 26);
+		btnWall.setBounds(28, 92, 98, 26);
 		panelTools.add(btnWall);
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -176,71 +163,60 @@ implements ActionListener, DocumentListener{
 				option="wall";
 			}
 		});
-		dungeon = new JPanel();
-		dungeon.setBounds(29, 253, 143, 63);
-		panelTools.add(dungeon);
-		dungeon.setVisible(false);
-		dungeon.setLayout(null);
 
-		JButton btnGuard = new JButton("Guard");
-		btnGuard.addActionListener(new ActionListener() {
+		JLabel lblAdd = new JLabel("Add:");
+		lblAdd.setBounds(26, 11, 55, 16);
+		panelTools.add(lblAdd);
+		
+		checkBox = new JCheckBox("Basher");
+		checkBox.setBounds(123, 141, 66, 24);
+		panelTools.add(checkBox);
+		
+		JButton button = new JButton("Ogre");
+		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblOutput.setText("Click each cell of the guard's path (should end where it starts):");
-				option="guard";
-			}
-		});
-		btnGuard.setBounds(0, 0, 94, 26);
-		dungeon.add(btnGuard);
-
-		JButton btnLever = new JButton("Lever");
-		btnLever.setBounds(0, 37, 94, 26);
-		dungeon.add(btnLever);
-		btnLever.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				lblOutput.setText("Click to place the lever:");
-				option="lever";
-			}
-		});
-
-		keep = new JPanel();
-		keep.setBounds(28, 220, 101, 107);
-		panelTools.add(keep);
-		keep.setVisible(false);
-		keep.setLayout(null);
-
-		JCheckBox chckbxBasher = new JCheckBox("Basher");
-		chckbxBasher.setBounds(24, 2, 66, 24);
-		keep.add(chckbxBasher);
-
-		JButton btnOgre = new JButton("Ogre");
-		btnOgre.setBounds(0, 34, 95, 26);
-		keep.add(btnOgre);
-		btnOgre.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				lblOutput.setText("Click to place the ogre (and then again for its basher):");
+				lblOutput.setText("Click to place Ogre:");
 				option="ogre";
 			}
 		});
-
-		JButton btnKey = new JButton("Key");
-		btnKey.setBounds(0, 72, 95, 26);
-		btnKey.addActionListener(new ActionListener() {
+		button.setBounds(31, 290, 95, 26);
+		panelTools.add(button);
+		
+		JButton button_1 = new JButton("Key");
+		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblOutput.setText("Click to place the key:");
+				lblOutput.setText("Click to place key:");
 				option="key";
 			}
 		});
-		keep.add(btnKey);
-
-		JLabel lblAdd = new JLabel("Add:");
-		lblAdd.setBounds(28, 89, 55, 16);
-		panelTools.add(lblAdd);
+		button_1.setBounds(31, 191, 95, 26);
+		panelTools.add(button_1);
+		
+		JButton btnBat = new JButton("Bat");
+		btnBat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblOutput.setText("Click to place bat:");
+				option="bat";
+			}
+		});
+		btnBat.setBounds(31, 241, 95, 26);
+		panelTools.add(btnBat);
 		
 		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnClear.setBounds(462, 388, 95, 23);
 		contentPane.add(btnClear);
 		
 		JButton btnEraseCell = new JButton("Erase Cell");
+		btnEraseCell.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblOutput.setText("Click to Erase Cell:");
+				option="eraseCell";
+			}
+		});
 		btnEraseCell.setBounds(562, 388, 95, 23);
 		contentPane.add(btnEraseCell);
 		
@@ -249,23 +225,6 @@ implements ActionListener, DocumentListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==rdbtnKeep)
-		{
-			this.mapType=2;
-			keep.setVisible(true);
-			dungeon.setVisible(false);
-			lblOutput.setText("");
-			option="";
-		}
-		else
-			if(e.getSource()==rdbtnDungeon)
-			{
-				this.mapType=1;
-				keep.setVisible(false);
-				dungeon.setVisible(true);
-				lblOutput.setText("");
-				option="";
-			}
 	}
 
 	@Override

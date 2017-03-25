@@ -51,61 +51,62 @@ implements MouseListener, MouseMotionListener, KeyListener {
 		y=0;
 		
 		try {
-			wall = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/wall.jpg"));
+			wall = ImageIO.read(new File("src/dkeep/gui/images/wall.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			stunnedOgre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
+			stunnedOgre = ImageIO.read(new File("src/dkeep/gui/images/ogre.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			lever = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/lever.png"));
+			lever = ImageIO.read(new File("src/dkeep/gui/images/lever.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			key = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/key.png"));
+			key = ImageIO.read(new File("src/dkeep/gui/images/key.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			door = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/door.png"));
+			door = ImageIO.read(new File("src/dkeep/gui/images/door.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			hero = ImageIO.read(new File ("C:/Users/Leonardo/Desktop/Images/hero.png"));
+			hero = ImageIO.read(new File ("src/dkeep/gui/images/hero.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			closedDoor = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/closedDoor.jpg"));
+			closedDoor = ImageIO.read(new File("src/dkeep/gui/images/closedDoor.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			ogre = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/ogre.jpg"));
+			ogre = ImageIO.read(new File("src/dkeep/gui/images/ogre.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+		}
+		try {
+			bat = ImageIO.read(new File("src/dkeep/gui/images/bat.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			bat = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/bat.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			guard = ImageIO.read(new File("C:/Users/Leonardo/Desktop/Images/guard.png"));
+			guard = ImageIO.read(new File("src/dkeep/gui/images/guard.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -160,7 +161,16 @@ implements MouseListener, MouseMotionListener, KeyListener {
 	}
 
 private void paintImages(Graphics g, char map[][]){
+	   int c=0;
 	
+	   if(level!=null){
+		   c=2;
+		   
+	   }
+	   else if(w!=null){
+		   c=w.currentGame;
+	   }
+	   
 	   super.paintComponent(g);
 	   
 	   x=0;
@@ -180,10 +190,10 @@ private void paintImages(Graphics g, char map[][]){
 			else if(map[i][i2]=='H'||map[i][i2]=='A'||map[i][i2]=='K'){
 				g.drawImage(hero,x,y,size,size,null);
 			}
-			else if(map[i][i2]=='k' && w.currentGame==2){
+			else if(map[i][i2]=='k' && c==2){
 				g.drawImage(key,x,y,size,size,null);
 			}
-			else if(map[i][i2]=='k' && w.currentGame==1){
+			else if(map[i][i2]=='k' && c==1){
 				g.drawImage(lever,x,y,size,size,null);
 			}
 			else if(map[i][i2]=='G'||map[i][i2]=='g'){
@@ -226,13 +236,59 @@ private void paintImages(Graphics g, char map[][]){
 	/*	x2 = x1 = e.getX();  
 		y2 = y1 = e.getY(); 
 		repaint();*/
+		
+		char map[][]=new char[0][0];
+		int pos0;
+		int pos1;
+		
+		if(level!=null){
+			
+			if(level.getMap().getMap()[0].length < level.getMap().getMap().length){
+				size=450/level.getMap().getMap().length;
+			}
+			else{
+				size=450/level.getMap().getMap()[0].length;
+			}
+			map=level.getMap().getMap();
+			
+		pos0=e.getY() / size;	
+		pos1=e.getX() / size;
+		
+		switch(level.option){
+		case "hero":
+			if(level.checkBox.isSelected()){
+			map[pos0][pos1]='A';
+			}
+			else{
+				map[pos0][pos1]='H';
+			}
+			break;
+		case "ogre":
+			map[pos0][pos1]='O';
+			break;
+		case "bat":
+			map[pos0][pos1]='*';
+			break;
+		case "wall":
+			map[pos0][pos1]='X';
+			break;
+		case "door":
+			map[pos0][pos1]='I';
+			break;
+		case "key":
+			map[pos0][pos1]='k';
+			break;
+		case "eraseCell":
+			map[pos0][pos1]=' ';
+			break;
+		}
+		
+			repaint();
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		/*x2 = e.getX();  
-		y2 = e.getY();  
-		repaint();*/
 	}
 
 	@Override
