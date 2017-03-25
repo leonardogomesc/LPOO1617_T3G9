@@ -28,14 +28,12 @@ public class Game {
 	private int currentLevel;
 	private Vector<String> levels;
 	
-	/*public Game(Map m2,Hero h2, Guard g2){
+	public Game(Map m2,Hero h2, Guard g2){
 		m=m2;
 		h=h2;
 		g=g2;
 		
 	}
-	
-*/
 	
 	public Game(Map m2,Hero h2, Ogre[] o2){
 		m=m2;
