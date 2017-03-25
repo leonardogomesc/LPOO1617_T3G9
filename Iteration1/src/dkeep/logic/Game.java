@@ -35,12 +35,13 @@ public class Game {
 		
 	}
 	
-
+*/
+	
 	public Game(Map m2,Hero h2, Ogre[] o2){
 		m=m2;
 		h=h2;
 		o=o2;
-	}*/
+	}
 	
 	public Game()
 	{

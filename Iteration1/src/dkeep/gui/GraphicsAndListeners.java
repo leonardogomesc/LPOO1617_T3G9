@@ -132,18 +132,31 @@ implements MouseListener, MouseMotionListener, KeyListener {
 		
 		}
 		}
-		else if(level!=null)
+		else if(level!=null && level.testing==0)
 		{
-			if(level.getMap().getMap()[0].length < level.getMap().getMap().length){
-				size=450/level.getMap().getMap().length;
+			if(level.board[0].length < level.board.length){
+				size=450/level.board.length;
 			}
 			else{
-				size=450/level.getMap().getMap()[0].length;
+				size=450/level.board[0].length;
 			}
-			map=level.getMap().getMap();
+			map=level.board;
 		
 			paintImages(g, map);
 		}
+		else if(level!=null && level.testing==1)
+		{
+			if(level.game.getMap().getMap()[0].length < level.game.getMap().getMap().length){
+				size=450/level.game.getMap().getMap().length;
+			}
+			else{
+				size=450/level.game.getMap().getMap()[0].length;
+			}
+			map=level.game.getMap().getMap();
+		
+			paintImages(g, map);
+		}
+		
 	
 		/*
 	Graphics2D g2=(Graphics2D) g;
@@ -222,6 +235,7 @@ private void paintImages(Graphics g, char map[][]){
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if(w!=null){
 		switch(e.getKeyCode()){ 
 		case KeyEvent.VK_LEFT: w.nextMove("a"); break; 
 		case KeyEvent.VK_RIGHT: w.nextMove("d"); break;  
@@ -229,27 +243,37 @@ private void paintImages(Graphics g, char map[][]){
 		case KeyEvent.VK_DOWN:  w.nextMove("s");break; 
 		}
 		repaint();
+		}
+		else if(level!=null && level.testing==1){
+			switch(e.getKeyCode()){ 
+			case KeyEvent.VK_LEFT: level.nextMove("a"); break; 
+			case KeyEvent.VK_RIGHT: level.nextMove("d"); break;  
+			case KeyEvent.VK_UP:  level.nextMove("w");break; 
+			case KeyEvent.VK_DOWN: level.nextMove("s");break; 
+			}
+			repaint();
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-	/*	x2 = x1 = e.getX();  
-		y2 = y1 = e.getY(); 
-		repaint();*/
-		
+	
+		if(level.testing==0){
+			
 		char map[][]=new char[0][0];
 		int pos0;
 		int pos1;
 		
 		if(level!=null){
 			
-			if(level.getMap().getMap()[0].length < level.getMap().getMap().length){
-				size=450/level.getMap().getMap().length;
+			if(level.board[0].length < level.board.length){
+				size=450/level.board.length;
 			}
 			else{
-				size=450/level.getMap().getMap()[0].length;
+				size=450/level.board[0].length;
 			}
-			map=level.getMap().getMap();
+			
+			map=level.board;
 			
 		pos0=e.getY() / size;	
 		pos1=e.getX() / size;
@@ -258,25 +282,37 @@ private void paintImages(Graphics g, char map[][]){
 		case "hero":
 			if(level.checkBox.isSelected()){
 			map[pos0][pos1]='A';
+			level.heroPos[0]=pos0;
+			level.heroPos[1]=pos1;
 			}
 			else{
 				map[pos0][pos1]='H';
+				level.heroPos[0]=pos0;
+				level.heroPos[1]=pos1;
 			}
 			break;
 		case "ogre":
 			map[pos0][pos1]='O';
+			level.ogrePos[0]=pos0;
+			level.ogrePos[1]=pos1;
 			break;
 		case "bat":
 			map[pos0][pos1]='*';
+			level.batPos[0]=pos0;
+			level.batPos[1]=pos1;
 			break;
 		case "wall":
 			map[pos0][pos1]='X';
 			break;
 		case "door":
 			map[pos0][pos1]='I';
+			level.doorPos[0][0]=pos0;
+			level.doorPos[0][1]=pos1;
 			break;
 		case "key":
 			map[pos0][pos1]='k';
+			level.keyPos[0]=pos0;
+			level.keyPos[1]=pos1;
 			break;
 		case "eraseCell":
 			map[pos0][pos1]=' ';
@@ -284,6 +320,7 @@ private void paintImages(Graphics g, char map[][]){
 		}
 		
 			repaint();
+		}
 		}
 	}
 

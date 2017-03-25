@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -18,7 +19,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import dkeep.logic.Game;
+import dkeep.logic.Hero;
 import dkeep.logic.Map;
+import dkeep.logic.Ogre;
 
 public class LevelEditor extends JFrame 
 implements ActionListener, DocumentListener{
@@ -32,11 +36,25 @@ implements ActionListener, DocumentListener{
 	private JPanel inputPanel;
 	private static final int MIN_SIZE = 8;
 	private static final int MAX_SIZE = 15;
-	private Map map;
-	private char board[][]=new char[1][1];
-	private int doorPos[][];
-	private int keyPos[];
-	private int mapType; 
+	
+	int testing;
+	
+	Game game;
+	
+	//Map
+	char board[][]=new char[1][1];
+	int doorPos[][]=new int[1][2];
+	int keyPos[]=new int[2];
+	
+	//Ogre
+	int ogrePos[]=new int[2];
+	int batPos[]=new int[2];
+	
+	//Hero
+	int heroPos[]=new int[2];
+	int basher;
+	
+	
 	JCheckBox checkBox;
 	
 	String option="";
@@ -66,6 +84,8 @@ implements ActionListener, DocumentListener{
 	 * Create the frame.
 	 */
 	public LevelEditor() {
+		testing=0;
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -97,6 +117,26 @@ implements ActionListener, DocumentListener{
 		JButton btnTest = new JButton("Test");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int b;
+				if(checkBox.isSelected()){
+					b=1;
+				}
+				else{
+					b=0;
+				}
+				
+				Ogre o=new Ogre(ogrePos,batPos);
+				Ogre o2[]={o};
+				Hero h=new Hero(heroPos,b);
+				Map m= new Map(board,doorPos,keyPos,2);
+				
+				game=new Game(m,h,o2);
+				
+				inputPanel.repaint();
+				testing=1;
+				inputPanel.requestFocusInWindow();
+				lblOutput.setText("You can play now");
+				
 			}
 		});
 		btnTest.setBounds(562, 431, 95, 23);
@@ -205,6 +245,14 @@ implements ActionListener, DocumentListener{
 		JButton btnClear = new JButton("Clear");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				for(int i=0;i<board.length;i++){
+					for(int j=0;j<board[i].length;j++){
+						board[i][j]=' ';
+					}
+				}
+				testing=0;
+				inputPanel.repaint();
+				
 			}
 		});
 		btnClear.setBounds(462, 388, 95, 23);
@@ -262,15 +310,12 @@ implements ActionListener, DocumentListener{
 		else {
 			this.panelTools.setVisible(true); 
 			board= new char[comp][larg];
+			testing=0;
 			fillWalls();}
 		
 	}
 	
-	public Map getMap()
-	{
-		this.map=new Map(board,doorPos, keyPos, mapType);
-		return this.map;
-	}
+
 	private void fillWalls(){
 		for(int i=0;i<board.length;++i){
 			board[i][0]='X';
@@ -278,5 +323,31 @@ implements ActionListener, DocumentListener{
 		for(int i=0;i<board[0].length;++i) {board[0][i]='X';}
 		for(int i=0;i<board[0].length;++i) {board[board.length-1][i]='X';}
 		this.inputPanel.repaint();
+	}
+	
+	public void nextMove(String m){
+
+			if(game.losscheckkeep()==0 && game.wincheck()==0){
+				lblOutput.setText("You can play now");
+				
+				game.getHero().HeroMove(game.getMap(), m);
+				game.OgreMove();
+				
+				
+				if(game.losscheckkeep()==1){
+					lblOutput.setText("You lost!");
+					testing=0;
+				}
+				
+
+				if(game.wincheck()==1){
+					lblOutput.setText("You won!");
+					testing=0;
+				}
+				
+			}
+			
+		inputPanel.repaint();
+		
 	}
 }
