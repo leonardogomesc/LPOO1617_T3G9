@@ -13,10 +13,6 @@ public class Output {
 		for(int i1=0;i1<map.length;i1++){
 			for(int i2=0;i2<map[i1].length;i2++){
 				System.out.print(map[i1][i2]);
-				System.out.print(" ");
-			}
-			System.out.println("");
-		}
-		
-	}
+				System.out.print(" "); }
+			System.out.println(""); } } 
 }

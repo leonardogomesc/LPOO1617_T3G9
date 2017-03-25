@@ -238,7 +238,7 @@ public class Game {
 			SaveEnemy();
 			SaveLayout();
 			outFile.close();
-		} catch (IOException e) {} }
+		} catch (IOException e) {e.printStackTrace();} }
 
 	private void SaveBoardInfo(){
 		int aux;
