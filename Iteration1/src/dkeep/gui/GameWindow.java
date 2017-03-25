@@ -33,15 +33,20 @@ public class GameWindow {
 	private JButton btnDown;
 	private JButton btnRight;
 	private JButton btnLeft;
-	private JLabel textArea_1;
-	private JPanel panel;
-	
+	private JButton btnExit;
+	private JButton btnNewGame;
+	private JButton btnLevelEditor;
+	private JLabel LabelOut;
+	private JLabel lblOgreNumber;
+	private JPanel gamePanel;
+	private JLabel lblGuardPersonality;
+	private JComboBox<String> comboBox;
 	Game game;
 	int currentGame;
 	private int info[];
-	
 
-	
+
+
 	/**
 	 * Launch the application.
 	 */
@@ -69,276 +74,222 @@ public class GameWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		InitFrame();
+		InitComboBox();
+		InitPanel();
+		InitBtns();
+		InitLabels();
+		InitTextField(); }
+
+	//Methods called by initialize()
+		
+	private void InitLabels(){
+		LabelOut = new JLabel("You can start a new Game!");
+		LabelOut.setBounds(30, 610, 500, 23);
+		frame.getContentPane().add(LabelOut);
+
+		lblOgreNumber = new JLabel("Number of Ogres");
+		lblOgreNumber.setBounds(39, 31, 118, 14);
+		frame.getContentPane().add(lblOgreNumber);
+
+		lblGuardPersonality = new JLabel("Guard Personality");
+		lblGuardPersonality.setBounds(39, 76, 109, 14);
+		frame.getContentPane().add(lblGuardPersonality); }
+	
+	private void InitTextField(){
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(177, 28, 35, 20);
+		frame.getContentPane().add(textField); 
+		gamePanel.requestFocusInWindow(); }
+	
+	private void InitComboBox(){
+		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Rookie", "Drunken", "Suspicious"}));
+		comboBox.setBounds(178, 73, 131, 20);
+		comboBox.setFocusable(false);
+		frame.getContentPane().add(comboBox); }
+	
+	private void InitFrame(){
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		
-		panel = new GraphicsAndListeners(this);
-		panel.setBounds(30, 127, 450, 450);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
-		panel.requestFocusInWindow();
-		
-		
+		frame.getContentPane().setLayout(null);}
+
+	private void InitPanel(){
+		gamePanel = new GraphicsAndListeners(this);
+		gamePanel.setBounds(30, 127, 450, 450);
+		frame.getContentPane().add(gamePanel);
+		gamePanel.setLayout(null);
+		gamePanel.requestFocusInWindow(); 
+	}
+	
+	private void InitBtns(){
+		InitBtnUp();
+		InitBtnDown();
+		InitBtnLeft();
+		InitBtnRight();
+		InitBtnExit();
+		InitBtnNewGame();
+		InitBtnLevelEditor(); }
+	
+	//methods called by InitBtns()
+	private void InitBtnUp(){
 		btnUp = new JButton("Up");
-		btnDown = new JButton("Down");
-		btnRight = new JButton("Right");
-		btnLeft = new JButton("Left");
-		JButton btnExit = new JButton("Exit");
-		JButton btnNewGame = new JButton("New Game");
-		JButton btnLevelEditor = new JButton("Level Editor");
-		textArea_1 = new JLabel("You can start a new Game!");
-		textField = new JTextField();
-		JComboBox comboBox = new JComboBox();
-		
 		btnUp.setEnabled(false);
-		btnDown.setEnabled(false);
-		btnRight.setEnabled(false);
-		btnLeft.setEnabled(false);
-		
 		btnUp.setFocusable(false);
-		btnDown.setFocusable(false);
-		btnRight.setFocusable(false);
-		btnLeft.setFocusable(false);
-		btnExit.setFocusable(false);
-		btnNewGame.setFocusable(false);
-		btnLevelEditor.setFocusable(false);
-		
-		
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nextMove("w");
-			}
-		});
+				nextMove("w"); } });
 		btnUp.setBounds(615, 193, 80, 30);
-		frame.getContentPane().add(btnUp);
-		
+		frame.getContentPane().add(btnUp); }
 	
+	private void InitBtnDown(){
+		btnDown = new JButton("Down");
+		btnDown.setEnabled(false);
+		btnDown.setFocusable(false);
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nextMove("s");
-			}
-		});
+				nextMove("s"); } });
 		btnDown.setBounds(620, 282, 80, 30);
-		frame.getContentPane().add(btnDown);
-		
+		frame.getContentPane().add(btnDown); }
 	
-		btnRight.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				nextMove("d");
-			}
-		});
-		btnRight.setBounds(674, 238, 80, 30);
-		frame.getContentPane().add(btnRight);
-		
-		
+	private void InitBtnLeft(){
+		btnLeft = new JButton("Left");
+		btnLeft.setEnabled(false);
+		btnLeft.setFocusable(false);
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nextMove("a");
-			}
-		});
+				nextMove("a"); } });
 		btnLeft.setBounds(560, 238, 80, 30);
-		frame.getContentPane().add(btnLeft);
-		
-		
+		frame.getContentPane().add(btnLeft); }
+	
+	private void InitBtnRight(){
+		btnRight = new JButton("Right");
+		btnRight.setEnabled(false);
+		btnRight.setFocusable(false);
+		btnRight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nextMove("d"); } });
+		btnRight.setBounds(674, 238, 80, 30);
+		frame.getContentPane().add(btnRight); }
+	
+	private void InitBtnExit(){
+		btnExit = new JButton("Exit");
+		btnExit.setFocusable(false);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+				System.exit(0); } });
 		btnExit.setBounds(620, 495, 89, 23);
-		frame.getContentPane().add(btnExit);
-		
-		
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int numberOfOgres=-1;
-				int guardType=-1;
-				
-				switch(textField.getText()){
-				case "1":
-					numberOfOgres=1;
-					break;
-				case "2":
-					numberOfOgres=2;
-					break;
-				case "3":
-					numberOfOgres=3;
-					break;
-				case "4":
-					numberOfOgres=4;
-					break;
-				case "5":
-					numberOfOgres=5;
-					break;
-				default:
-					numberOfOgres=-1;
-					break;
-				}
-				
-				
-				switch(comboBox.getSelectedIndex()){
-				case 0:
-					guardType=-1;
-					break;
-				case 1:
-					guardType=0;
-					break;
-				case 2:
-					guardType=1;
-					break;
-				case 3:
-					guardType=2;
-					break;
-				default:
-					guardType=-1;
-					break;
-				}
-				
-				if(guardType!=-1 && numberOfOgres!=-1){
-					
-			    info=new int[] {guardType,numberOfOgres};
-					
-				game=new Game();
-				
-				try {
-					game.nextLevel(info);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				btnUp.setEnabled(true);
-				btnDown.setEnabled(true);
-				btnRight.setEnabled(true);
-				btnLeft.setEnabled(true);
-				
-				currentGame=1;
-				
-			//	textArea.setText(game1.getMap().to_String());
-				
-				
-				textArea_1.setText("You can play now");
-				panel.repaint();
-				}
-				else if(guardType==-1 && numberOfOgres==-1){
-					textArea_1.setText("Invalid Number of Ogres and Type of Guard");
-				}
-				else if(guardType==-1){
-					textArea_1.setText("Invalid Type of Guard");
-				}
-				else if(numberOfOgres==-1){
-					textArea_1.setText("Invalid Number of Ogres");
-				}
-				
-				panel.requestFocusInWindow();
-			
-		}
-		});
-		btnNewGame.setBounds(591, 72, 131, 23);
-		frame.getContentPane().add(btnNewGame);
-		
-		
+		frame.getContentPane().add(btnExit); }
+	
+	private void InitBtnLevelEditor(){
+		btnLevelEditor = new JButton("Level Editor");
+		btnLevelEditor.setFocusable(false);
 		btnLevelEditor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LevelEditor newLevel = new LevelEditor();
-				newLevel.setVisible(true);
-			}
-		});
+				newLevel.setVisible(true); } });
 		btnLevelEditor.setBounds(589, 430, 149, 23);
-		frame.getContentPane().add(btnLevelEditor);
+		frame.getContentPane().add(btnLevelEditor); }
+
+	private void InitBtnNewGame(){
+		btnNewGame = new JButton("New Game");
+		btnNewGame.setFocusable(false);
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int numberOfOgres=getOgreInfo();
+				int guardType=getGuardInfo();
+				if(guardType!=-1 && numberOfOgres!=-1){
+					info=new int[] {guardType,numberOfOgres};
+					game=new Game();
+
+					try {game.nextLevel(info); }
+					catch (IOException e1) {e1.printStackTrace(); }
+					
+					EnableMovement();
+					currentGame=1;
+					LabelOut.setText("You can play now");
+					gamePanel.repaint(); }
+				else if(guardType==-1 && numberOfOgres==-1){LabelOut.setText("Invalid Number of Ogres and Type of Guard"); }
+				else if(guardType==-1){LabelOut.setText("Invalid Type of Guard"); }
+				else if(numberOfOgres==-1){LabelOut.setText("Invalid Number of Ogres"); } 
+				gamePanel.requestFocusInWindow(); } });
 		
-		JLabel label = new JLabel("Number of Ogres");
-		label.setBounds(39, 31, 118, 14);
-		frame.getContentPane().add(label);
-		
-		JLabel label_1 = new JLabel("Guard Personality");
-		label_1.setBounds(39, 76, 109, 14);
-		frame.getContentPane().add(label_1);
-		
-		
-		textField.setColumns(10);
-		textField.setBounds(177, 28, 35, 20);
-		frame.getContentPane().add(textField);
-		
-		
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Rookie", "Drunken", "Suspicious"}));
-		comboBox.setBounds(178, 73, 131, 20);
-		frame.getContentPane().add(comboBox);
-		
-		
-		textArea_1.setBounds(30, 610, 500, 23);
-		frame.getContentPane().add(textArea_1);
-	}
+		btnNewGame.setBounds(591, 72, 131, 23);
+		frame.getContentPane().add(btnNewGame); }
 	
+	private int getOgreInfo(){
+		switch(textField.getText()){
+		case "1": return 1;
+		case "2": return 2;
+		case "3": return 3;
+		case "4": return 4;
+		case "5": return 5;}
+		return -1;}
 	
+	private int getGuardInfo(){
+		switch(comboBox.getSelectedIndex()){
+		case 1: return 0;
+		case 2: return 1;
+		case 3: return 2;}
+		return -1; }
+	
+	private void EnableMovement(){
+		btnUp.setEnabled(true);
+		btnDown.setEnabled(true);
+		btnRight.setEnabled(true);
+		btnLeft.setEnabled(true); }
+	
+	//Auxiliary methods
 	public void nextMove(String m){
 		int gameState;
-		
+
 		if(currentGame==1){
 			if(game.losscheck()==0 && game.wincheck()==0){
-				textArea_1.setText("You can play now");
-				
+				LabelOut.setText("You can play now");
+
 				game.getHero().HeroMove(game.getMap(), m);
 				game.getGuard().GuardMove(game.getMap());
-				
-				
+
+
 				if(game.losscheck()==1){
-					textArea_1.setText("You lost!");
+					LabelOut.setText("You lost!");
 					btnUp.setEnabled(false);
 					btnDown.setEnabled(false);
 					btnRight.setEnabled(false);
 					btnLeft.setEnabled(false);
 				}
-				
-				//textArea.setText(game1.getMap().to_String());
+
 
 				if(game.wincheck()==1){
-					
-					try {
-						gameState=game.nextLevel(info);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					currentGame=2;
-					//textArea.setText(game2.getMap().to_String());
-				}
-				
-			}
-		}
+					try {gameState=game.nextLevel(info); } 
+					catch (IOException e) {e.printStackTrace(); }
+
+					currentGame=2; } } }
 		else if(currentGame==2){
 			if(game.losscheckkeep()==0 && game.wincheck()==0){
-				textArea_1.setText("You can play now");
-				
+				LabelOut.setText("You can play now");
+
 				game.getHero().HeroMove(game.getMap(), m);
 				game.OgreMove();
-				
-				
+
+
 				if(game.losscheckkeep()==1){
-					textArea_1.setText("You lost!");
+					LabelOut.setText("You lost!");
 					btnUp.setEnabled(false);
 					btnDown.setEnabled(false);
 					btnRight.setEnabled(false);
-					btnLeft.setEnabled(false);
-				}
-				
-				
-				//textArea.setText(game2.getMap().to_String());
+					btnLeft.setEnabled(false); }
+
 
 				if(game.wincheck()==1){
-					textArea_1.setText("You won!");
+					LabelOut.setText("You won!");
 					btnUp.setEnabled(false);
 					btnDown.setEnabled(false);
 					btnRight.setEnabled(false);
-					btnLeft.setEnabled(false);
-				}
-				
-			}
-		}	
-		panel.repaint();
-		
+					btnLeft.setEnabled(false); } } }	
+		gamePanel.repaint();
+
 	}
 }
