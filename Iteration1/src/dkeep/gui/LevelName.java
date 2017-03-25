@@ -79,7 +79,7 @@ implements DocumentListener{
 				Ogre[] ogres={new Ogre(newLevel.ogrePos, newLevel.batPos)};
 				Map map=new Map(newLevel.board, newLevel.doorPos, newLevel.keyPos, newLevel.basher);
 				Game newGame=new Game(map, new Hero(newLevel.heroPos, newLevel.basher),	ogres );
-				newGame.SaveLevelFile(levelName, map); } });
+				newGame.SaveLevelFile(levelName); } });
 		btnSave.setEnabled(false);
 		btnSave.setBounds(10, 82, 89, 23);
 		contentPane.add(btnSave); }

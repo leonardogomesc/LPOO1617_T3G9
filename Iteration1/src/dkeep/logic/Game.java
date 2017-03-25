@@ -233,9 +233,9 @@ public class Game {
 						(hero[0]==ogre[0] && hero[1]==ogre[1]-1) || (hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
 						(hero[0]==ogre[0] && hero[1]==ogre[1])){
 					o[i].setStunned(); map[ogre[0]][ogre[1]]='8'; } } } }
-	public void SaveLevelFile(String levelName, Map m) {
+	public void SaveLevelFile(String levelName) {
 		try{
-			outFile = new PrintWriter(levelName+".map", "UTF-8");
+			outFile = new PrintWriter("src/dkeep/logic/levels/"+levelName+".map", "UTF-8");
 			SaveBoardInfo();
 			SaveHeroInfo();
 			SaveDoors();
