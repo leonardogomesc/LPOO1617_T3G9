@@ -1,28 +1,58 @@
 package dkeep.logic;
 
 import java.util.Random;
-
+/**
+ * Class that keeps the information of an ogre, its bat and the ogre's stunned status
+ * @author Leonardo Capozzi
+ * @author Ricardo Carvalho
+ *
+ */
 public class Ogre{
 
 	private int ogre[];
 	private int bat[];
 	private int stunned;
-
+	/**
+	 * Creates an ogre object given its starting position and the bat's position
+	 * @param ogrepos array containing the ogre's coordinates
+	 * @param batpos array containing the ogre's bat coordinates
+	 */
 	public Ogre(int ogrepos[],int batpos[]){ogre= ogrepos; bat=batpos; stunned=0; }
-
+	/**
+	 * Gets the ogre's position
+	 * @return array with ogre's coordinates
+	 */
 	public int[] getOgre(){return ogre; }
-
+	/**
+	 * Gets the ogre's bat position
+	 * @return array with ogre's bat coordinates
+	 */
 	public int[] getBat(){return bat; }
 
+	/**
+	 * Gets the stunned status of the ogre
+	 * @return int with the stunned status (0 if not stunned, different otherwise)
+	 */
 	public int getStunned() {return stunned; }
 
+	/**
+	 * Sets the ogre as stunned for 2 turns
+	 */
 	public void setStunned() {stunned = 2; }
 
+	/**
+	 * Clears the ogre's and its bat's cells in the map
+	 * @param m level's map containing the ogre
+	 */
 	public void OgreErase(Map m){
 		char map[][]=m.getMap();
 		map[ogre[0]][ogre[1]]=' ';
 		map[bat[0]][bat[1]]=' '; }
 
+	/**
+	 * Sets in motion the ogre and its bat's movement, randomly selecting a direction until it is valid
+	 * @param m level's map containing the ogre
+	 */
 	public void OgreMove(Map m){
 		char map[][]=m.getMap();
 		Random rand = new Random();
