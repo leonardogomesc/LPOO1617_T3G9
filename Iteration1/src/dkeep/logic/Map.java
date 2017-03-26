@@ -72,20 +72,5 @@ public class Map {
 	public void setKey(int k){
 		key=k;
 	}
-	/**
-	 * Converts the map array into a string for an output interface
-	 * @return string containing the whole map for output purposes (mainly on the cli option)
-	 */
-	public String to_String(){
-		String result="";	
-			
-		for(int i1=0;i1<map.length;i1++){
-			for(int i2=0;i2<map[i1].length;i2++){
-				result=result+map[i1][i2]+" ";
-			}
-			result=result+"\n";
-		}
-		return result;
-	}
 
 }
