@@ -258,7 +258,7 @@ implements ActionListener{
 			catch (IOException e1) {e1.printStackTrace(); }
 			
 			EnableMovement(true);
-			currentGame=1;
+			currentGame=game.getMap().getMapType();
 			LabelOut.setText("You can play now");
 			gamePanel.repaint(); }
 		else if(guardType==-1 && numberOfOgres==-1){LabelOut.setText("Invalid Number of Ogres and Type of Guard"); }
