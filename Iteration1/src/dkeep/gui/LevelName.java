@@ -76,7 +76,11 @@ implements DocumentListener{
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Ogre[] ogres={new Ogre(newLevel.ogrePos, newLevel.batPos)};
+				
+				Ogre ogres[]=new Ogre[Integer.parseInt(newLevel.textField.getText())];
+				for(int i=0;i<Integer.parseInt(newLevel.textField.getText());i++){
+					ogres[i]=new Ogre(new int[]{newLevel.ogrePos[0],newLevel.ogrePos[1]},new int[]{newLevel.batPos[0],newLevel.batPos[1]});
+				}
 				Map map=new Map(newLevel.board, newLevel.doorPos, newLevel.keyPos, newLevel.basher+1);
 				Game newGame=new Game(map, new Hero(newLevel.heroPos, newLevel.basher),	ogres );
 				newGame.SaveLevelFile(levelName); 

@@ -217,24 +217,45 @@ implements MouseListener, MouseMotionListener, KeyListener {
 	{
 		switch(level.option){
 		case "hero":
+			if(level.heroPlaced==1){
+				level.board[level.heroPos[0]][level.heroPos[1]]=' ';
+			}
+			
 			if(level.checkBox.isSelected()){map[pos0][pos1]='A'; }
 			else{map[pos0][pos1]='H'; }
+		
 			level.heroPos[0]=pos0;
-			level.heroPos[1]=pos1; break;
+			level.heroPos[1]=pos1;
+			level.heroPlaced=1; break;
 		case "ogre":
+			if(level.ogrePlaced==1){
+				level.board[level.ogrePos[0]][level.ogrePos[1]]=' ';
+			}
 			map[pos0][pos1]='O'; level.ogrePos[0]=pos0;
-			level.ogrePos[1]=pos1; break;
+			level.ogrePos[1]=pos1; 
+			level.ogrePlaced=1;  break;
 		case "bat":
+			if(level.batPlaced==1){
+				level.board[level.batPos[0]][level.batPos[1]]=' ';
+			}
+			
 			map[pos0][pos1]='*'; level.batPos[0]=pos0;
-			level.batPos[1]=pos1; break;
+			level.batPos[1]=pos1; level.batPlaced=1; 
+			break;
 		case "wall":
 			map[pos0][pos1]='X'; break;
 		case "door":
+			if(level.doorPlaced==1){
+				level.board[level.doorPos[0][0]][level.doorPos[0][1]]=' ';
+			}
 			map[pos0][pos1]='I'; level.doorPos[0][0]=pos0;
-			level.doorPos[0][1]=pos1; break;
+			level.doorPos[0][1]=pos1; level.doorPlaced=1; break;
 		case "key":
+			if(level.keyPlaced==1){
+				level.board[level.keyPos[0]][level.keyPos[1]]=' ';
+			}
 			map[pos0][pos1]='k'; level.keyPos[0]=pos0;
-			level.keyPos[1]=pos1; break;
+			level.keyPos[1]=pos1; level.keyPlaced=1; break;
 		case "eraseCell":
 			map[pos0][pos1]=' '; break; } }
 	@Override

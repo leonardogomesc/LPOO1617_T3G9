@@ -189,9 +189,14 @@ public class Game {
 	public int losscheckkeep(){
 		int result = 0;
 		for(int i=0;i<o.length;i++){
-			if (h.getBasher()==0){result=lossKeepNoBasher(i); } 
-			else if(h.getBasher()==1){result=lossKeepBasher(i); } }
-		return result; }
+			if (h.getBasher()==0 && result==0){result=lossKeepNoBasher(i); 
+			} 
+			else if(h.getBasher()==1 && result==0){
+				result=lossKeepBasher(i); 
+				}
+			}
+		return result; 
+		}
 
 	private int lossKeepBasher(int i){
 		int[] hero=h.getHero(), bat=o[i].getBat();

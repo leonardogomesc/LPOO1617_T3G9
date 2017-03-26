@@ -31,7 +31,7 @@ public class Ogre{
 		if(stunned==0){
 			while(r==0){ogremove = rand.nextInt(4); r = MOgre(ogremove, map); }
 			r=0;
-		} else{stunned=stunned-1; map[ogre[0]][ogre[1]]='8'; }		
+		} else{stunned=stunned-1; map[ogre[0]][ogre[1]]='8'; r=0;}		
 		while(r==0){batmove = rand.nextInt(4); r= MBat(batmove,  map); }		
 		if(key==1 && (ogre[0]==keypos[0] && ogre[1]==keypos[1])){map[keypos[0]][keypos[1]]='$'; }
 		else if(key==1 && (bat[0]==keypos[0] && bat[1]==keypos[1])){map[keypos[0]][keypos[1]]='$'; } }

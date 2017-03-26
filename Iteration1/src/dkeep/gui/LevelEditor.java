@@ -50,7 +50,7 @@ implements ActionListener, DocumentListener{
 	
 	int testing=0;
 	private LevelName newName=null;
-	Game game;
+	Game game=null;
 	
 	//Map
 	char board[][]=new char[1][1];
@@ -60,10 +60,17 @@ implements ActionListener, DocumentListener{
 	//Ogre
 	int ogrePos[]=new int[2];
 	int batPos[]=new int[2];
+	int numberOfOgres;
 	
 	//Hero
 	int heroPos[]=new int[2];
 	int basher;
+	
+	int keyPlaced=0;
+	int heroPlaced=0;
+	int ogrePlaced=0;
+	int batPlaced=0;
+	int doorPlaced=0;
 	
 	
 	JCheckBox checkBox;
@@ -74,6 +81,7 @@ implements ActionListener, DocumentListener{
 	
 	
 	private int comp=0,larg=0;
+	JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -130,7 +138,7 @@ implements ActionListener, DocumentListener{
 	
 	
 	private void InitBtnCancel(){
-		btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Exit");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				setVisible(false); 
@@ -144,9 +152,11 @@ implements ActionListener, DocumentListener{
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				if(playable()==0){
 				if(checkBox.isSelected()){basher=1; }
 				else{basher=0; }
 				newName .setVisible(true);
+				}
 				
 			}
 		});
@@ -158,20 +168,43 @@ implements ActionListener, DocumentListener{
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				if(testing==1){
+					testing=0;
+					btnTest.setText("Test");
+				}
+				else if(testing==0){
+				
+				if(playable()==0){
+					
+					if(game!=null){
+						for(int i=0;i<game.getOgre().length;i++){
+							game.getOgre()[i].OgreErase(game.getMap());
+						}
+						game.getMap().getMap()[ogrePos[0]][ogrePos[1]]='O';
+						game.getMap().getMap()[batPos[0]][batPos[1]]='*';
+					}
+				
 				if(checkBox.isSelected()){basher=1; }
 				else{basher=0; }
+						
+				Ogre o[]=new Ogre[Integer.parseInt(textField.getText())];
+				for(int i=0;i<Integer.parseInt(textField.getText());i++){
+					o[i]=new Ogre(new int[]{ogrePos[0],ogrePos[1]},new int[]{batPos[0],batPos[1]});
+				}
 				
-				Ogre o=new Ogre(ogrePos,batPos);
-				Ogre o2[]={o};
 				Hero h=new Hero(heroPos,basher);
 				Map m= new Map(board,doorPos,keyPos,2);
 				
-				game=new Game(m,h,o2);
+				game=new Game(m,h,o);
 				
-				inputPanel.repaint();
 				testing=1;
+				inputPanel.repaint();
+				btnTest.setText("Stop Test");
 				inputPanel.requestFocusInWindow();
-				lblOutput.setText("You can play now"); } });
+				lblOutput.setText("You can play now");
+				} 
+				
+				} } });
 		btnTest.setBounds(562, 431, 95, 23);
 		this.getContentPane().add(btnTest);
 	}
@@ -264,7 +297,7 @@ implements ActionListener, DocumentListener{
 			public void actionPerformed(ActionEvent e) {
 				lblOutput.setText("Click to place the hero:");
 				option="hero"; } });
-		checkBox = new JCheckBox("Basher");
+		checkBox = new JCheckBox("Sword");
 		checkBox.setBounds(123, 141, 66, 24);
 		panelTools.add(checkBox);
 	}
@@ -300,6 +333,15 @@ implements ActionListener, DocumentListener{
 		});
 		btnOgre.setBounds(28, 272, 95, 26);
 		panelTools.add(btnOgre);
+		
+		textField = new JTextField();
+		textField.setBounds(152, 308, 37, 20);
+		panelTools.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNumberOfOgres = new JLabel("Number of Ogres:");
+		lblNumberOfOgres.setBounds(10, 309, 130, 14);
+		panelTools.add(lblNumberOfOgres);
 	}
 	private void InitBtnKey(){
 		btnKey = new JButton("Key");
@@ -330,7 +372,7 @@ implements ActionListener, DocumentListener{
 		InitBtnWall();
 		InitBtnOgre();
 		InitBtnKey();
-		InitBtnBat(); }
+		InitBtnBat();}
 	
 	
 	/**
@@ -410,16 +452,86 @@ implements ActionListener, DocumentListener{
 				if(game.losscheckkeep()==1){
 					lblOutput.setText("You lost!");
 					testing=0;
+					btnTest.setText("Test");
 				}
 			
 				if(game.wincheck()==1){
 					lblOutput.setText("You won!");
 					testing=0;
+					btnTest.setText("Test");
 				}
 				
 			}
 			
 		inputPanel.repaint();
 		
+	}
+	
+	public int playable(){
+		int result=0;
+		int i;
+		int j;
+		
+		if(!(keyPlaced==1 && heroPlaced==1 && ogrePlaced==1 && batPlaced==1 && doorPlaced==1) && result==0){
+			result=1;
+		}
+		
+		if((Integer.parseInt(textField.getText())>5 || Integer.parseInt(textField.getText())<1) && result==0){
+			result=1;
+		}
+		
+		for(i=0;i<board[0].length;i++){
+			if(!(board[0][i]=='I' || board[0][i]=='X')&&result==0){
+				
+				result=1;
+			}
+		}
+		
+		for(i=0;i<board[board.length-1].length;i++){
+			if(!(board[board.length-1][i]=='I' || board[board.length-1][i]=='X')&&result==0){
+				result=1;
+			}
+		}
+		
+		for(i=0;i<board.length;i++){
+			if(!(board[i][0]=='I' || board[i][0]=='X')&&result==0){
+				result=1;
+			}
+		}
+		
+		for(i=0;i<board.length;i++){
+			if(!(board[i][board[i].length-1]=='I' || board[i][board[i].length-1]=='X')&&result==0){
+				result=1;
+			}
+		}
+		
+		
+		int arrayToCheck[][]={keyPos,ogrePos,batPos,heroPos};
+		
+		for(i=0;i<arrayToCheck.length;i++){
+			for(j=0;j<arrayToCheck.length;j++){
+				if(i!=j){
+					if((arrayToCheck[i][0]==arrayToCheck[j][0]) && (arrayToCheck[i][1]==arrayToCheck[j][1])&& result==0){
+						result=1;
+					}
+				}
+			}
+		}
+		
+		for(i=0;i<arrayToCheck.length;i++){
+			if((arrayToCheck[i][0]==doorPos[0][0]) && (arrayToCheck[i][1]==doorPos[0][1])&& result==0){
+				result=1;
+			}
+		}
+		
+		if(!((batPos[0]==ogrePos[0]+1 && batPos[1]==ogrePos[1])||
+		(batPos[0]==ogrePos[0]-1 && batPos[1]==ogrePos[1])||
+		(batPos[0]==ogrePos[0] && batPos[1]==ogrePos[1]+1)||
+		(batPos[0]==ogrePos[0] && batPos[1]==ogrePos[1]-1)) && result==0){
+			
+			result=1;
+		}
+		
+		return result;
 	}
 }
