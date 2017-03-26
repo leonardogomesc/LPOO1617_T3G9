@@ -8,7 +8,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.Vector;
-
+/**
+ * Game.java - class that manages the game, keeps record of levels, saves and reads data from files
+ * @author Leonardo Capozzi
+ * @author Ricardo Carvalho
+ *
+ */
 public class Game {
 
 	/*
@@ -21,7 +26,9 @@ public class Game {
 	private Scanner in;
 	private String line;
 	private PrintWriter outFile;
-
+	/*
+	 * variables used for the game itself
+	 */
 	private Guard g;
 	private Hero h;
 	private Map m;
@@ -29,10 +36,26 @@ public class Game {
 	private int currentLevel;
 	private Vector<String> levels;
 
+	
+	/**
+	 * Constructor used to create a new dungeon type game, only for saving purposes. 
+	 * @param m2 map information to save for latter use
+	 * @param h2  hero status to save in a file
+	 * @param g2 guard status to write in a file
+	 */
 	public Game(Map m2,Hero h2, Guard g2){m=m2; h=h2; g=g2; }
 
+	/**
+	 * Constructor used to create a new keep type game, only for saving and testing an edited level.
+	 * @param m2 map information to save for latter use
+	 * @param h2  hero status to save in a file
+	 * @param g2 guard status to write in a file
+	 */
 	public Game(Map m2,Hero h2, Ogre[] o2){m=m2; h=h2; o=o2; }
 
+	/**
+	 * Constructor used to play the default game levels saved in level1.map and keep.map
+	 */
 	public Game(){
 		this.levels=new Vector<String>();
 		levels.clear();
@@ -40,6 +63,12 @@ public class Game {
 		this.levels.add("keep");
 		this.currentLevel=-1; }
 
+	/**
+	 * Sets the next level checking the game state (if next level doesn't exist considers game beaten)
+	 * @param info array that includes information as guard personality (at index 0) and number of ogres (at index 1)
+	 * @return int to indicate game state, returns 0 case game is won and 1 otherwise
+	 * @throws IOException
+	 */
 	public int nextLevel(int[] info) throws IOException{
 		this.currentLevel=this.currentLevel+1;
 		if(this.currentLevel>=this.levels.size()){return 0; }
@@ -156,15 +185,34 @@ public class Game {
 		m.getMap()[m.getKeyPos()[0]][m.getKeyPos()[1]]='k';
 		for(int i=0;i<m.getDoors().length;i++){m.getMap()[m.getDoors()[i][0]][m.getDoors()[i][1]]='I'; } }
 
-
+	/**
+	 * Gets the guard in the current level
+	 * @return Guard object or null if current level is of keep type
+	 */
 	public Guard getGuard() {return g; }
 
+	/**
+	 * Gets the current hero state in the current level
+	 * @return Hero object
+	 */
 	public Hero getHero() {return h; }
 
+	/**
+	 * Gets the current map state in the current level
+	 * @return Map object
+	 */
 	public Map getMap() {return m; }
 
+	/**
+	 * Gets the ogres in the current level
+	 * @return An array of Ogre object or null if current level is of dungeon type
+	 */
 	public Ogre[] getOgre() {return o; }
 
+	/**
+	 * Checks if level is won
+	 * @return 1 if level is won and 0 otherwise
+	 */
 	public int wincheck(){
 		int hero[]=h.getHero();
 		int doors[][]=m.getDoors();
@@ -172,7 +220,10 @@ public class Game {
 		for(int i =0;i<doors.length;i++){	
 			if(hero[0]==doors[i][0] && hero[1]==doors[i][1]){result=1; } }
 		return result; }
-
+	/**
+	 * Checks the loss conditions for a dungeon type level (if hero and guard are in adjacent cells)
+	 * @return 1 if level is lost and 0 otherwise
+	 */
 	public int losscheck(){
 		int hero[]=h.getHero(), guard[][]=g.getGuard(), guardpos=g.getGuardpos(), result=0;
 		char map[][]=m.getMap();
@@ -185,7 +236,11 @@ public class Game {
 					(hero[0]==guard[guardpos][0] && hero[1]==guard[guardpos][1])){
 				result=1; } }
 		return result; }
-
+/**
+ * Checks the loss conditions for a keep type level (if hero with basher is in cell adjacent to an ogre's bat
+ * or hero without basher is either adjacent to an ogre or its bat)
+ * @return 1 if level is lost and 0 otherwise
+ */
 	public int losscheckkeep(){
 		int result = 0;
 		for(int i=0;i<o.length;i++){
@@ -216,6 +271,12 @@ public class Game {
 		{return 1; }
 		return 0;
 	}
+	
+	/**
+	 * Sets in motion the ogres' movement, erasing current position,
+	 * setting a new position and checking proximity to a hero's basher (if there is any)
+	 * recurring to auxiliary functions
+	 */
 	public void OgreMove(){
 		int i;
 		for(i=0;i<o.length;i++){o[i].OgreErase(m); }
@@ -226,6 +287,9 @@ public class Game {
 
 		setStunned(); }
 
+	/**
+	 * Sets the ogre's stunned status (ogre is stunned if it's in a cell adjacent to hero with basher)
+	 */
 	public void setStunned(){
 		if(h.getBasher()==1){
 
@@ -238,6 +302,11 @@ public class Game {
 						(hero[0]==ogre[0] && hero[1]==ogre[1]-1) || (hero[0]==ogre[0]+1 && hero[1]==ogre[1])||
 						(hero[0]==ogre[0] && hero[1]==ogre[1])){
 					o[i].setStunned(); map[ogre[0]][ogre[1]]='8'; } } } }
+	
+	/**
+	 * Saves the whole level's information in a .map file to play later
+	 * @param levelName the name of the level that we want to save, previously checked to avoid replacing an existing file
+	 */
 	public void SaveLevelFile(String levelName) {
 		try{
 			outFile = new PrintWriter("src/dkeep/logic/levels/"+levelName+".map", "UTF-8");
