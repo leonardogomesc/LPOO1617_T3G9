@@ -65,7 +65,12 @@ public class Ogre{
 		while(r==0){batmove = rand.nextInt(4); r= MBat(batmove,  map); }		
 		if(key==1 && (ogre[0]==keypos[0] && ogre[1]==keypos[1])){map[keypos[0]][keypos[1]]='$'; }
 		else if(key==1 && (bat[0]==keypos[0] && bat[1]==keypos[1])){map[keypos[0]][keypos[1]]='$'; } }
-
+/**
+ * Method called by tests and OgreMove
+ * @param ogremove direction of the movement based on a random number between 0 and 3
+ * @param map array of array including level board's contents
+ * @return 1 if moved succesfully and 0 otherwise
+ */
 	public int MOgre(int ogremove, char[][] map){
 		switch(ogremove){
 		case 0:
@@ -81,6 +86,13 @@ public class Ogre{
 			if(map[ogre[0]][ogre[1]+1]!='X' && map[ogre[0]][ogre[1]+1]!='I' && map[ogre[0]][ogre[1]+1]!='S'){
 				map[ogre[0]][ogre[1]+1]='O'; ogre[1]=ogre[1]+1; return 1; } break; } 
 		return 0; }
+	
+	/**
+	 * Method called by tests and OgreMove
+	 * @param batmove direction of the movement based on a random number between 0 and 3
+	 * @param map array of array including level board's contents
+	 * @return 1 if moved succesfully and 0 otherwise
+	 */
 	public int MBat(int batmove, char[][] map){
 		switch(batmove){
 		case 0:
