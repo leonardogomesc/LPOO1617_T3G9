@@ -1,10 +1,16 @@
 package dkeep.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -13,15 +19,6 @@ import dkeep.logic.Game;
 import dkeep.logic.Hero;
 import dkeep.logic.Map;
 import dkeep.logic.Ogre;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import java.awt.Font;
 
 public class LevelName extends JFrame 
 implements DocumentListener{
@@ -43,7 +40,7 @@ implements DocumentListener{
 		InitNameInput();
 		InitBtns();
 		InitLabels(); }
-	
+
 	private void InitFrame(){
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,44 +49,41 @@ implements DocumentListener{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null); }
-	
+
 	private void InitLabels(){
 		JLabel lblmap = new JLabel(".map");
 		lblmap.setBounds(178, 40, 46, 14);
 		contentPane.add(lblmap);
-		
+
 		JLabel lblLevelName = new JLabel("Level name:");
 		lblLevelName.setBounds(10, 9, 89, 14);
 		contentPane.add(lblLevelName);
-		
+
 		lblStatus = new JLabel("");
 		lblStatus.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblStatus.setForeground(Color.BLACK);
 		lblStatus.setBounds(10, 57, 166, 14);
 		contentPane.add(lblStatus); }
-	
+
 	private void InitBtns(){
 		InitBtnSave();
 		InitBtnCancel(); }
-	
+
 	private void InitBtnSave(){
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				Ogre ogres[]=new Ogre[Integer.parseInt(newLevel.textField.getText())];
 				for(int i=0;i<Integer.parseInt(newLevel.textField.getText());i++){
-					ogres[i]=new Ogre(new int[]{newLevel.ogrePos[0],newLevel.ogrePos[1]},new int[]{newLevel.batPos[0],newLevel.batPos[1]});
-				}
+					ogres[i]=new Ogre(new int[]{newLevel.ogrePos[0],newLevel.ogrePos[1]},new int[]{newLevel.batPos[0],newLevel.batPos[1]}); }
 				Map map=new Map(newLevel.board, newLevel.doorPos, newLevel.keyPos, newLevel.basher+1);
 				Game newGame=new Game(map, new Hero(newLevel.heroPos, newLevel.basher),	ogres );
 				newGame.SaveLevelFile(levelName); 
-				setVisible(false); 
-				} });
+				setVisible(false); } });
 		btnSave.setEnabled(false);
 		btnSave.setBounds(10, 82, 89, 23);
 		contentPane.add(btnSave); }
-	
+
 	private void InitBtnCancel(){
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -97,7 +91,7 @@ implements DocumentListener{
 		});
 		btnCancel.setBounds(109, 82, 89, 23);
 		contentPane.add(btnCancel); }
-	
+
 	private void InitNameInput(){
 		NameInput = new JTextField();
 		NameInput.setBounds(10, 37, 166, 20);
@@ -113,15 +107,15 @@ implements DocumentListener{
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {validName(e); }
-	
+
 	private void validName(DocumentEvent e){
 		if((e.getDocument()==NameInput.getDocument()))
 		{   File f = new File("src/dkeep/logic/levels/"+NameInput.getText()+".map");
-			if(f.exists() && !f.isDirectory()) {
-				lblStatus.setText("Sorry, name taken... :(");
-				btnSave.setEnabled(false);}
-			else {
-				lblStatus.setText("");
-				btnSave.setEnabled(true);
-				levelName=NameInput.getText(); } } }
+		if(f.exists() && !f.isDirectory()) {
+			lblStatus.setText("Sorry, name taken... :(");
+			btnSave.setEnabled(false);}
+		else {
+			lblStatus.setText("");
+			btnSave.setEnabled(true);
+			levelName=NameInput.getText(); } } }
 }

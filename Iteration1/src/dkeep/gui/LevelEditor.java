@@ -1,18 +1,14 @@
 package dkeep.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -155,11 +151,7 @@ implements ActionListener, DocumentListener{
 				if(playable()==0){
 				if(checkBox.isSelected()){basher=1; }
 				else{basher=0; }
-				newName .setVisible(true);
-				}
-				
-			}
-		});
+				newName .setVisible(true); } } });
 		btnSave.setBounds(462, 431, 95, 23);
 		this.getContentPane().add(btnSave);
 	}
@@ -170,27 +162,20 @@ implements ActionListener, DocumentListener{
 				
 				if(testing==1){
 					testing=0;
-					btnTest.setText("Test");
-				}
+					btnTest.setText("Test"); }
 				else if(testing==0){
-				
 				if(playable()==0){
-					
 					if(game!=null){
-						for(int i=0;i<game.getOgre().length;i++){
-							game.getOgre()[i].OgreErase(game.getMap());
-						}
+						for(int i=0;i<game.getOgre().length;i++){game.getOgre()[i].OgreErase(game.getMap()); }
 						game.getMap().getMap()[ogrePos[0]][ogrePos[1]]='O';
-						game.getMap().getMap()[batPos[0]][batPos[1]]='*';
-					}
+						game.getMap().getMap()[batPos[0]][batPos[1]]='*'; }
 				
 				if(checkBox.isSelected()){basher=1; }
 				else{basher=0; }
 						
 				Ogre o[]=new Ogre[Integer.parseInt(textField.getText())];
 				for(int i=0;i<Integer.parseInt(textField.getText());i++){
-					o[i]=new Ogre(new int[]{ogrePos[0],ogrePos[1]},new int[]{batPos[0],batPos[1]});
-				}
+					o[i]=new Ogre(new int[]{ogrePos[0],ogrePos[1]},new int[]{batPos[0],batPos[1]}); }
 				
 				Hero h=new Hero(heroPos,basher);
 				Map m= new Map(board,doorPos,keyPos,2);
@@ -201,10 +186,7 @@ implements ActionListener, DocumentListener{
 				inputPanel.repaint();
 				btnTest.setText("Stop Test");
 				inputPanel.requestFocusInWindow();
-				lblOutput.setText("You can play now");
-				} 
-				
-				} } });
+				lblOutput.setText("You can play now"); }  } } });
 		btnTest.setBounds(562, 431, 95, 23);
 		this.getContentPane().add(btnTest);
 	}
@@ -214,14 +196,8 @@ implements ActionListener, DocumentListener{
 			public void actionPerformed(ActionEvent e) {
 				for(int i=0;i<board.length;i++){
 					for(int j=0;j<board[i].length;j++){
-						board[i][j]=' ';
-					}
-				}
-				testing=0;
-				inputPanel.repaint();
-				
-			}
-		});
+						board[i][j]=' '; } }
+				testing=0; inputPanel.repaint(); } });
 		btnClear.setBounds(462, 388, 95, 23);
 		contentPane.add(btnClear);
 	}
@@ -234,8 +210,7 @@ implements ActionListener, DocumentListener{
 			}
 		});
 		btnEraseCell.setBounds(562, 388, 95, 23);
-		contentPane.add(btnEraseCell);
-	}
+		contentPane.add(btnEraseCell); }
 	
 	private void initEditorBtns(){
 		InitBtnCancel();
@@ -328,21 +303,17 @@ implements ActionListener, DocumentListener{
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblOutput.setText("Click to place Ogre:");
-				option="ogre";
-			}
-		});
+				option="ogre"; } });
 		btnOgre.setBounds(28, 272, 95, 26);
 		panelTools.add(btnOgre);
-		
 		textField = new JTextField();
 		textField.setBounds(152, 308, 37, 20);
 		panelTools.add(textField);
 		textField.setColumns(10);
-		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres:");
 		lblNumberOfOgres.setBounds(10, 309, 130, 14);
-		panelTools.add(lblNumberOfOgres);
-	}
+		panelTools.add(lblNumberOfOgres); }
+	
 	private void InitBtnKey(){
 		btnKey = new JButton("Key");
 		btnKey.addActionListener(new ActionListener() {
