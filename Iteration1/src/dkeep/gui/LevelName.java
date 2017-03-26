@@ -77,9 +77,11 @@ implements DocumentListener{
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ogre[] ogres={new Ogre(newLevel.ogrePos, newLevel.batPos)};
-				Map map=new Map(newLevel.board, newLevel.doorPos, newLevel.keyPos, newLevel.basher);
+				Map map=new Map(newLevel.board, newLevel.doorPos, newLevel.keyPos, newLevel.basher+1);
 				Game newGame=new Game(map, new Hero(newLevel.heroPos, newLevel.basher),	ogres );
-				newGame.SaveLevelFile(levelName); } });
+				newGame.SaveLevelFile(levelName); 
+				setVisible(false); 
+				} });
 		btnSave.setEnabled(false);
 		btnSave.setBounds(10, 82, 89, 23);
 		contentPane.add(btnSave); }
@@ -110,12 +112,12 @@ implements DocumentListener{
 	
 	private void validName(DocumentEvent e){
 		if((e.getDocument()==NameInput.getDocument()))
-		{
-			File f = new File("src/dkeep/logic/levels/"+NameInput.getText()+".map");
+		{   File f = new File("src/dkeep/logic/levels/"+NameInput.getText()+".map");
 			if(f.exists() && !f.isDirectory()) {
 				lblStatus.setText("Sorry, name taken... :(");
 				btnSave.setEnabled(false);}
 			else {
 				lblStatus.setText("");
-				btnSave.setEnabled(true);} } }
+				btnSave.setEnabled(true);
+				levelName=NameInput.getText(); } } }
 }

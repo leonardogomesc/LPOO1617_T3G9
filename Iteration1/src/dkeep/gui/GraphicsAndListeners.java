@@ -20,13 +20,17 @@ public class GraphicsAndListeners extends JPanel
 implements MouseListener, MouseMotionListener, KeyListener {
 
 	private BufferedImage wall;
-	private BufferedImage door;
+	private BufferedImage openDoor;
 	private BufferedImage closedDoor;
 	private BufferedImage key;
+	private BufferedImage heroWithKey;
+	private BufferedImage heroWithSword;
+	private BufferedImage heroWithSwordAndKey;
 	private BufferedImage hero;
 	private BufferedImage ogre;
 	private BufferedImage bat;
 	private BufferedImage guard;
+	private BufferedImage sleepingGuard;
 	private BufferedImage stunnedOgre;
 	private BufferedImage lever;
 
@@ -50,25 +54,33 @@ implements MouseListener, MouseMotionListener, KeyListener {
 		x=0;
 		y=0;
 
-		try { wall = ImageIO.read(new File("src/dkeep/gui/images/wall.jpg")); } 
+		try { wall = ImageIO.read(new File("src/dkeep/gui/images/wall.png")); } 
 		catch (IOException e) {e.printStackTrace(); }
-		try { stunnedOgre = ImageIO.read(new File("src/dkeep/gui/images/ogre.jpg")); }
+		try { stunnedOgre = ImageIO.read(new File("src/dkeep/gui/images/ogreStunned.png")); }
 		catch (IOException e) {e.printStackTrace(); }
 		try {lever = ImageIO.read(new File("src/dkeep/gui/images/lever.png")); }
 		catch (IOException e) {e.printStackTrace(); }
 		try {key = ImageIO.read(new File("src/dkeep/gui/images/key.png")); }
 		catch (IOException e) {e.printStackTrace();}
-		try {door = ImageIO.read(new File("src/dkeep/gui/images/door.png")); }
+		try {openDoor = ImageIO.read(new File("src/dkeep/gui/images/opendoor.png")); }
 		catch (IOException e) {e.printStackTrace(); }
 		try {hero = ImageIO.read(new File ("src/dkeep/gui/images/hero.png")); }
 		catch (IOException e) {e.printStackTrace(); }
-		try {closedDoor = ImageIO.read(new File("src/dkeep/gui/images/closedDoor.jpg")); }
+		try {heroWithKey = ImageIO.read(new File ("src/dkeep/gui/images/heroWithKey.png")); }
 		catch (IOException e) {e.printStackTrace(); }
-		try {ogre = ImageIO.read(new File("src/dkeep/gui/images/ogre.jpg")); }
+		try {heroWithSword = ImageIO.read(new File ("src/dkeep/gui/images/heroWithSword.png")); }
+		catch (IOException e) {e.printStackTrace(); }
+		try {heroWithSwordAndKey = ImageIO.read(new File ("src/dkeep/gui/images/heroWithSwordAndKey.png")); }
+		catch (IOException e) {e.printStackTrace(); }
+		try {closedDoor = ImageIO.read(new File("src/dkeep/gui/images/door.png")); }
+		catch (IOException e) {e.printStackTrace(); }
+		try {ogre = ImageIO.read(new File("src/dkeep/gui/images/ogre.png")); }
 		catch (IOException e) {e.printStackTrace();}
-		try {bat = ImageIO.read(new File("src/dkeep/gui/images/bat.jpg"));}
+		try {bat = ImageIO.read(new File("src/dkeep/gui/images/bat.png"));}
 		catch (IOException e) {e.printStackTrace(); }
 		try {guard = ImageIO.read(new File("src/dkeep/gui/images/guard.png")); }
+		catch (IOException e) {e.printStackTrace(); }
+		try {sleepingGuard = ImageIO.read(new File("src/dkeep/gui/images/sleepingGuard.png")); }
 		catch (IOException e) {e.printStackTrace(); }
 	} 
 
@@ -148,14 +160,35 @@ implements MouseListener, MouseMotionListener, KeyListener {
 	private void DrawChar(Graphics g, int c, char cell){
 		switch(cell){
 				case 'X':g.drawImage(wall,x,y,size,size,null); break;
-				case 'S':g.drawImage(door,x,y,size,size,null); break;
+				case 'S':g.drawImage(openDoor,x,y,size,size,null); break;
 				case 'I':g.drawImage(closedDoor,x,y,size,size,null); break;
-				case 'H': case 'A': case 'K':
+				case 'H':  
 					g.drawImage(hero,x,y,size,size,null); break;
+				case 'A':
+					g.drawImage(heroWithSword,x,y,size,size,null); break;
+				case 'K':
+					if(w!=null){ 
+						if(w.game.getHero().getBasher()==1){
+							g.drawImage(heroWithSwordAndKey,x,y,size,size,null);
+						} 
+						else{g.drawImage(heroWithKey,x,y,size,size,null);
+						}
+					} 
+					else{
+						if(level.checkBox.isSelected()){
+							g.drawImage(heroWithSwordAndKey,x,y,size,size,null);
+						}
+						else{
+							g.drawImage(heroWithKey,x,y,size,size,null);
+						}
+					} 
+					break;
 				case 'k':if(c==2){g.drawImage(key,x,y,size,size,null);}
 				else if (c==1){g.drawImage(lever,x,y,size,size,null);} break;
-				case 'G': case 'g':
+				case 'G':
 					g.drawImage(guard,x,y,size,size,null); break;
+				case 'g':
+					g.drawImage(sleepingGuard,x,y,size,size,null); break;
 				case 'O':g.drawImage(ogre,x,y,size,size,null);break;
 				case '8':g.drawImage(stunnedOgre,x,y,size,size,null); break;
 				case '*':g.drawImage(bat,x,y,size,size,null); break; } }

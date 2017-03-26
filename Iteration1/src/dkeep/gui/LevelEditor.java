@@ -144,6 +144,8 @@ implements ActionListener, DocumentListener{
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				if(checkBox.isSelected()){basher=1; }
+				else{basher=0; }
 				newName .setVisible(true);
 				
 			}
@@ -155,13 +157,13 @@ implements ActionListener, DocumentListener{
 		btnTest = new JButton("Test");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int b;
-				if(checkBox.isSelected()){b=1; }
-				else{b=0; }
+				
+				if(checkBox.isSelected()){basher=1; }
+				else{basher=0; }
 				
 				Ogre o=new Ogre(ogrePos,batPos);
 				Ogre o2[]={o};
-				Hero h=new Hero(heroPos,b);
+				Hero h=new Hero(heroPos,basher);
 				Map m= new Map(board,doorPos,keyPos,2);
 				
 				game=new Game(m,h,o2);
@@ -373,6 +375,12 @@ implements ActionListener, DocumentListener{
 		else {
 			this.panelTools.setVisible(true); 
 			board= new char[comp][larg];
+			for(int i=0;i<board.length;i++){
+				for(int i2=0;i2<board[i].length;i2++){
+					board[i][i2]=' ';
+					
+				}
+			}
 			testing=0;
 			fillWalls();}
 		
@@ -403,8 +411,7 @@ implements ActionListener, DocumentListener{
 					lblOutput.setText("You lost!");
 					testing=0;
 				}
-				
-
+			
 				if(game.wincheck()==1){
 					lblOutput.setText("You won!");
 					testing=0;

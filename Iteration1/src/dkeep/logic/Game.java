@@ -264,7 +264,7 @@ public class Game {
 	private void SaveKey() {outFile.println(m.getKeyPos()[0]+","+m.getKeyPos()[1]);}
 
 	private void SaveEnemy(){
-		if(this.m.getMapType()==1){
+		if(this.m.getMapType()==2){
 			outFile.print(o[0].getOgre()[0]+","+o[0].getOgre()[1]);
 			if(o[0].getBat()[0]==o[0].getOgre()[0]+1) {outFile.println(","+"s"); }
 			if(o[0].getBat()[0]==o[0].getOgre()[0]-1) {outFile.println(","+"n"); }
@@ -279,6 +279,6 @@ public class Game {
 		char[][] map=m.getMap();
 		for (int i=0;i<map.length;i++) {
 			for (int j=0;j<map[i].length;j++) {
-				if(map[i][j]=='X') {outFile.print('X'); }
-				else if(map[i][j]==' ') {outFile.print(' '); } }
-			outFile.println(""); } } }
+				if(map[i][j]=='X' || map[i][j]=='I') {outFile.print('X'); }
+				else {outFile.print(' '); } }
+			if(i!=map.length-1){outFile.println("");} } } }
