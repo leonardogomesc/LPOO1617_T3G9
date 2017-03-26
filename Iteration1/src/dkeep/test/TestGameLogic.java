@@ -139,6 +139,31 @@ public void testMoveBatIntoFreeCell(){
 	  assertEquals(1,o.getBat()[0]);
 	  assertEquals(2,o.getBat()[1]);
 	  
+	  o.MOgre(2, m.getMap());
+	  o.MOgre(1, m.getMap());
+	  
+      o.MBat(0,m.getMap());
+	  
+	  assertEquals(1,o.getBat()[0]);
+	  assertEquals(2,o.getBat()[1]);
+	  
+	  o.MBat(3,m.getMap());
+	  
+	  assertEquals(2,o.getBat()[0]);
+	  assertEquals(3,o.getBat()[1]);
+	  
+      o.MBat(2,m.getMap());
+	  
+	  assertEquals(3,o.getBat()[0]);
+	  assertEquals(2,o.getBat()[1]);
+	  
+      o.MBat(1,m.getMap());
+	  
+	  assertEquals(2,o.getBat()[0]);
+	  assertEquals(1,o.getBat()[1]);
+	  
+	  
+	  
 }
 
 @Test
@@ -448,19 +473,71 @@ public void ReadGamefromFile(){
 	int info[]=new int[] {0,3}; Game g=new Game();
 	try {g.nextLevel(info); } catch (IOException e) {e.printStackTrace(); }
 	
-	g.getGuard();
-	g.getHero();
-	g.getMap();
+	 assertEquals(1, g.getGuard().getGuard()[g.getGuard().getGuardpos()][0]);
+	 assertEquals(8, g.getGuard().getGuard()[g.getGuard().getGuardpos()][1]);
+	 assertEquals(24, g.getGuard().getGuard().length);
+	 
+	 assertEquals(5,g.getMap().getDoors()[0][0]);
+	 assertEquals(0,g.getMap().getDoors()[0][1]);
+	 assertEquals(6,g.getMap().getDoors()[1][0]);
+	 assertEquals(0,g.getMap().getDoors()[1][1]);
+	 
+	 assertEquals(1, g.getHero().getHero()[0]);
+	 assertEquals(1, g.getHero().getHero()[1]);
+	 
+	 assertEquals(0, g.getHero().getBasher());
+	
+	assertEquals(1,g.getMap().getMapType());
+	
+	
 	
 	try {g.nextLevel(info); } catch (IOException e) {e.printStackTrace(); }
+	
+	assertEquals(1, g.getOgre()[0].getOgre()[0]);
+	assertEquals(4, g.getOgre()[0].getOgre()[1]);
+	assertEquals(2, g.getOgre()[0].getBat()[0]);
+	assertEquals(4, g.getOgre()[0].getBat()[1]);
+	
+	assertEquals(1,g.getMap().getDoors()[0][0]);
+	assertEquals(0,g.getMap().getDoors()[0][1]);
+	 
+	assertEquals(7, g.getHero().getHero()[0]);
+	assertEquals(1, g.getHero().getHero()[1]);
+	
+	assertEquals(1, g.getHero().getBasher());
+	
+	assertEquals(2,g.getMap().getMapType());
+	
+	char mapd[][]={{'X','X','X','X','X','X','X','X','X'},
+		       {'I',' ',' ',' ','O',' ',' ','k','X'},
+		       {'X',' ',' ',' ','*',' ',' ',' ','X'},
+		       {'X',' ',' ',' ',' ',' ',' ',' ','X'},
+		       {'X',' ',' ',' ',' ',' ',' ',' ','X'},
+		       {'X',' ',' ',' ',' ',' ',' ',' ','X'},
+		       {'X',' ',' ',' ',' ',' ',' ',' ','X'},
+		       {'X','A',' ',' ',' ',' ',' ',' ','X'},
+		       {'X','X','X','X','X','X','X','X','X'},
+				};
+
+
+for(int i=0;i<mapd.length;i++){
+	for(int j=0;j<mapd[i].length;j++){
+
+		assertEquals( mapd[i][j],g.getMap().getMap()[i][j]);
+	}
+}
+
 	
 	g.SaveLevelFile("aiviueviunvfvifvbfbviufbvyf");
 	File file = new File("src/dkeep/logic/levels/aiviueviunvfvifvbfbviufbvyf.map");
 	file.delete();
+	
+	g.OgreMove();
 	g.getOgre();
 	g.getHero();
 	g.getMap();
 	
+	try {assertEquals(0,g.nextLevel(info)); } catch (IOException e) {e.printStackTrace(); }
 }
 
 }
