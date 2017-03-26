@@ -252,7 +252,7 @@ implements ActionListener, DocumentListener{
 	
 	private void InitInputPanel_PanelTools(){
 		inputPanel = new GraphicsAndListeners(this);
-		inputPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		//inputPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		inputPanel.setBounds(10, 38, 450, 450);
 		contentPane.add(inputPanel);
 		panelTools = new JPanel();

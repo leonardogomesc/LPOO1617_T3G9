@@ -60,8 +60,7 @@ public class Game {
 		this.levels=new Vector<String>();
 		levels.clear();
 		this.levels.add("level1");
-		//this.levels.add("keep");
-		this.levels.add("test2");
+		this.levels.add("keep");
 		this.currentLevel=-1; }
 
 	/**
