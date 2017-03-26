@@ -5,11 +5,12 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import dkeep.logic.Game;
+import dkeep.logic.Guard;
 import dkeep.logic.Hero;
 import dkeep.logic.Map;
 import dkeep.logic.Ogre;
 
-public class TestKeepGameLogic {
+public class TestGameLogic {
 	
 	
   char map[][]={{'X','X','X','X','X'},
@@ -23,6 +24,19 @@ int keypos[]={3,1};
 int ogre[]={1,3};
 int bat[]= {2,3};
 int hero[]={1,1};
+
+
+char map2[][]={{'X','X','X','X','X'},
+		{'X','H',' ','G','X'},
+		{'I',' ',' ',' ','X'},
+		{'I','k',' ',' ','X'},
+		{'X','X','X','X','X'}};
+
+int doors2[][]={{2,0},{3,0}};
+int keypos2[]={3,1};
+int guard2[][]={{1,3}};
+int hero2[]={1,1};
+
 
 @Test
 public void testMoveHeroIntoFreeCell(){
@@ -169,6 +183,118 @@ public void testVictory(){
 	  
 	  assertEquals(1 , game.wincheck());
 	  
+}
+
+
+@Test
+public void testMoveHeroIntoFreeCell2(){
+	  Map m=new  Map(map2,doors2,keypos2,1);
+	  Hero h=new Hero(hero2,0);
+	  Guard g=new Guard(guard2,0);
+	
+	  assertEquals(1,h.getHero()[0]);
+	  assertEquals(1,h.getHero()[1]);
+	  
+	  h.HeroMove(m, "s");
+	  g.GuardMove(m);
+	  
+	  assertEquals(2,h.getHero()[0]);
+	  assertEquals(1,h.getHero()[1]);
+}
+
+@Test
+public void testMoveHeroIntoWall2(){
+	  Map m=new Map(map2,doors2,keypos2,1);
+	  Hero h=new Hero(hero2,0);
+	  Guard g=new Guard(guard2,0);
+	
+	  assertEquals(1,h.getHero()[0]);
+	  assertEquals(1,h.getHero()[1]);
+	  
+	  h.HeroMove(m, "a");
+	  g.GuardMove(m);
+	  
+	  assertEquals(1,h.getHero()[0]);
+	  assertEquals(1,h.getHero()[1]);
+}
+
+@Test
+public void testHeroIsCapturedByGuard(){
+	 Map m=new  Map(map2,doors2,keypos2,1);
+	 Hero h=new Hero(hero2,0);
+	 Guard g=new Guard(guard2,0);
+	 Game game=new Game(m,h,g);
+	 
+	 assertEquals(0 , game.losscheck());
+	 
+	 h.HeroMove(m, "d");
+	 g.GuardMove(m);
+	 
+	 assertEquals(1 , game.losscheck());
+}
+
+@Test
+public void testMoveHeroIntoClosedDoor2(){
+	  Map m=new Map(map2,doors2,keypos2,1);
+	  Hero h=new Hero(hero2,0);
+	  Guard g=new Guard(guard2,0);
+	
+	  assertEquals(1,h.getHero()[0]);
+	  assertEquals(1,h.getHero()[1]);
+	  
+	  h.HeroMove(m, "s");
+	  g.GuardMove(m);
+	  
+	  assertEquals(2,h.getHero()[0]);
+	  assertEquals(1,h.getHero()[1]);
+	  
+	  h.HeroMove(m, "a");
+	  g.GuardMove(m);
+	  
+	  assertEquals(2,h.getHero()[0]);
+	  assertEquals(1,h.getHero()[1]);
+}
+
+@Test
+public void testMoveHeroIntoLever(){
+	  Map m=new  Map(map2,doors2,keypos2,1);
+	  Hero h=new Hero(hero2,0);
+	  Guard g=new Guard(guard2,0);
+	  
+	  
+	  assertEquals('I',m.getMap()[2][0]);
+	  assertEquals('I',m.getMap()[3][0]);
+	
+  
+	  h.HeroMove(m, "s");
+	  g.GuardMove(m);
+	  
+	  h.HeroMove(m, "s");
+	  g.GuardMove(m);
+	  
+	  
+	  assertEquals('S',m.getMap()[2][0]);
+	  assertEquals('S',m.getMap()[3][0]);
+}
+
+@Test
+public void testMoveHeroIntoOpenDoor(){
+	  Map m=new Map(map2,doors2,keypos2,1);
+	  Hero h=new Hero(hero2,0);
+	  Guard g=new Guard(guard2,0);
+	  
+	  h.HeroMove(m, "s");
+	  g.GuardMove(m);
+	  
+	  h.HeroMove(m, "s");
+	  g.GuardMove(m);
+	  
+	  h.HeroMove(m, "a");
+	  g.GuardMove(m);
+	  
+	  
+	  assertEquals(3,h.getHero()[0]);
+	  assertEquals(0,h.getHero()[1]);
 }
 	
 }
