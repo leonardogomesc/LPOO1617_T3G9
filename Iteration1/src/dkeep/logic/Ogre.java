@@ -66,34 +66,34 @@ public class Ogre{
 		if(key==1 && (ogre[0]==keypos[0] && ogre[1]==keypos[1])){map[keypos[0]][keypos[1]]='$'; }
 		else if(key==1 && (bat[0]==keypos[0] && bat[1]==keypos[1])){map[keypos[0]][keypos[1]]='$'; } }
 
-	private int MOgre(int ogremove, char[][] map){
+	public int MOgre(int ogremove, char[][] map){
 		switch(ogremove){
 		case 0:
 			if(map[ogre[0]-1][ogre[1]]!='X' && map[ogre[0]-1][ogre[1]]!='I'&& map[ogre[0]-1][ogre[1]]!='S'){
-				map[ogre[0]-1][ogre[1]]='O'; ogre[0]=ogre[0]-1; return 1; }
+				map[ogre[0]-1][ogre[1]]='O'; ogre[0]=ogre[0]-1; return 1; } break;
 		case 1:
 			if(map[ogre[0]][ogre[1]-1]!='X' && map[ogre[0]][ogre[1]-1]!='I' && map[ogre[0]][ogre[1]-1]!='S'){
-				map[ogre[0]][ogre[1]-1]='O'; ogre[1]=ogre[1]-1; return 1; }
+				map[ogre[0]][ogre[1]-1]='O'; ogre[1]=ogre[1]-1; return 1; } break;
 		case 2:
 			if(map[ogre[0]+1][ogre[1]]!='X' && map[ogre[0]+1][ogre[1]]!='I' && map[ogre[0]+1][ogre[1]]!='S'){
-				map[ogre[0]+1][ogre[1]]='O'; ogre[0]=ogre[0]+1; return 1; }
+				map[ogre[0]+1][ogre[1]]='O'; ogre[0]=ogre[0]+1; return 1; } break;
 		case 3:
 			if(map[ogre[0]][ogre[1]+1]!='X' && map[ogre[0]][ogre[1]+1]!='I' && map[ogre[0]][ogre[1]+1]!='S'){
-				map[ogre[0]][ogre[1]+1]='O'; ogre[1]=ogre[1]+1; return 1; } } 
+				map[ogre[0]][ogre[1]+1]='O'; ogre[1]=ogre[1]+1; return 1; } break; } 
 		return 0; }
-	private int MBat(int batmove, char[][] map){
+	public int MBat(int batmove, char[][] map){
 		switch(batmove){
 		case 0:
 			if(map[ogre[0]-1][ogre[1]]!='X' && map[ogre[0]-1][ogre[1]]!='I'&& map[ogre[0]-1][ogre[1]]!='S'){
-				map[ogre[0]-1][ogre[1]]='*'; bat[0]=ogre[0]-1; bat[1]=ogre[1]; return 1; }
+				map[ogre[0]-1][ogre[1]]='*'; bat[0]=ogre[0]-1; bat[1]=ogre[1]; return 1; } break;
 		case 1:
 			if(map[ogre[0]][ogre[1]-1]!='X' && map[ogre[0]][ogre[1]-1]!='I' && map[ogre[0]][ogre[1]-1]!='S'){
-				map[ogre[0]][ogre[1]-1]='*'; bat[1]=ogre[1]-1; bat[0]=ogre[0]; return 1; }
+				map[ogre[0]][ogre[1]-1]='*'; bat[1]=ogre[1]-1; bat[0]=ogre[0]; return 1; } break;
 		case 2:
 			if(map[ogre[0]+1][ogre[1]]!='X' && map[ogre[0]+1][ogre[1]]!='I' && map[ogre[0]+1][ogre[1]]!='S'){
-				map[ogre[0]+1][ogre[1]]='*'; bat[0]=ogre[0]+1; bat[1]=ogre[1]; return 1; }
+				map[ogre[0]+1][ogre[1]]='*'; bat[0]=ogre[0]+1; bat[1]=ogre[1]; return 1; } break;
 		case 3:
 			if(map[ogre[0]][ogre[1]+1]!='X' && map[ogre[0]][ogre[1]+1]!='I' && map[ogre[0]][ogre[1]+1]!='S'){
-				map[ogre[0]][ogre[1]+1]='*'; bat[0]=ogre[0]; bat[1]=ogre[1]+1; return 1; } }
+				map[ogre[0]][ogre[1]+1]='*'; bat[0]=ogre[0]; bat[1]=ogre[1]+1; return 1; } break; }
 		return 0; }
 }

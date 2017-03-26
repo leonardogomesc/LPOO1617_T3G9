@@ -2,6 +2,9 @@ package dkeep.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.Test;
 
 import dkeep.logic.Game;
@@ -51,6 +54,91 @@ public void testMoveHeroIntoFreeCell(){
 	  
 	  assertEquals(2,h.getHero()[0]);
 	  assertEquals(1,h.getHero()[1]);
+	  
+	  h.HeroMove(m, "w");
+	  
+	  assertEquals(1,h.getHero()[0]);
+	  assertEquals(1,h.getHero()[1]);
+}
+
+@Test
+public void testMoveOgreIntoFreeCell(){
+	  Map m=new Map(map,doors,keypos,2);
+	  Hero h=new Hero(hero,1);
+	  Ogre o=new Ogre(ogre,bat);
+	
+	  assertEquals(1,o.getOgre()[0]);
+	  assertEquals(3,o.getOgre()[1]);
+	  
+	  o.MOgre(0,m.getMap());
+	  
+	  assertEquals(1,o.getOgre()[0]);
+	  assertEquals(3,o.getOgre()[1]);
+	  
+	  o.MOgre(3,m.getMap());
+	  
+	  assertEquals(1,o.getOgre()[0]);
+	  assertEquals(3,o.getOgre()[1]);
+	  
+      o.MOgre(2,m.getMap());
+	  
+	  assertEquals(2,o.getOgre()[0]);
+	  assertEquals(3,o.getOgre()[1]);
+	  
+      o.MOgre(1,m.getMap());
+	  
+	  assertEquals(2,o.getOgre()[0]);
+	  assertEquals(2,o.getOgre()[1]);
+	  
+	  o.OgreMove(m);
+	  
+	  o.setStunned();
+	  
+	  o.OgreMove(m);
+	  o.OgreMove(m);
+	  o.OgreMove(m);
+	  o.OgreMove(m);
+	  o.OgreMove(m);
+	  o.OgreMove(m);
+	  o.OgreMove(m);
+	  o.OgreMove(m);
+	  o.OgreMove(m);
+	  
+	  o.OgreErase(m);
+	 
+	  o.getStunned();
+}
+
+
+@Test
+public void testMoveBatIntoFreeCell(){
+	  Map m=new Map(map,doors,keypos,2);
+	  Hero h=new Hero(hero,1);
+	  Ogre o=new Ogre(ogre,bat);
+	
+	  assertEquals(2,o.getBat()[0]);
+	  assertEquals(3,o.getBat()[1]);
+	  
+	  o.MBat(0,m.getMap());
+	  
+	  assertEquals(2,o.getBat()[0]);
+	  assertEquals(3,o.getBat()[1]);
+	  
+	  o.MBat(3,m.getMap());
+	  
+	  assertEquals(2,o.getBat()[0]);
+	  assertEquals(3,o.getBat()[1]);
+	  
+      o.MBat(2,m.getMap());
+	  
+	  assertEquals(2,o.getBat()[0]);
+	  assertEquals(3,o.getBat()[1]);
+	  
+      o.MBat(1,m.getMap());
+	  
+	  assertEquals(1,o.getBat()[0]);
+	  assertEquals(2,o.getBat()[1]);
+	  
 }
 
 @Test
@@ -141,6 +229,7 @@ public void testMoveHeroIntoKey(){
 	  h.HeroMove(m, "s");  
 	  
 	  assertEquals('K',m.getMap()[m.getKeyPos()[0]][m.getKeyPos()[1]]);
+	  assertEquals(0,m.getKey());
 }
 
 @Test
@@ -296,5 +385,82 @@ public void testMoveHeroIntoOpenDoor(){
 	  assertEquals(3,h.getHero()[0]);
 	  assertEquals(0,h.getHero()[1]);
 }
+
+@Test
+public void testMoveGuardtype0(){
+	  Map m=new Map(map2,doors2,keypos2,1);
+	  Hero h=new Hero(hero2,0);
+	  Guard g=new Guard(guard2,0);
+	  
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  
+	  assertEquals(1,g.getGuard()[g.getGuardpos()][0]);
+	  assertEquals(3,g.getGuard()[g.getGuardpos()][1]);
+}
 	
+@Test
+public void testMoveGuardtype1(){
+	  Map m=new Map(map2,doors2,keypos2,1);
+	  Hero h=new Hero(hero2,0);
+	  Guard g=new Guard(guard2,1);
+	  
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  
+	  assertEquals(1,g.getGuard()[g.getGuardpos()][0]);
+	  assertEquals(3,g.getGuard()[g.getGuardpos()][1]);
+}
+
+@Test
+public void testMoveGuardtype2(){
+	  Map m=new Map(map2,doors2,keypos2,1);
+	  Hero h=new Hero(hero2,0);
+	  Guard g=new Guard(guard2,2);
+	  
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  g.GuardMove(m);
+	  
+	  assertEquals(1,g.getGuard()[g.getGuardpos()][0]);
+	  assertEquals(3,g.getGuard()[g.getGuardpos()][1]);
+}
+
+@Test
+public void ReadGamefromFile(){
+	
+	int info[]=new int[] {0,3}; Game g=new Game();
+	try {g.nextLevel(info); } catch (IOException e) {e.printStackTrace(); }
+	
+	g.getGuard();
+	g.getHero();
+	g.getMap();
+	
+	try {g.nextLevel(info); } catch (IOException e) {e.printStackTrace(); }
+	
+	g.SaveLevelFile("aiviueviunvfvifvbfbviufbvyf");
+	File file = new File("src/dkeep/logic/levels/aiviueviunvfvifvbfbviufbvyf.map");
+	file.delete();
+	g.getOgre();
+	g.getHero();
+	g.getMap();
+	
+}
+
 }
