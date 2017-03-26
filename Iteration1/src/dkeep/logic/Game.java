@@ -113,8 +113,8 @@ public class Game {
 	private Hero ReadHero(){
 		int[] coordh = new int[2];
 		int basher=Integer.parseInt(line.substring(0, 1));
-		coordh[0]=Integer.parseInt(line.substring(2, 3));
-		coordh[1]=Integer.parseInt(line.substring(4, 5));
+		coordh[0]=Integer.parseInt(line.substring(2, 4));
+		coordh[1]=Integer.parseInt(line.substring(5, 7));
 		return new Hero(coordh,basher); }
 
 	private int [][] ReadDoor(){
@@ -124,7 +124,7 @@ public class Game {
 		for(int i=0; i<n;i++){
 			line=line.substring(line.indexOf(';')+1);
 			coord[0]=Integer.parseInt(line.substring(0, line.indexOf(',')));
-			if (i+1==n){coord[1]=Integer.parseInt(line.substring(line.indexOf(',')+1,line.indexOf(',')+2)); }
+			if (i+1==n){coord[1]=Integer.parseInt(line.substring(line.indexOf(',')+1,line.indexOf(',')+3)); }
 			else{coord[1]=Integer.parseInt(line.substring(line.indexOf(',')+1,line.indexOf(';'))); }
 			doorPos[i][0]=coord[0];
 			doorPos[i][1]=coord[1]; }
@@ -132,8 +132,8 @@ public class Game {
 
 	private int[] ReadKeyPos() {
 		int[] keyPos= new int[2], coord = new int[2];
-		coord[0]=Integer.parseInt(line.substring(0, 1));
-		coord[1]=Integer.parseInt(line.substring(2, 3));
+		coord[0]=Integer.parseInt(line.substring(0, 2));
+		coord[1]=Integer.parseInt(line.substring(3, 5));
 		keyPos[0]=coord[0];
 		keyPos[1]=coord[1];
 		return keyPos; }
@@ -145,7 +145,7 @@ public class Game {
 		for(int i=0; i<n;i++) {
 			line=line.substring(line.indexOf(';')+1);
 			coord[0]=Integer.parseInt(line.substring(0, line.indexOf(',')));
-			if (i+1==n){coord[1]=Integer.parseInt(line.substring(line.indexOf(',')+1,line.indexOf(',')+2)); }
+			if (i+1==n){coord[1]=Integer.parseInt(line.substring(line.indexOf(',')+1,line.indexOf(',')+3)); }
 			else{coord[1]=Integer.parseInt(line.substring(line.indexOf(',')+1,line.indexOf(';'))); }
 			guardPos[i][0]=coord[0];
 			guardPos[i][1]=coord[1]; }
@@ -327,27 +327,86 @@ public class Game {
 		else {outFile.print(aux+";");}
 		outFile.println(""+(this.m.getMapType()-1));}
 
-	private void SaveHeroInfo(){outFile.println(h.getBasher()+";"+h.getHero()[0]+","+h.getHero()[1]);}
+	private void SaveHeroInfo(){
+		outFile.print(h.getBasher()+";");
+		if(h.getHero()[0]<10){
+			outFile.print("0"+h.getHero()[0]+",");
+		}
+		else{
+			outFile.print(""+h.getHero()[0]+",");
+		}
+		
+		if(h.getHero()[1]<10){
+			outFile.print("0"+h.getHero()[1]);
+		}
+		else{
+			outFile.print(""+h.getHero()[1]);
+		}
+		outFile.println("");
+		}
 
 	private void SaveDoors(){
 		int [][] doors=m.getDoors();
 		outFile.print(doors.length+"");
-		for(int i=0;i<doors.length;i++) outFile.print(";"+doors[i][0]+","+doors[i][1]);
+		for(int i=0;i<doors.length;i++) {
+			outFile.print(";");
+		     
+			if(doors[i][0]<10){
+				outFile.print("0"+doors[i][0]);
+			}
+			else{
+				outFile.print(doors[i][0]);
+			}
+			outFile.print(",");
+
+			if(doors[i][1]<10){
+				outFile.print("0"+doors[i][1]);
+			}
+			else{
+				outFile.print(doors[i][1]);
+			}
+		}
 		outFile.println("");}
 
-	private void SaveKey() {outFile.println(m.getKeyPos()[0]+","+m.getKeyPos()[1]);}
+	private void SaveKey() {
+		
+		if(m.getKeyPos()[0]<10){
+			outFile.print("0"+m.getKeyPos()[0]+",");
+		}
+		else{
+			outFile.print(m.getKeyPos()[0]+",");
+		}
+		
+		if(m.getKeyPos()[1]<10){
+			outFile.print("0"+m.getKeyPos()[1]);
+		}
+		else{
+			outFile.print(""+m.getKeyPos()[1]);
+		}
+		outFile.println("");
+		}
 
 	private void SaveEnemy(){
 		if(this.m.getMapType()==2){
-			outFile.print(o[0].getOgre()[0]+","+o[0].getOgre()[1]);
+			if(o[0].getOgre()[0]<10){
+				outFile.print("0"+o[0].getOgre()[0]+",");
+			}
+			else{
+				outFile.print(o[0].getOgre()[0]+",");
+			}
+			
+			if(o[0].getOgre()[1]<10){
+				outFile.print("0"+o[0].getOgre()[1]);
+			}
+			else{
+				outFile.print(""+o[0].getOgre()[1]);
+			}
+			
 			if(o[0].getBat()[0]==o[0].getOgre()[0]+1) {outFile.println(","+"s"); }
 			if(o[0].getBat()[0]==o[0].getOgre()[0]-1) {outFile.println(","+"n"); }
 			if(o[0].getBat()[1]==o[0].getOgre()[1]+1) {outFile.println(","+"e"); }
-			if(o[0].getBat()[1]==o[0].getOgre()[1]-1) {outFile.println(","+"w"); } }
-		else{
-			outFile.print(g.getGuard().length+"");
-			for (int i=0;i<g.getGuard().length;i++)	{outFile.print(";"+g.getGuard()[i][0]+","+g.getGuard()[i][1]); }
-			outFile.println(""); } }
+			if(o[0].getBat()[1]==o[0].getOgre()[1]-1) {outFile.println(","+"o"); } }
+		 }
 
 	private void SaveLayout() {
 		char[][] map=m.getMap();
