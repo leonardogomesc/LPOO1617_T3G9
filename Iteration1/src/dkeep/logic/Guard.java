@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * Class that saves the guard info in a Dungeon type level, keeps record of the guard's path, its current position, its personality and if it is asleep in case of a drunken personality
  * @author Leonardo Capozzi
- * @author Ricardo Carvalho
+ * @author Ricardo Carvalho 
  *
  */
 public class Guard{

@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * Class that keeps the information of an ogre, its bat and the ogre's stunned status
  * @author Leonardo Capozzi
- * @author Ricardo Carvalho
+ * @author Ricardo Carvalho 
  *
  */
 public class Ogre{

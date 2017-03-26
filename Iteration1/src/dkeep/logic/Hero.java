@@ -2,7 +2,7 @@ package dkeep.logic;
 /**
  * Class that keeps all the hero's info including its position, the map type and if there is a basher or not, the map array, the key position and if he has caught it already
  * @author  Leonardo Capozzi
- * @author Ricardo Carvalho
+ * @author Ricardo Carvalho 
  */
 public class Hero {
 	private int hero[];

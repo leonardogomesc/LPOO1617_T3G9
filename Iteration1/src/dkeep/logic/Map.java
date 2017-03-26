@@ -2,7 +2,7 @@ package dkeep.logic;
 /**
  * Class that keeps information on the level's board(wall layout), its doors' positions, its type and the position of the key/lever
  * @author Leonardo Capozzi
- * @author Ricardo Carvalho
+ * @author Ricardo Carvalho 
  *
  */
 public class Map {
